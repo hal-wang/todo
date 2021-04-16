@@ -21,7 +21,7 @@
             show-quick-jumper
             :default-current="page"
             :total="total"
-            :pageSize="pageSize"
+            :pageSize="limit"
             @change="onPageChange"
             @showSizeChange="onShowSizeChange"
           />
@@ -53,7 +53,7 @@ export default Vue.extend({
       list: [] as Todo[],
       total: 0,
       page: 1,
-      pageSize: 10,
+      limit: 10,
     };
   },
   computed: {
@@ -73,7 +73,7 @@ export default Vue.extend({
         method: "GET",
         params: {
           page: this.page,
-          pageSize: this.pageSize,
+          limit: this.limit,
         },
       });
 
@@ -84,9 +84,9 @@ export default Vue.extend({
       this.page = page;
       this.getData();
     },
-    onShowSizeChange(page: number, pageSize: number) {
+    onShowSizeChange(page: number, limit: number) {
       this.page = page;
-      this.pageSize = pageSize;
+      this.limit = limit;
       this.getData();
     },
     onDelete(item: Todo) {
