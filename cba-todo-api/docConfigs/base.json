@@ -1,0 +1,6 @@
+{
+  "title": "api-docs",
+  "subtitle": "the documents of cba-todo's api",
+  "parts": ["docConfigs/ql", "docConfigs/hl", "docConfigs/todo"],
+  "partsFromAuth": true
+}
