@@ -1,9 +1,26 @@
 {
   "name": "cba-todo",
+  "description": "An example of cloudbase access",
+  "homepage": "https://github.com/hal-wang/todo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hal-wang/todo"
+  },
   "scripts": {
     "deploy": "tcb login && tcb framework deploy"
   },
-  "keywords": [],
+  "keywords": [
+    "cloudbase-access",
+    "cloudbase",
+    "restful-api",
+    "serverless",
+    "nodejs",
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/hal-wang/todo/issues",
+    "email": "support@hal.wang"
+  },
   "author": "hal-wang",
   "license": "MIT"
 }
