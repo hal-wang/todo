@@ -1,11 +1,11 @@
 {
-  "name": "cba-todo-api",
+  "name": "todo-api",
   "version": "1.0.2",
   "scripts": {
     "build:test": "bash build.sh test",
-    "build": "bash build.sh cba-todo",
+    "build": "bash build.sh v1",
     "deploy:test": "bash deploy.sh test",
-    "deploy": "bash deploy.sh cba-todo",
+    "deploy": "bash deploy.sh v1",
     "doc": "bash doc.sh",
     "eslint": "eslint . --ext .ts",
     "test": "jest"

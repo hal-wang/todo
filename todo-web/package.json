@@ -1,5 +1,5 @@
 {
-  "name": "cba-todo-web",
+  "name": "todo-web",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

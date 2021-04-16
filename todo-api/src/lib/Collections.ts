@@ -15,9 +15,9 @@ export default class Collections {
   }
 
   static get user(): Database.CollectionReference {
-    return Collections.getCollection("cba-user");
+    return Collections.getCollection("user");
   }
   static get todo(): Database.CollectionReference {
-    return Collections.getCollection("cba-todo");
+    return Collections.getCollection("todo");
   }
 }

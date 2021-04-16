@@ -1,6 +1,6 @@
 {
-  "name": "cba-todo",
-  "short_name": "cba-todo",
+  "name": "todo",
+  "short_name": "todo",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",

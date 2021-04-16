@@ -1,22 +1,22 @@
 ---
-title: cba-todo
+title: todo
 ---
 
-# cba-todo
+# todo
 
 ## web
 
-<https://cba-todo.hal.wang>
+<https://todo.hal.wang>
 
 ## docs
 
-[https://cba-todo.hal.wang/docs](/docs)
+[https://todo.hal.wang/docs](/docs)
 
 ## api
 
 the API documents are generated automatically by `cba`
 
-[https://cba-todo.hal.wang/docs/api](/docs/api)
+[https://todo.hal.wang/docs/api](/docs/api)
 
 ## 一键部署
 
@@ -26,7 +26,7 @@ the API documents are generated automatically by `cba`
 
 API 使用了 `cloudbase-access` 符合 `RESTFul` 规范的 API 格式，并且设置 `router.isMethodNecessary = true;`。
 
-使用了数据库两个文档：`cba-user`, `cba-todo`。
+使用了数据库两个文档：`user`, `todo`。
 
 测试账号：
 
@@ -37,13 +37,13 @@ API 使用了 `cloudbase-access` 符合 `RESTFul` 规范的 API 格式，并且�
 
 你也可以 Fork 本项目后，修改示例项目中的 `.env` 文件中的 `ENV_ID`，值为你的 cloudbase 环境 id 如 `your_name-***`
 
-在示例项目目录下（`demo/cba-todo`），执行以下语句发布 `npm run deploy`
+在示例项目目录下（`demo/todo`），执行以下语句发布 `npm run deploy`
 
 ## build 生成的内容
 
-API 编译后会在云函数目录 `functions` 生成文件夹 `cba-todo`，
+API 编译后会在云函数目录 `functions` 生成文件夹 `v1`，
 
-在 `cba-todo` 文件夹中包含以下内容：
+在 `v1` 文件夹中包含以下内容：
 
 - controllers：符合 `cba` 规则的 `controllers` 目录
 - lib：除 `controllers` 外的其他帮助类
@@ -51,13 +51,13 @@ API 编译后会在云函数目录 `functions` 生成文件夹 `cba-todo`，
 - middlewares: 中间件
 - index.js：入口函数
 
-web 编译后会生成 `cba-todo-web/dist` 目录，发布的 web 是此文件夹中的内容
+web 编译后会生成 `todo-web/dist` 目录，发布的 web 是此文件夹中的内容
 
-docs 编译后生成 `cba-todo-web/public/docs` 目录，发布 web 时会自动编译并一起发布
+docs 编译后生成 `todo-web/public/docs` 目录，发布 web 时会自动编译并一起发布
 
 ## 调用 API 测试
 
-测试文件都在 `cba-todo-api/rest-test`文件夹中，并且以 `.test.txt` 结尾
+测试文件都在 `todo-api/rest-test`文件夹中，并且以 `.test.txt` 结尾
 
 使用 `vscode` 插件 `REST Client` 测试，安装插件后，打开 `.test.txt` 文件，快捷键 `Ctrl + Alt + R` 可测试调用
 
@@ -66,13 +66,13 @@ docs 编译后生成 `cba-todo-web/public/docs` 目录，发布 web 时会自动
 如
 
 ```txt
-GET https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/cba-todo/user/test@hal.wang
+GET https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/v1/user/test@hal.wang
 content-type:application/json
 password:123456
 ```
 
 ```txt
-POST https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/cba-todo/user
+POST https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/v1/user
 content-type:application/json
 
 {

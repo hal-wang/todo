@@ -4,7 +4,7 @@ import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
 import AuthCookie from "./AuthCookie";
 
-const title = "cba-todo";
+const title = "todo";
 function getPageTitle(pageTitle: string) {
   if (pageTitle) {
     return `${pageTitle} - ${title}`;

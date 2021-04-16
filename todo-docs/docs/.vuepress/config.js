@@ -1,5 +1,5 @@
 module.exports = {
-  title: "cba-todo",
+  title: "todo",
   description: "A demo of cloudbase-access",
   head: [
     [
