@@ -1,0 +1,8 @@
+# todo
+
+一个简易的 todo 项目，包含后端和前端，详情请查看 <https://todo.hal.wang/docs/>
+
+线上示例：<https://todo.hal.wang>
+
+一键部署：
+[![](https://main.qcloudimg.com/raw/95b6b680ef97026ae10809dbd6516117.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2Fhal-wang%2Ftodo&branch=main)
