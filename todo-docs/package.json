@@ -1,7 +1,10 @@
 {
   "name": "todo-docs",
   "scripts": {
-    "dev": "cd ../todo-api && npm run doc && cd ../todo-docs && vuepress dev docs",
-    "build": "cd ../todo-api && npm run doc && cd ../todo-docs && vuepress build docs && bash build.sh"
+    "predev": "cd ../todo-api && npm run doc",
+    "prebuild": "cd ../todo-api && npm run doc",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "postbuild": "sh build.sh"
   }
 }

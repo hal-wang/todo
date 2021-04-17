@@ -1,9 +1,9 @@
 # if you just want to deploy the web, maybe the code while help you
-# add '"deploy": "bash deploy.sh"' in 'scripts' 
+# add '"deploy": "sh deploy.sh"' in 'scripts' 
 
 set -e
 
-bash build.sh $1
+sh build.sh $1
 
 cd ..
 
