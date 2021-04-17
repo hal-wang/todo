@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="logo">CBA-TODO</div>
+    <div class="logo">TODO</div>
 
     <a-space size="large">
       <a-button

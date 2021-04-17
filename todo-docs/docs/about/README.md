@@ -66,13 +66,13 @@ docs 编译后生成 `todo-web/public/docs` 目录，发布 web 时会自动编�
 如
 
 ```txt
-GET https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/v1/user/test@hal.wang
+GET https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v1/user/test@hal.wang
 content-type:application/json
 password:123456
 ```
 
 ```txt
-POST https://cba-todo-1g7uooof7a2578d7-1253337886.ap-shanghai.app.tcloudbase.com/v1/user
+POST https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v1/user
 content-type:application/json
 
 {

@@ -5,7 +5,7 @@
   >
     <a-form :form="form" class="login-form">
       <div class="title">
-        <h1>CBA-TODO</h1>
+        <h1>TODO</h1>
       </div>
       <a-form-item>
         <a-input
