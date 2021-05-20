@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../../lib/Collections";
 
 /**
@@ -18,9 +18,9 @@ export default class extends Action {
     super(["hl", "admin"]);
   }
 
-  async do(): Promise<HttpResult> {
+  async invoke(): Promise<void> {
     const countRes = await Collections.todo.count();
-    return this.ok({
+    this.ok({
       total: countRes.total,
     });
   }

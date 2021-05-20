@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../../../lib/Collections";
 import Todo from "../../../../models/Todo";
 import moment = require("moment");
@@ -23,9 +23,9 @@ export default class extends Action {
     super(["ql"]);
   }
 
-  async do(): Promise<HttpResult> {
-    const { account } = this.requestParams.query;
-    const { content, schedule } = this.requestParams.data;
+  async invoke(): Promise<void> {
+    const { account } = this.httpContext.request.query;
+    const { content, schedule } = this.httpContext.request.data;
 
     const newTodo = <Todo>{
       content: content,
@@ -35,9 +35,12 @@ export default class extends Action {
       update_at: moment().valueOf(),
     };
     const addRes = await Collections.todo.add(newTodo);
-    if (!addRes.id) return this.errRequest();
-    newTodo._id = addRes.id;
+    if (!addRes.id) {
+      this.errRequest();
+      return;
+    }
 
-    return this.ok(newTodo);
+    newTodo._id = addRes.id;
+    this.ok(newTodo);
   }
 }

@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import request = require("request");
 
 /**
@@ -13,27 +13,28 @@ import request = require("request");
  * @@body {object} bing img's info
  */
 export default class extends Action {
-  async do(): Promise<HttpResult> {
-    return new Promise<HttpResult>((resolve) => {
+  async invoke(): Promise<void> {
+    return new Promise<void>((resolve) => {
       request.get(
         `http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN`,
         (error, response, body) => {
           if (error) {
-            resolve(
-              this.errRequestMsg({
-                message: error.message || error || "error",
-              })
-            );
+            this.errRequestMsg({
+              message: error.message || error || "error",
+            });
+            resolve();
             return;
           }
 
           const img = JSON.parse(body).images[0];
           if (!img) {
-            resolve(this.notFoundMsg());
+            this.notFoundMsg();
+            resolve();
             return;
           }
 
-          resolve(this.ok(img));
+          this.ok(img);
+          resolve();
         }
       );
     });

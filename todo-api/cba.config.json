@@ -1,0 +1,11 @@
+{
+  "target": "dist",
+  "router": {
+    "controllers": "controllers",
+    "isMethodNecessary": false
+  },
+  "doc": {
+    "target": "../todo-docs/docs/api/README.md",
+    "configPath": "docConfigs/base.json"
+  }
+}

@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../../../lib/Collections";
 
 /**
@@ -18,8 +18,8 @@ export default class extends Action {
     super(["ql"]);
   }
 
-  async do(): Promise<HttpResult> {
-    const { account } = this.requestParams.query;
+  async invoke(): Promise<void> {
+    const { account } = this.httpContext.request.query;
 
     const countRes = await Collections.todo
       .where({
@@ -27,7 +27,7 @@ export default class extends Action {
       })
       .count();
 
-    return this.ok({
+    this.ok({
       total: countRes.total,
     });
   }

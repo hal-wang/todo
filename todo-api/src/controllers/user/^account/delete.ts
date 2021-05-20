@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../../lib/Collections";
 import Global from "../../../lib/Global";
 
@@ -18,10 +18,11 @@ export default class extends Action {
     super(["ql"]);
   }
 
-  async do(): Promise<HttpResult> {
-    const { account } = this.requestParams.query;
+  async invoke(): Promise<void> {
+    const { account } = this.httpContext.request.query;
     if (account == Global.testId) {
-      return this.badRequestMsg({ message: "can't delete the test user" });
+      this.badRequestMsg({ message: "can't delete the test user" });
+      return;
     }
 
     await Collections.todo
@@ -31,6 +32,6 @@ export default class extends Action {
       .remove();
     await Collections.user.doc(account).remove();
 
-    return this.noContent();
+    this.noContent();
   }
 }

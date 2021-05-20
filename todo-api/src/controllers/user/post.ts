@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../lib/Collections";
 import Validate from "../../lib/Validate";
 import moment = require("moment");
@@ -20,14 +20,16 @@ import User from "../../models/User";
  * @@body {object} user info
  */
 export default class extends Action {
-  async do(): Promise<HttpResult> {
-    const { account, password } = this.requestParams.data;
+  async invoke(): Promise<void> {
+    const { account, password } = this.httpContext.request.data;
     if (typeof account != "string" || !Validate.isEmail(account)) {
-      return this.badRequestMsg({ message: "account format error" });
+      this.badRequestMsg({ message: "account format error" });
+      return;
     }
 
     if (typeof password != "string" || !/\w{6,16}/.test(password)) {
-      return this.badRequestMsg({ message: "password format error" });
+      this.badRequestMsg({ message: "password format error" });
+      return;
     }
 
     const accCountRes = await Collections.user
@@ -36,7 +38,8 @@ export default class extends Action {
       })
       .count();
     if (accCountRes.total) {
-      return this.badRequestMsg({ message: "the account is existing" });
+      this.badRequestMsg({ message: "the account is existing" });
+      return;
     }
 
     const newUser = <User>{
@@ -49,6 +52,7 @@ export default class extends Action {
       create_at: newUser.create_at,
     });
 
-    return this.ok(newUser);
+    this.ok(newUser);
+    return;
   }
 }

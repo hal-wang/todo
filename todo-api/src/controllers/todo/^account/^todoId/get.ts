@@ -1,4 +1,4 @@
-import { Action, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
 import Collections from "../../../../lib/Collections";
 
 /**
@@ -17,10 +17,10 @@ export default class extends Action {
     super(["ql", "todo"]);
   }
 
-  async do(): Promise<HttpResult> {
-    const { todoId } = this.requestParams.query;
+  async invoke(): Promise<void> {
+    const { todoId } = this.httpContext.request.query;
 
     const getRes = await Collections.todo.doc(todoId).get();
-    return this.ok(getRes.data[0]);
+    this.ok(getRes.data[0]);
   }
 }

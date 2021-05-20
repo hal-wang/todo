@@ -1,9 +1,11 @@
-import { Router } from "@hal-wang/cloudbase-access";
+import { Startup } from "@hal-wang/cloudbase-access";
 
 export default {
   get isTest(): boolean {
-    if (Router.current && Router.current.requestParams.context) {
-      return Router.current.requestParams.context.function_name == "test";
+    if (Startup.current && Startup.current.httpContext.request.context) {
+      return (
+        Startup.current.httpContext.request.context.function_name == "test"
+      );
     } else {
       return false;
     }

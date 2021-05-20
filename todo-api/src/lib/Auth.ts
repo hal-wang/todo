@@ -1,73 +1,64 @@
-import {
-  HttpResult,
-  Authority,
-  MiddlewareResult,
-} from "@hal-wang/cloudbase-access";
+import { Authority } from "@hal-wang/cloudbase-access";
 import Collections from "./Collections";
 import Global from "./Global";
 
 export default class Auth extends Authority {
-  async do(): Promise<MiddlewareResult> {
+  async invoke(): Promise<void> {
     if (!this.roles || !this.roles.length) {
-      return MiddlewareResult.getSuccessResult();
+      return await this.next();
     }
 
     if (this.roles.includes("ql")) {
       if (this.roles.includes("admin") && !this.queryAdminAuth()) {
-        return MiddlewareResult.getFailedResult(
-          HttpResult.forbiddenMsg({ message: "not admin" })
-        );
+        this.forbiddenMsg({ message: "not admin" });
+        return;
       }
 
       if (!(await this.queryLoginAuth())) {
-        return MiddlewareResult.getFailedResult(
-          HttpResult.forbiddenMsg({ message: "error account or password" })
-        );
+        this.forbiddenMsg({ message: "error account or password" });
+        return;
       }
     }
 
     if (this.roles.includes("hl")) {
       if (this.roles.includes("admin") && !this.headerAdminAuth()) {
-        return MiddlewareResult.getFailedResult(
-          HttpResult.forbiddenMsg({ message: "not admin" })
-        );
+        this.forbiddenMsg({ message: "not admin" });
+        return;
       }
 
       if (!(await this.headerLoginAuth())) {
-        return MiddlewareResult.getFailedResult(
-          HttpResult.forbiddenMsg({ message: "error account or password" })
-        );
+        this.forbiddenMsg({ message: "error account or password" });
+        return;
       }
     }
 
     if (this.roles.includes("todo") && !(await this.todoIdAuth())) {
-      return MiddlewareResult.getFailedResult(
-        HttpResult.notFoundMsg({ message: "the todo item is not existing" })
-      );
+      this.notFoundMsg({ message: "the todo item is not existing" });
+      return;
     }
 
-    return MiddlewareResult.getSuccessResult();
+    await this.next();
   }
 
   private queryAdminAuth(): boolean {
-    const { account } = this.requestParams.query;
+    const { account } = this.httpContext.request.query;
     return account == Global.adminId;
   }
 
   private headerAdminAuth(): boolean {
-    const { account } = this.requestParams.headers;
+    const { account } = this.httpContext.request.headers;
     return account == Global.adminId;
   }
 
   private async headerLoginAuth(): Promise<boolean> {
-    const { account, password } = this.requestParams.headers;
+    const { account, password } = this.httpContext.request.headers;
     if (!account || !password) return false;
     return await this.loginAuth(account, password);
   }
 
   private async queryLoginAuth(): Promise<boolean> {
-    const { account } = this.requestParams.query;
-    const { password } = this.requestParams.headers;
+    const { account } = this.httpContext.request.query;
+    const { password } = this.httpContext.request.headers;
     if (!account || !password) return false;
     return await this.loginAuth(account, password);
   }
@@ -83,7 +74,7 @@ export default class Auth extends Authority {
   }
 
   private async todoIdAuth(): Promise<boolean> {
-    const { todoId, account } = this.requestParams.query;
+    const { todoId, account } = this.httpContext.request.query;
     const countRes = await Collections.todo
       .where({
         _id: todoId,

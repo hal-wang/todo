@@ -1,4 +1,5 @@
-import { Action, DbHelper, HttpResult } from "@hal-wang/cloudbase-access";
+import { Action } from "@hal-wang/cloudbase-access";
+import { Dbhelper } from "@hal-wang/cloudbase-access-middleware-dbhelper";
 import Collections from "../../../../lib/Collections";
 
 /**
@@ -17,18 +18,19 @@ export default class extends Action {
     super(["ql"]);
   }
 
-  async do(): Promise<HttpResult> {
-    const { account } = this.requestParams.query;
+  async invoke(): Promise<void> {
+    const { account } = this.httpContext.request.query;
 
-    const result = await DbHelper.getPageList(
-      this.requestParams,
-      Collections.todo
-        .where({
-          uid: account,
-        })
-        .orderBy("update_at", "desc")
-        .orderBy("create_at", "desc")
-    );
-    return this.ok(result);
+    const result = await this.httpContext
+      .getBag<Dbhelper>("dbhelper")
+      .getPageList(
+        Collections.todo
+          .where({
+            uid: account,
+          })
+          .orderBy("update_at", "desc")
+          .orderBy("create_at", "desc")
+      );
+    this.ok(result);
   }
 }
