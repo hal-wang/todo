@@ -1,6 +1,6 @@
 {
   "name": "todo-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "build": "cba-build",
     "deploy": "cba-build && cd .. && tcb login tcb fn deploy v1 --force",
@@ -11,8 +11,8 @@
   "dependencies": {
     "@cloudbase/node-sdk": "^2.5.1",
     "@hal-wang/cloudbase-access": "^2.0.1",
-    "@hal-wang/cloudbase-access-middleware-app": "^1.0.0",
-    "@hal-wang/cloudbase-access-middleware-dbhelper": "^1.0.0",
+    "@hal-wang/cloudbase-access-middleware-app": "^1.0.1",
+    "@hal-wang/cloudbase-access-middleware-dbhelper": "^1.0.1",
     "linq": "^3.2.3",
     "moment": "^2.29.1",
     "request": "^2.88.2"

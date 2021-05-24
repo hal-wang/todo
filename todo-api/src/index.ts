@@ -1,7 +1,7 @@
 import { Startup } from "@hal-wang/cloudbase-access";
 import Auth from "./lib/Auth";
-import AppMiddleware from "@hal-wang/cloudbase-access-middleware-app";
-import DbhelperMiddleware from "@hal-wang/cloudbase-access-middleware-dbhelper";
+import "@hal-wang/cloudbase-access-middleware-app";
+import "@hal-wang/cloudbase-access-middleware-dbhelper";
 
 export const main = async (
   event: Record<string, unknown>,
@@ -14,8 +14,8 @@ export const main = async (
       ctx.res.headers.demo = "todo";
       await next();
     })
-    .use(() => new AppMiddleware())
-    .use(() => new DbhelperMiddleware())
+    .useApp()
+    .useDbhelper()
     .useRouter({
       authFunc: () => new Auth(),
     })
