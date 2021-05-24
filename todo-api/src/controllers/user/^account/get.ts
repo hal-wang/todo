@@ -21,7 +21,7 @@ export default class extends Action {
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.httpContext.request.query;
+    const { account } = this.ctx.req.query;
     if (typeof account != "string") {
       this.badRequestMsg();
       return;

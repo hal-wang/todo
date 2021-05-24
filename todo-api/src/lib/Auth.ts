@@ -41,24 +41,24 @@ export default class Auth extends Authority {
   }
 
   private queryAdminAuth(): boolean {
-    const { account } = this.httpContext.request.query;
+    const { account } = this.ctx.req.query;
     return account == Global.adminId;
   }
 
   private headerAdminAuth(): boolean {
-    const { account } = this.httpContext.request.headers;
+    const { account } = this.ctx.req.headers;
     return account == Global.adminId;
   }
 
   private async headerLoginAuth(): Promise<boolean> {
-    const { account, password } = this.httpContext.request.headers;
+    const { account, password } = this.ctx.req.headers;
     if (!account || !password) return false;
     return await this.loginAuth(account, password);
   }
 
   private async queryLoginAuth(): Promise<boolean> {
-    const { account } = this.httpContext.request.query;
-    const { password } = this.httpContext.request.headers;
+    const { account } = this.ctx.req.query;
+    const { password } = this.ctx.req.headers;
     if (!account || !password) return false;
     return await this.loginAuth(account, password);
   }
@@ -74,7 +74,7 @@ export default class Auth extends Authority {
   }
 
   private async todoIdAuth(): Promise<boolean> {
-    const { todoId, account } = this.httpContext.request.query;
+    const { todoId, account } = this.ctx.req.query;
     const countRes = await Collections.todo
       .where({
         _id: todoId,

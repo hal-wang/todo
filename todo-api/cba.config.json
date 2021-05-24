@@ -1,11 +1,56 @@
 {
-  "target": "dist",
   "router": {
-    "controllers": "controllers",
-    "isMethodNecessary": false
+    "dir": "controllers",
+    "strict": true
   },
   "doc": {
-    "target": "../todo-docs/docs/api/README.md",
-    "configPath": "docConfigs/base.json"
+    "output": "../todo-docs/docs/api/README.md",
+    "title": "api-docs",
+    "subtitle": "the documents of todo's api",
+    "parts": [
+      {
+        "name": "hl",
+        "inputHeaders": [
+          {
+            "name": "password",
+            "desc": "the password for login",
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "desc": "the email account for login",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "ql",
+        "inputHeaders": [
+          {
+            "name": "password",
+            "desc": "the password for login",
+            "type": "string"
+          }
+        ],
+        "query": [
+          {
+            "name": "account",
+            "desc": "the email account for login",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "todo",
+        "query": [
+          {
+            "name": "todoId",
+            "desc": "the id of todo item",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "partsFromAuth": true
   }
 }

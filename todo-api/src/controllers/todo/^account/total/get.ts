@@ -19,7 +19,7 @@ export default class extends Action {
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.httpContext.request.query;
+    const { account } = this.ctx.req.query;
 
     const countRes = await Collections.todo
       .where({

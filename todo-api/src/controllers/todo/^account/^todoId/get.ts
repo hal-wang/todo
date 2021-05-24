@@ -18,7 +18,7 @@ export default class extends Action {
   }
 
   async invoke(): Promise<void> {
-    const { todoId } = this.httpContext.request.query;
+    const { todoId } = this.ctx.req.query;
 
     const getRes = await Collections.todo.doc(todoId).get();
     this.ok(getRes.data[0]);

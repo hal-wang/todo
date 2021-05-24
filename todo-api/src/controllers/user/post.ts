@@ -21,7 +21,7 @@ import User from "../../models/User";
  */
 export default class extends Action {
   async invoke(): Promise<void> {
-    const { account, password } = this.httpContext.request.data;
+    const { account, password } = this.ctx.req.data;
     if (typeof account != "string" || !Validate.isEmail(account)) {
       this.badRequestMsg({ message: "account format error" });
       return;

@@ -24,8 +24,8 @@ export default class extends Action {
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.httpContext.request.query;
-    const { content, schedule } = this.httpContext.request.data;
+    const { account } = this.ctx.req.query;
+    const { content, schedule } = this.ctx.req.data;
 
     const newTodo = <Todo>{
       content: content,

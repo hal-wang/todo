@@ -10,12 +10,13 @@ export const main = async (
   console.log("event", event, context);
   setHeaders();
 
-  const router = new Startup(event, context);
-  router.use(() => new AppMiddleware());
-  router.use(() => new DbhelperMiddleware());
-  router.useRouter("controllers", () => new Auth(), true);
-  await router.invoke();
-  return router.httpContext.response.result;
+  return await new Startup(event, context)
+    .use(() => new AppMiddleware())
+    .use(() => new DbhelperMiddleware())
+    .useRouter({
+      authFunc: () => new Auth(),
+    })
+    .invoke();
 };
 
 function setHeaders(): void {

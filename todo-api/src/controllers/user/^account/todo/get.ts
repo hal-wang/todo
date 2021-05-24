@@ -19,18 +19,16 @@ export default class extends Action {
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.httpContext.request.query;
+    const { account } = this.ctx.req.query;
 
-    const result = await this.httpContext
-      .getBag<Dbhelper>("dbhelper")
-      .getPageList(
-        Collections.todo
-          .where({
-            uid: account,
-          })
-          .orderBy("update_at", "desc")
-          .orderBy("create_at", "desc")
-      );
+    const result = await this.ctx.getBag<Dbhelper>("dbhelper").getPageList(
+      Collections.todo
+        .where({
+          uid: account,
+        })
+        .orderBy("update_at", "desc")
+        .orderBy("create_at", "desc")
+    );
     this.ok(result);
   }
 }

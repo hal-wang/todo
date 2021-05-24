@@ -11,9 +11,7 @@ export default class Collections {
     if (Global.isTest) name = `${collection}_test`;
     else name = collection;
 
-    return Startup.current.httpContext
-      .getBag<tcb.Database.Db>("db")
-      .collection(name);
+    return Startup.current.ctx.getBag<tcb.Database.Db>("db").collection(name);
   }
 
   static get user(): Database.CollectionReference {
