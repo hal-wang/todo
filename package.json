@@ -13,6 +13,7 @@
     "sfa",
     "@sfajs/router",
     "@sfajs/cloudbase",
+    "todo",
     "cloudbase",
     "restful-api",
     "serverless",

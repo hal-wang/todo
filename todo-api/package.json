@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.5.2",
-    "sfa": "^0.1.2",
+    "sfa": "^0.1.3",
     "@sfajs/router": "^0.1.0",
     "@sfajs/cloudbase": "^0.1.0",
     "linq": "^3.2.3",
