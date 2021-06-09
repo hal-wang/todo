@@ -5,8 +5,8 @@
     ],
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist/v1",
-    "target": "esnext",
+    "outDir": "./dist/v2",
+    "target": "es2019",
     "strict": true
   },
   "exclude": [

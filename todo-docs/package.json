@@ -6,5 +6,8 @@
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
     "postbuild": "sh build.sh"
+  },
+  "devDependencies": {
+    "vuepress": "^1.8.2"
   }
 }

@@ -1,5 +1,5 @@
-import { Action } from "@hal-wang/cloudbase-access";
-import { Dbhelper } from "@hal-wang/cloudbase-access-middleware-dbhelper";
+import { Action } from "@sfajs/router";
+import { Dbhelper } from "@sfajs/cloudbase";
 import Collections from "../../../../lib/Collections";
 
 /**
@@ -21,7 +21,7 @@ export default class extends Action {
   async invoke(): Promise<void> {
     const { account } = this.ctx.req.query;
 
-    const result = await this.ctx.getBag<Dbhelper>("dbhelper").getPageList(
+    const result = await this.ctx.bag<Dbhelper>("CB_DBHELPER").getPageList(
       Collections.todo
         .where({
           uid: account,

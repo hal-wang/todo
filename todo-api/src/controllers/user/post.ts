@@ -1,4 +1,4 @@
-import { Action } from "@hal-wang/cloudbase-access";
+import { Action } from "@sfajs/router";
 import Collections from "../../lib/Collections";
 import Validate from "../../lib/Validate";
 import moment = require("moment");
@@ -21,7 +21,7 @@ import User from "../../models/User";
  */
 export default class extends Action {
   async invoke(): Promise<void> {
-    const { account, password } = this.ctx.req.data;
+    const { account, password } = this.ctx.req.body;
     if (typeof account != "string" || !Validate.isEmail(account)) {
       this.badRequestMsg({ message: "account format error" });
       return;

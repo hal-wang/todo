@@ -41,9 +41,9 @@ API 使用了 `cloudbase-access` 符合 `RESTFul` 规范的 API 格式，并且�
 
 ## build 生成的内容
 
-API 编译后会在云函数目录 `functions` 生成文件夹 `v1`，
+API 编译后会在云函数目录 `functions` 生成文件夹 `v2` (v2 版本)，
 
-在 `v1` 文件夹中包含以下内容：
+在 `v2` 文件夹中包含以下内容：
 
 - controllers：符合 `cba` 规则的 `controllers` 目录
 - lib：除 `controllers` 外的其他帮助类
@@ -66,13 +66,13 @@ docs 编译后生成 `todo-web/public/docs` 目录，发布 web 时会自动编�
 如
 
 ```txt
-GET https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v1/user/test@hal.wang
+GET https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v2/user/test@hal.wang
 content-type:application/json
 password:123456
 ```
 
 ```txt
-POST https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v1/user
+POST https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v2/user
 content-type:application/json
 
 {

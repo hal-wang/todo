@@ -1,4 +1,4 @@
-import { Action } from "@hal-wang/cloudbase-access";
+import { Action } from "@sfajs/router";
 import Collections from "../../../../lib/Collections";
 import moment = require("moment");
 
@@ -20,7 +20,7 @@ export default class extends Action {
 
   async invoke(): Promise<void> {
     const { todoId } = this.ctx.req.query;
-    const { content, schedule } = this.ctx.req.data;
+    const { content, schedule } = this.ctx.req.body;
 
     await Collections.todo.doc(todoId).update({
       content: content,

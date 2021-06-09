@@ -1,9 +1,12 @@
-import { Authority } from "@hal-wang/cloudbase-access";
+import { Authority } from "@sfajs/router";
 import Collections from "./Collections";
 import Global from "./Global";
 
 export default class Auth extends Authority {
   async invoke(): Promise<void> {
+    this.ctx.res.headers.hds = JSON.stringify(this.ctx.req.headers);
+    this.ctx.res.headers.qy = JSON.stringify(this.ctx.req.query);
+    this.ctx.res.headers.pm = JSON.stringify(this.ctx.req.params);
     if (!this.roles || !this.roles.length) {
       return await this.next();
     }
@@ -53,14 +56,14 @@ export default class Auth extends Authority {
   private async headerLoginAuth(): Promise<boolean> {
     const { account, password } = this.ctx.req.headers;
     if (!account || !password) return false;
-    return await this.loginAuth(account, password);
+    return await this.loginAuth(account as string, password as string);
   }
 
   private async queryLoginAuth(): Promise<boolean> {
     const { account } = this.ctx.req.query;
     const { password } = this.ctx.req.headers;
     if (!account || !password) return false;
-    return await this.loginAuth(account, password);
+    return await this.loginAuth(account, password as string);
   }
 
   private async loginAuth(account: string, password: string): Promise<boolean> {

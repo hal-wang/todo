@@ -1,6 +1,6 @@
 {
   "name": "todo",
-  "description": "An example of cloudbase access",
+  "description": "一个简易的 todo 项目",
   "homepage": "https://github.com/hal-wang/todo",
   "repository": {
     "type": "git",

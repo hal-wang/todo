@@ -10,9 +10,8 @@
         "type": "execCommand",
         "commands": [
           "npm install -g typescript --prefer-offline --no-audit --progress=false",
-          "npm install -g vuepress --prefer-offline --no-audit --progress=false",
           "cd todo-api && npm install --prefer-offline --no-audit --progress=false && npm run build",
-          "cd todo-docs && npm run build"
+          "cd todo-docs && npm i && npm run build"
         ]
       }
     },
