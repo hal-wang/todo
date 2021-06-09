@@ -10,7 +10,9 @@
     "deploy": "tcb login && tcb framework deploy"
   },
   "keywords": [
-    "cloudbase-access",
+    "sfa",
+    "@sfajs/router",
+    "@sfajs/cloudbase",
     "cloudbase",
     "restful-api",
     "serverless",
