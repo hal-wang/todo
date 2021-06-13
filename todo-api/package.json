@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.5.2",
-    "sfa": "^0.1.3",
-    "@sfajs/router": "^0.1.0",
-    "@sfajs/cloudbase": "^0.1.0",
+    "sfa": "^0.3.0",
+    "@sfajs/router": "^0.3.0",
+    "@sfajs/cloudbase": "^0.3.0",
     "linq": "^3.2.3",
     "moment": "^2.29.1",
     "request": "^2.88.2"

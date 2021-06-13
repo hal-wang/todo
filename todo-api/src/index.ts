@@ -1,6 +1,5 @@
 import Auth from "./lib/Auth";
 import "@sfajs/router";
-import "@sfajs/cloudbase";
 import SfaCloudbase from "@sfajs/cloudbase";
 import Collections from "./lib/Collections";
 
@@ -27,12 +26,3 @@ export const main = async (
     })
     .run();
 };
-
-function getPairs<T>(map: unknown): { key: string; value: T }[] {
-  if (!map) return [];
-
-  return Object.keys(map as Record<string, T>[]).map((key) => ({
-    key: key,
-    value: (map as Record<string, T>)[key],
-  }));
-}
