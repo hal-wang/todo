@@ -1,18 +1,18 @@
-import { Authority } from "@sfajs/router";
+import { Middleware } from "sfa";
 import Collections from "./Collections";
 import Global from "./Global";
 
-export default class Auth extends Authority {
+export default class Auth extends Middleware {
   async invoke(): Promise<void> {
     this.ctx.res.headers.hds = JSON.stringify(this.ctx.req.headers);
     this.ctx.res.headers.qy = JSON.stringify(this.ctx.req.query);
     this.ctx.res.headers.pm = JSON.stringify(this.ctx.req.params);
-    if (!this.roles || !this.roles.length) {
+    if (!this.ctx.actionRoles || !this.ctx.actionRoles.length) {
       return await this.next();
     }
 
-    if (this.roles.includes("ql")) {
-      if (this.roles.includes("admin") && !this.queryAdminAuth()) {
+    if (this.ctx.actionRoles.includes("ql")) {
+      if (this.ctx.actionRoles.includes("admin") && !this.queryAdminAuth()) {
         this.forbiddenMsg({ message: "not admin" });
         return;
       }
@@ -23,8 +23,8 @@ export default class Auth extends Authority {
       }
     }
 
-    if (this.roles.includes("hl")) {
-      if (this.roles.includes("admin") && !this.headerAdminAuth()) {
+    if (this.ctx.actionRoles.includes("hl")) {
+      if (this.ctx.actionRoles.includes("admin") && !this.headerAdminAuth()) {
         this.forbiddenMsg({ message: "not admin" });
         return;
       }
@@ -35,7 +35,7 @@ export default class Auth extends Authority {
       }
     }
 
-    if (this.roles.includes("todo") && !(await this.todoIdAuth())) {
+    if (this.ctx.actionRoles.includes("todo") && !(await this.todoIdAuth())) {
       this.notFoundMsg({ message: "the todo item is not existing" });
       return;
     }

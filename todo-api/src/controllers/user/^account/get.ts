@@ -29,7 +29,7 @@ export default class extends Action {
 
     const accRes = await Collections.user.doc(account).get();
     const result = this.ok(accRes.data[0]);
-    result.headers.realPath = this.realPath || "";
+    result.headers.realPath = this.ctx.actionPath || "";
     result;
   }
 }

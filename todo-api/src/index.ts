@@ -21,8 +21,8 @@ export const main = async (
       Collections.ctx = ctx;
       await next();
     })
-    .useRouter({
-      authFunc: () => new Auth(),
-    })
+    .useRouterParser()
+    .add(() => new Auth())
+    .useRouter()
     .run();
 };
