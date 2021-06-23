@@ -4,6 +4,7 @@ import "@sfajs/swagger";
 import SfaCloudbase from "@sfajs/cloudbase";
 import Collections from "./lib/Collections";
 import { swaggerJSDoc } from "@sfajs/swagger";
+import * as fs from "fs";
 
 export const main = async (
   event: Record<string, unknown>,
@@ -12,9 +13,8 @@ export const main = async (
   console.log("env", event, context);
   return await new SfaCloudbase(event, context)
     .use(async (ctx, next) => {
-      ctx.res.headers.version = require("./package.json").version;
+      ctx.res.headers.version = version;
       ctx.res.headers.demo = "todo";
-
       await next();
     })
     .useSwagger({
@@ -32,6 +32,15 @@ export const main = async (
     .run();
 };
 
+const version = (() => {
+  let path = "./package.json";
+  while (!fs.existsSync(path)) {
+    path = "../" + path;
+  }
+  const pkgStr = fs.readFileSync(path, "utf-8");
+  return JSON.parse(pkgStr).version;
+})();
+
 export const swaggerOptions = <swaggerJSDoc.Options>{
   definition: {
     openapi: "3.0.1",
@@ -39,7 +48,7 @@ export const swaggerOptions = <swaggerJSDoc.Options>{
       title: "Todo",
       description:
         "一个简易的 todo 项目，包含后端和前端，详情请查看 https://todo.hal.wang/docs/",
-      version: "1.0.0",
+      version: version,
       license: {
         name: "MIT",
       },
@@ -56,11 +65,9 @@ export const swaggerOptions = <swaggerJSDoc.Options>{
     tags: [
       {
         name: "user",
-        description: "user info",
       },
       {
         name: "todo",
-        description: "to-do list",
       },
       {
         name: "bing",
