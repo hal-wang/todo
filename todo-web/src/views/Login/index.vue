@@ -77,10 +77,10 @@
         <span>
           A demo of
           <a
-            href="https://github.com/hal-wang/cloudbase-access"
+            href="https://github.com/sfajs"
             target="_blank"
           >
-            cloudbase-access
+            sfa
           </a>
           ,
         </span>

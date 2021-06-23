@@ -1,12 +1,12 @@
 module.exports = {
   title: "todo",
-  description: "A demo of cloudbase-access",
+  description: "A demo of sfa",
   head: [
     [
       "link",
       {
         rel: "icon",
-        href: "https://blog.hal.wang/imgs/cba.png",
+        href: "https://blog.hal.wang/imgs/h/h_mini_bw.png",
       },
     ],
   ],
@@ -16,7 +16,7 @@ module.exports = {
   base: "/docs/",
   serviceWorker: true,
   themeConfig: {
-    logo: "https://blog.hal.wang/imgs/cba.png",
+    logo: "https://blog.hal.wang/imgs/h/h_mini_bw.png",
     lastUpdated: "lastUpdate",
     nav: [
       { text: "Home", link: "/" },

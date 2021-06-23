@@ -24,7 +24,7 @@ the API documents are generated automatically by `@sfajs/swagger`
 
 ## 简介
 
-API 使用了 `cloudbase-access` 符合 `RESTFul` 规范的 API 格式，并且设置 `router.isMethodNecessary = true;`。
+API 使用了 `@sfajs/router` 符合 `RESTFul` 规范的 API 格式，并且设置 `router.static = true;`。
 
 使用了数据库两个文档：`user`, `todo`。
 
@@ -45,10 +45,9 @@ API 编译后会在云函数目录 `functions` 生成文件夹 `v2` (v2 版本)�
 
 在 `v2` 文件夹中包含以下内容：
 
-- controllers：符合 `cba` 规则的 `controllers` 目录
+- controllers：`@sfajs/router` 默认路由文件夹
 - lib：除 `controllers` 外的其他帮助类
 - models: ts model
-- middlewares: 中间件
 - index.js：入口函数
 
 web 编译后会生成 `todo-web/dist` 目录，发布的 web 是此文件夹中的内容
