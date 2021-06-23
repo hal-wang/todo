@@ -4,19 +4,35 @@ import Todo from "../../../../models/Todo";
 import moment = require("moment");
 
 /**
- * @action add todo
- *
- * add a new todo item
- *
- * @input
- * @body
- * @@content {string} todo content
- * @@schedule {number} the todo's schedule with timestamp
- *
- * @output
- * @@codes
- * @@@200 success
- * @body {object} new todo item
+ * @openapi
+ * /user/{account}/todo:
+ *   post:
+ *     tags:
+ *       - todo
+ *     description: Add a new todo item
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *     requestBody:
+ *       description: Todo info
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: todo content
+ *               schedule:
+ *                 type: timestamp
+ *                 description: todo schedule
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Todo'
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {

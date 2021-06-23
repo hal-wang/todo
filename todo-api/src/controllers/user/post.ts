@@ -5,19 +5,34 @@ import moment = require("moment");
 import User from "../../models/User";
 
 /**
- * @action add user
- *
- * signup a account with email
- *
- * @input
- * @@body
- * @@@account {string} email
- * @@@password {string} password
- * @output
- * @@codes
- * @@@200 success
- * @@@400 format error or the account is existing
- * @@body {object} user info
+ * @openapi
+ * /user/{account}:
+ *   post:
+ *     tags:
+ *       - user
+ *     description: signup a account with email
+ *     requestBody:
+ *       description: User info
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               account:
+ *                 type: string
+ *                 description: email
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: format error or the account is existing
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   async invoke(): Promise<void> {

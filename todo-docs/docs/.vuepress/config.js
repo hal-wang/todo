@@ -25,10 +25,13 @@ module.exports = {
         ariaLabel: "Docs",
         items: [
           { text: "About", link: "/about/" },
-          { text: "Api", link: "/api/" },
+          {
+            text: "Api",
+            link: `https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v2`,
+          },
         ],
       },
-      { text: "GitHub", link: "https://github.com/hal-wang/cloudbase-access" },
+      { text: "GitHub", link: "https://github.com/hal-wang/todo" },
     ],
     sidebar: {
       "/api/": [""],

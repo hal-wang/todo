@@ -2,14 +2,20 @@ import { Action } from "@sfajs/router";
 import Collections from "../../../../lib/Collections";
 
 /**
- * @action todo
- *
- * delete a todo item
- *
- * @input
- * @output
- * @@codes
- * @@@204 success
+ * @openapi
+ * /todo/{account}/{todoId}:
+ *   delete:
+ *     tags:
+ *       - todo
+ *     description: Delete a todo item
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *       - $ref: '#/components/parameters/queryTodo'
+ *     responses:
+ *       204:
+ *         description: success
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {

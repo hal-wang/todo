@@ -2,18 +2,30 @@ import { Action } from "@sfajs/router";
 import Collections from "../../../lib/Collections";
 
 /**
- * @action user info
- *
- * get a user info
- *
- * @input
- * @output
- * @@codes
- * @@@200 success
- * @@@400 account format error
- * @@body {object} user info
- * @@headers
- * @@@realPath {string} the action's real path
+ * @openapi
+ * /user/{account}:
+ *   get:
+ *     tags:
+ *       - user
+ *     description: Get a user info
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *         headers:
+ *           actionPath:
+ *             description: the action's real path
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: account format error
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {
@@ -28,8 +40,6 @@ export default class extends Action {
     }
 
     const accRes = await Collections.user.doc(account).get();
-    const result = this.ok(accRes.data[0]);
-    result.headers.realPath = this.ctx.actionPath || "";
-    result;
+    this.ok(accRes.data[0]).setHeader("actionPath", this.ctx.actionPath ?? "");
   }
 }

@@ -3,15 +3,29 @@ import { Dbhelper } from "@sfajs/cloudbase";
 import Collections from "../../../../lib/Collections";
 
 /**
- * @action todos
- *
- * get todo list
- *
- * @input
- * @output
- * @@codes
- * @@@200 success
- * @body {array} todo list
+ * @openapi
+ * /user/{account}/todo:
+ *   get:
+ *     tags:
+ *       - todo
+ *     description: Get todo list
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *       - $ref: '#/components/parameters/page'
+ *       - $ref: '#/components/parameters/limit'
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Todo'
+ *       400:
+ *         description: account format error
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {

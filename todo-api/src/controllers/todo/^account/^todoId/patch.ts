@@ -3,16 +3,39 @@ import Collections from "../../../../lib/Collections";
 import moment = require("moment");
 
 /**
- * @action todo
- *
- * update a todo's info
- *
- * @input
- * @output
- * @@codes
- * @@@200 success
- * @@body {object} new todo's info
+ * @openapi
+ * /todo/{account}/{todoId}:
+ *   patch:
+ *     tags:
+ *       - todo
+ *     description: Update a todo's info
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *       - $ref: '#/components/parameters/queryTodo'
+ *     requestBody:
+ *       description: Todo info
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: todo content
+ *               schedule:
+ *                 type: timestamp
+ *                 description: todo schedule
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               description: New todo's info
+ *               $ref: '#/components/schemas/Todo'
+ *     security:
+ *       - password: []
  */
+
 export default class extends Action {
   constructor() {
     super(["ql", "todo"]);

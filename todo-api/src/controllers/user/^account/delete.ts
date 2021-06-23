@@ -3,15 +3,21 @@ import Collections from "../../../lib/Collections";
 import Global from "../../../lib/Global";
 
 /**
- * @action user
- *
- * delete a user
- *
- * @input
- * @output
- * @@codes
- * @@@204 success
- * @@@404 can't delete the test user
+ * @openapi
+ * /user/{account}:
+ *   delete:
+ *     tags:
+ *       - user
+ *     description: Delete a user
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *     responses:
+ *       204:
+ *         description: success
+ *       404:
+ *         description: can't delete the test user
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {

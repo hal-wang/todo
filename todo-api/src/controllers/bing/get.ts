@@ -12,6 +12,26 @@ import request = require("request");
  * @@@404 not found
  * @@body {object} bing img's info
  */
+
+
+/**
+ * @openapi
+ * /bing:
+ *   get:
+ *     tags:
+ *       - bing
+ *     description: Get the bing image's url today
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               description: Bing img's info
+ *       404:
+ *         description: not found
+ */
 export default class extends Action {
   async invoke(): Promise<void> {
     return new Promise<void>((resolve) => {

@@ -14,9 +14,9 @@ title: todo
 
 ## api
 
-the API documents are generated automatically by `cba`
+the API documents are generated automatically by `@sfajs/swagger`
 
-[https://todo.hal.wang/docs/api](/docs/api)
+[swagger api](https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v2)
 
 ## 一键部署
 

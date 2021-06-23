@@ -3,23 +3,26 @@
   "version": "2.0.0",
   "scripts": {
     "build": "sfa-router-build controllers",
+    "swagger": "ts-node test/swagger.ts",
     "deploy": "npm run build && cd .. && tcb login tcb fn deploy v2 --force",
     "eslint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.5.2",
-    "sfa": "^0.4.0",
-    "@sfajs/router": "^0.4.5",
     "@sfajs/cloudbase": "^0.4.0",
+    "@sfajs/router": "^0.4.5",
+    "@sfajs/swagger": "^0.4.0",
     "linq": "^3.2.3",
     "moment": "^2.29.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "sfa": "^0.4.0"
   },
   "devDependencies": {
+    "@sfajs/http": "^0.4.0",
     "@types/node": "^15.12.4",
+    "@types/request": "^2.48.5",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
-    "@types/request": "^2.48.5",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",

@@ -2,16 +2,26 @@ import { Action } from "@sfajs/router";
 import Collections from "../../../../lib/Collections";
 
 /**
- * @action user todo count
- *
- * get the count of user's all todos
- *
- * @input
- * @output
- * @@codes
- * @@@200 success
- * @body
- * @@total {number} the count of user's all todos
+ * @openapi
+ * /todo/{account}/total:
+ *   get:
+ *     tags:
+ *       - todo
+ *     description: Get the count of user's all todos
+ *     parameters:
+ *       - $ref: '#/components/parameters/queryAccount'
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 total:
+ *                   type: number
+ *                   description: The count of user's all todos
+ *     security:
+ *       - password: []
  */
 export default class extends Action {
   constructor() {
