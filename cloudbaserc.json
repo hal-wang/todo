@@ -22,7 +22,10 @@
           "functionRootPath": "./todo-api/dist",
           "functions": [
             {
-              "name": "{{env.API_NAME}}"
+              "name": "{{env.API_NAME}}",
+              "envVariables": {
+                "API_NAME": "{{env.API_NAME}}"
+              }
             }
           ],
           "servicePaths": {
