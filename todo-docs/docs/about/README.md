@@ -54,32 +54,6 @@ web 编译后会生成 `todo-web/dist` 目录，发布的 web 是此文件夹中
 
 docs 编译后生成 `todo-web/public/docs` 目录，发布 web 时会自动编译并一起发布
 
-## 调用 API 测试
-
-测试文件都在 `todo-api/rest-test`文件夹中，并且以 `.test.txt` 结尾
-
-使用 `vscode` 插件 `REST Client` 测试，安装插件后，打开 `.test.txt` 文件，快捷键 `Ctrl + Alt + R` 可测试调用
-
-目前测试的 API，环境是本人免费 `cloudbase` 环境，不保证长期有效。使用前请将 `cloudbase` 环境改为你自己的
-
-如
-
-```txt
-GET https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v2/user/test@hal.wang
-content-type:application/json
-password:123456
-```
-
-```txt
-POST https://todo-5gcg801923564f08-1253337886.ap-shanghai.app.tcloudbase.com/v2/user
-content-type:application/json
-
-{
-  "account": "test@hal.wang",
-  "password":"123456"
-}
-```
-
 ## 权限认证
 
 ### 身份
