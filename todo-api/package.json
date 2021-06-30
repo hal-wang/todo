@@ -2,11 +2,9 @@
   "name": "todo-api",
   "version": "2.0.0",
   "scripts": {
-    "build:test": "sh scripts/build.sh test",
-    "sfa-router-build": "sfa-router-build controllers",
+    "build": "sfa-router-build controllers",
     "swagger": "ts-node test/swagger.ts",
-    "deploy:test": "sh scripts/deploy.sh test",
-    "eslint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.6.0",
@@ -29,7 +27,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
-    "ts-node": "^10.0.0",
     "typescript": "^4.3.4"
   }
 }

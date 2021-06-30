@@ -182,5 +182,6 @@ export const main = async (
 ): Promise<unknown> => {
   console.log("event", JSON.stringify(event));
   console.log("context", JSON.stringify(context));
+
   return await startup.run(event, context);
 };

@@ -5,13 +5,12 @@
     ],
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./dist/v2",
     "target": "es2019",
     "strict": true
   },
   "exclude": [
     "dist",
-    "test",
-    "scripts"
+    "test"
   ]
 }
