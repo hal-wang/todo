@@ -19,11 +19,11 @@ import Collections from "../../../../lib/Collections";
  */
 export default class extends Action {
   constructor() {
-    super(["ql", "todo"]);
+    super(["pl", "todo"]);
   }
 
   async invoke(): Promise<void> {
-    const { todoId } = this.ctx.req.query;
+    const { todoId } = this.ctx.req.params;
 
     await Collections.todo.doc(todoId).remove();
     this.noContent();

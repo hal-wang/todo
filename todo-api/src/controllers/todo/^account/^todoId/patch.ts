@@ -38,11 +38,11 @@ import moment = require("moment");
 
 export default class extends Action {
   constructor() {
-    super(["ql", "todo"]);
+    super(["pl", "todo"]);
   }
 
   async invoke(): Promise<void> {
-    const { todoId } = this.ctx.req.query;
+    const { todoId } = this.ctx.req.params;
     const { content, schedule } = this.ctx.req.body;
 
     await Collections.todo.doc(todoId).update({

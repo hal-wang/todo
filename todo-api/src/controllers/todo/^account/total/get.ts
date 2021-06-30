@@ -25,11 +25,11 @@ import Collections from "../../../../lib/Collections";
  */
 export default class extends Action {
   constructor() {
-    super(["ql"]);
+    super(["pl"]);
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.query;
+    const { account } = this.ctx.req.params;
 
     const countRes = await Collections.todo
       .where({

@@ -4,14 +4,11 @@ import Global from "./Global";
 
 export default class Auth extends Middleware {
   async invoke(): Promise<void> {
-    this.ctx.res.headers.hds = JSON.stringify(this.ctx.req.headers);
-    this.ctx.res.headers.qy = JSON.stringify(this.ctx.req.query);
-    this.ctx.res.headers.pm = JSON.stringify(this.ctx.req.params);
     if (!this.ctx.actionRoles || !this.ctx.actionRoles.length) {
       return await this.next();
     }
 
-    if (this.ctx.actionRoles.includes("ql")) {
+    if (this.ctx.actionRoles.includes("pl")) {
       if (this.ctx.actionRoles.includes("admin") && !this.queryAdminAuth()) {
         this.forbiddenMsg({ message: "not admin" });
         return;
@@ -44,7 +41,7 @@ export default class Auth extends Middleware {
   }
 
   private queryAdminAuth(): boolean {
-    const { account } = this.ctx.req.query;
+    const { account } = this.ctx.req.params;
     return account == Global.adminId;
   }
 
@@ -60,7 +57,7 @@ export default class Auth extends Middleware {
   }
 
   private async queryLoginAuth(): Promise<boolean> {
-    const { account } = this.ctx.req.query;
+    const { account } = this.ctx.req.params;
     const { password } = this.ctx.req.headers;
     if (!account || !password) return false;
     return await this.loginAuth(account, password as string);
@@ -77,7 +74,7 @@ export default class Auth extends Middleware {
   }
 
   private async todoIdAuth(): Promise<boolean> {
-    const { todoId, account } = this.ctx.req.query;
+    const { todoId, account } = this.ctx.req.params;
     const countRes = await Collections.todo
       .where({
         _id: todoId,

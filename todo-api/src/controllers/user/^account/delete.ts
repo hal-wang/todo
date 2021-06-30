@@ -21,11 +21,11 @@ import Global from "../../../lib/Global";
  */
 export default class extends Action {
   constructor() {
-    super(["ql"]);
+    super(["pl"]);
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.query;
+    const { account } = this.ctx.req.params;
     if (account == Global.testId) {
       this.badRequestMsg({ message: "can't delete the test user" });
       return;
