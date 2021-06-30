@@ -9,8 +9,7 @@
       "preDeploy": {
         "type": "execCommand",
         "commands": [
-          "npm install -g typescript --prefer-offline --no-audit --progress=false",
-          "cd todo-api && npm install --prefer-offline --no-audit --progress=false && npm run build",
+          "cd todo-api && npm install --prefer-offline --no-audit --progress=false && sh scripts/build.sh {{env.API_NAME}}",
           "cd todo-docs && npm i && npm run build"
         ]
       }

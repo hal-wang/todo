@@ -2,9 +2,10 @@
   "name": "todo-api",
   "version": "2.0.0",
   "scripts": {
-    "build": "sfa-router-build controllers",
+    "build:test": "sh scripts/build.sh test",
+    "sfa-router-build": "sfa-router-build controllers",
     "swagger": "ts-node test/swagger.ts",
-    "deploy": "npm run build && cd .. && tcb login tcb fn deploy v2 --force",
+    "deploy:test": "sh scripts/deploy.sh test",
     "eslint": "eslint . --ext .ts"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@sfajs/http": "^0.5.0",
     "@types/node": "^15.12.5",
+    "@types/prettier": "^2.3.0",
     "@types/request": "^2.48.5",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
@@ -27,6 +29,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
+    "ts-node": "^10.0.0",
     "typescript": "^4.3.4"
   }
 }
