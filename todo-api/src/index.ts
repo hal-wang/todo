@@ -154,7 +154,7 @@ export const swaggerOptions = <swaggerJSDoc.Options>{
       },
     },
   },
-  apis: ["controllers/**/*.js"],
+  apis: ["actions/**/*.js"],
 };
 
 const startup = new SfaCloudbase()
