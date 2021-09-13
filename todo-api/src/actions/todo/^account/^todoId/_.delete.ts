@@ -19,7 +19,8 @@ import Collections from "../../../../lib/Collections";
  */
 export default class extends Action {
   constructor() {
-    super(["pl", "todo"]);
+    super();
+    this.metadata.roles = ["pl", "todo"];
   }
 
   async invoke(): Promise<void> {

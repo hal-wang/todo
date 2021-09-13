@@ -14,7 +14,7 @@ import moment = require("moment");
  *       - $ref: '#/components/parameters/queryAccount'
  *     requestBody:
  *       description: Todo info
- *       content: 
+ *       content:
  *         application/json:
  *           schema:
  *             properties:
@@ -36,7 +36,8 @@ import moment = require("moment");
  */
 export default class extends Action {
   constructor() {
-    super(["pl"]);
+    super();
+    this.metadata.roles = ["pl"];
   }
 
   async invoke(): Promise<void> {

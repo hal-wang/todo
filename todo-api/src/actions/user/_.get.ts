@@ -1,16 +1,16 @@
-import { Action } from "@sfajs/router";
 import { Dbhelper } from "@sfajs/cloudbase";
-import Collections from "../../../../lib/Collections";
+import { Action } from "@sfajs/router";
+import Collections from "../../lib/Collections";
 
 /**
  * @openapi
- * /user/{account}/todo:
+ * /user:
  *   get:
  *     tags:
- *       - todo
- *     description: Get todo list
+ *       - user
+ *     description: Get all users' info
  *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
+ *       - $ref: '#/components/parameters/headerAccount'
  *       - $ref: '#/components/parameters/page'
  *       - $ref: '#/components/parameters/limit'
  *     responses:
@@ -21,28 +21,23 @@ import Collections from "../../../../lib/Collections";
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Todo'
- *       400:
- *         description: account format error
+ *                 $ref: '#/components/schemas/User'
  *     security:
  *       - password: []
  */
 export default class extends Action {
   constructor() {
-    super(["pl"]);
+    super();
+    this.metadata.roles = ["hl", "admin"];
   }
 
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
-
     const result = await this.ctx.bag<Dbhelper>("CB_DBHELPER").getPageList(
-      Collections.todo
-        .where({
-          uid: account,
-        })
-        .orderBy("update_at", "desc")
-        .orderBy("create_at", "desc")
+      Collections.user.field({
+        password: false,
+      })
     );
+
     this.ok(result);
   }
 }

@@ -4,12 +4,12 @@ import Global from "./Global";
 
 export default class Auth extends Middleware {
   async invoke(): Promise<void> {
-    if (!this.ctx.actionRoles || !this.ctx.actionRoles.length) {
+    if (!this.ctx.routerMapItem.roles || !this.ctx.routerMapItem.roles.length) {
       return await this.next();
     }
 
-    if (this.ctx.actionRoles.includes("pl")) {
-      if (this.ctx.actionRoles.includes("admin") && !this.queryAdminAuth()) {
+    if (this.ctx.routerMapItem.roles.includes("pl")) {
+      if (this.ctx.routerMapItem.roles.includes("admin") && !this.queryAdminAuth()) {
         this.forbiddenMsg({ message: "not admin" });
         return;
       }
@@ -20,8 +20,8 @@ export default class Auth extends Middleware {
       }
     }
 
-    if (this.ctx.actionRoles.includes("hl")) {
-      if (this.ctx.actionRoles.includes("admin") && !this.headerAdminAuth()) {
+    if (this.ctx.routerMapItem.roles.includes("hl")) {
+      if (this.ctx.routerMapItem.roles.includes("admin") && !this.headerAdminAuth()) {
         this.forbiddenMsg({ message: "not admin" });
         return;
       }
@@ -32,7 +32,7 @@ export default class Auth extends Middleware {
       }
     }
 
-    if (this.ctx.actionRoles.includes("todo") && !(await this.todoIdAuth())) {
+    if (this.ctx.routerMapItem.roles.includes("todo") && !(await this.todoIdAuth())) {
       this.notFoundMsg({ message: "the todo item is not existing" });
       return;
     }

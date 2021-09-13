@@ -29,7 +29,8 @@ import Collections from "../../../lib/Collections";
  */
 export default class extends Action {
   constructor() {
-    super(["pl"]);
+    super();
+    this.metadata.roles = ["pl"];
   }
 
   async invoke(): Promise<void> {
@@ -40,6 +41,6 @@ export default class extends Action {
     }
 
     const accRes = await Collections.user.doc(account).get();
-    this.ok(accRes.data[0]).setHeader("actionPath", this.ctx.actionPath ?? "");
+    this.ok(accRes.data[0]).setHeader("actionPath", this.ctx.routerMapItem.path ?? "");
   }
 }

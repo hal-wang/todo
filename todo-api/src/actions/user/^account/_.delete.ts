@@ -21,7 +21,8 @@ import Global from "../../../lib/Global";
  */
 export default class extends Action {
   constructor() {
-    super(["pl"]);
+    super();
+    this.metadata.roles = ["pl"];
   }
 
   async invoke(): Promise<void> {

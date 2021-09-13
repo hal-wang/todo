@@ -1,5 +1,5 @@
 import { Action } from "@sfajs/router";
-import Collections from "../../../../lib/Collections";
+import Collections from "../../../lib/Collections";
 
 /**
  * @openapi
@@ -25,7 +25,8 @@ import Collections from "../../../../lib/Collections";
  */
 export default class extends Action {
   constructor() {
-    super(["pl"]);
+    super();
+    this.metadata.roles = ["pl"];
   }
 
   async invoke(): Promise<void> {

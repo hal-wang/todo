@@ -172,9 +172,11 @@ const startup = new SfaCloudbase()
     Collections.ctx = ctx;
     await next();
   })
-  .useRouterParser()
-  .add(() => new Auth())
-  .useRouter();
+  .useRouter({
+    onParserAdded: (startup) => {
+      startup.add(() => new Auth());
+    },
+  });
 
 export const main = async (
   event: Record<string, unknown>,
