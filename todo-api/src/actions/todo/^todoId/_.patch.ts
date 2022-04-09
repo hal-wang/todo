@@ -1,4 +1,5 @@
 import { Inject } from "@sfajs/inject";
+import { Header, Param } from "@sfajs/req-deco";
 import { Action } from "@sfajs/router";
 import moment = require("moment");
 import { Todo } from "../../../decorators/todo";
@@ -42,17 +43,19 @@ export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
+  @Param("todoId")
+  private readonly todoId!: string;
+
   async invoke(): Promise<void> {
-    const { todoId } = this.ctx.req.params;
     const { content, schedule } = this.ctx.req.body;
 
-    await this.collectionService.todo.doc(todoId).update({
+    await this.collectionService.todo.doc(this.todoId).update({
       content: content,
       schedule: schedule,
       update_at: moment().valueOf(),
     });
 
-    const getRes = await this.collectionService.todo.doc(todoId).get();
+    const getRes = await this.collectionService.todo.doc(this.todoId).get();
     this.ok(getRes.data[0]);
   }
 }

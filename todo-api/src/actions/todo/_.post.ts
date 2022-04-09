@@ -3,6 +3,7 @@ import Todo from "../../models/Todo";
 import moment = require("moment");
 import { CollectionService } from "../../services/collection.service";
 import { Inject } from "@sfajs/inject";
+import { Header } from "@sfajs/req-deco";
 
 /**
  * @openapi
@@ -39,14 +40,16 @@ export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
+  @Header("account")
+  private readonly account!: string;
+
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
     const { content, schedule } = this.ctx.req.body;
 
     const newTodo = <Todo>{
       content: content,
       schedule: schedule,
-      uid: account,
+      uid: this.account,
       create_at: moment().valueOf(),
       update_at: moment().valueOf(),
     };
