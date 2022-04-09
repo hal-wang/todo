@@ -24,6 +24,9 @@ service.interceptors.request.use(
     if (user && !config.headers["password"]) {
       config.headers["password"] = user.password;
     }
+    if (user && !config.headers["account"]) {
+      config.headers["account"] = user._id;
+    }
     config.validateStatus = (num) => num >= 200 && num < 300;
     return config;
   },

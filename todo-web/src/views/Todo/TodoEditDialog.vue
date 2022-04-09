@@ -104,12 +104,12 @@ export default Vue.extend({
       try {
         if (this.todo) {
           const res = await request.patch(
-            `todo/${this.user._id}/${this.todo._id}`,
+            `todo/${this.todo._id}`,
             formObj
           );
           this.$emit("edit", res.data, this.todo);
         } else {
-          const res = await request.post(`user/${this.user._id}/todo`, formObj);
+          const res = await request.post(`todo`, formObj);
           this.$emit("add", res.data);
         }
       } finally {

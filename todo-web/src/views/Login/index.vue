@@ -58,19 +58,11 @@
         <a-button
           type="primary"
           html-type="submit"
-          class="login-btn"
+          style="width: 100%;"
           :loading="loginLoading"
           @click="handleLogin"
         >
-          Login
-        </a-button>
-        <a-button
-          type="default"
-          html-type="submit"
-          :loading="signupLoading"
-          @click="handleSignup"
-        >
-          Signup
+          Login / Signup
         </a-button>
       </div>
       <div class="tips">
@@ -102,7 +94,6 @@ export default Vue.extend({
       form: this.$form.createForm(this, { name: "coordinated" }),
       background: "",
       loginLoading: false,
-      signupLoading: false,
     };
   },
   computed: {
@@ -127,21 +118,12 @@ export default Vue.extend({
   },
   methods: {
     handleLogin() {
-      this.login("login");
-    },
-    handleSignup() {
-      this.login("signup");
-    },
-    login(loginType: "login" | "signup") {
       this.form.validateFields(async (err, values) => {
         if (err) return;
 
-        const loading = `${loginType}Loading` as
-          | "loginLoading"
-          | "signupLoading";
-        this[loading] = true;
+        this.loginLoading = true;
         try {
-          const user = await this.$store.dispatch(`user/${loginType}`, {
+          const user = await this.$store.dispatch(`user/login`, {
             account: values.email,
             password: values.password,
           });
@@ -152,7 +134,7 @@ export default Vue.extend({
             });
           }
         } finally {
-          this[loading] = false;
+          this.loginLoading = false;
         }
       });
     },
@@ -183,15 +165,6 @@ export default Vue.extend({
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
-    }
-
-    .btns {
-      display: flex;
-
-      .login-btn {
-        flex: 1;
-        margin-right: 10px;
-      }
     }
 
     .tips {

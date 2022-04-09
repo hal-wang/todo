@@ -69,7 +69,7 @@ export default Vue.extend({
       if (!this.user) return;
 
       const res = await request({
-        url: `user/${this.user._id}/todo`,
+        url: `todo`,
         method: "GET",
         params: {
           page: this.page,

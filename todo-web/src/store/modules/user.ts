@@ -17,23 +17,6 @@ const actions = {
   async login(param: StoreActionParam, userInfo: any) {
     const { account, password } = userInfo;
     try {
-      const res = await request.get(`user/${account}`, {
-        headers: {
-          password: password,
-        },
-      });
-
-      param.commit("SET_USER", res.data);
-      AuthCookie.setAccount(account);
-      AuthCookie.setPassword(password);
-      return res.data;
-    } catch (res) {
-      return;
-    }
-  },
-  async signup(param: StoreActionParam, userInfo: any) {
-    const { account, password } = userInfo;
-    try {
       const res = await request.post(`user`, {
         account,
         password,
