@@ -1,13 +1,8 @@
 import { Database } from "@cloudbase/node-sdk";
-import { Inject } from "@sfajs/inject";
-import { CbappService } from "./cbapp.service";
 import { PageListDto } from "../dtos/page-list.dto";
 import { PageParamsDto } from "../dtos/page-params.dto";
 
 export class DbhelperService {
-  @Inject
-  private readonly cbappService!: CbappService;
-
   async getOne<T = any>(
     collection: Database.CollectionReference,
     doc: string
@@ -100,7 +95,7 @@ export class DbhelperService {
     };
   }
 
-  async add<T = any, K = any>(
+  async add<T = any, K = T>(
     collection: Database.CollectionReference,
     obj: T
   ): Promise<K> {

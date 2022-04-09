@@ -2,7 +2,7 @@ import { Action } from "@sfajs/router";
 import { DbhelperService } from "../../services/dbhelper.service";
 import { Inject } from "@sfajs/inject";
 import { CollectionService } from "../../services/collection.service";
-import { Query } from "@sfajs/req-deco";
+import { Header, Query } from "@sfajs/req-deco";
 import { PageParamsDto } from "../../dtos/page-params.dto";
 
 /**
@@ -37,14 +37,14 @@ export default class extends Action {
   private readonly collectionService!: CollectionService;
   @Query
   private readonly query!: PageParamsDto;
+  @Header("account")
+  private readonly account!: string;
 
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
-
     const result = await this.dbhelperService.getPageList(this.query, () =>
       this.collectionService.todo
         .where({
-          uid: account,
+          uid: this.account,
         })
         .orderBy("update_at", "desc")
         .orderBy("create_at", "desc")

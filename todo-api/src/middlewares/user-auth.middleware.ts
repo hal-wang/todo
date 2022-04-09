@@ -2,10 +2,11 @@ import { Middleware } from "@sfajs/core";
 import { Inject } from "@sfajs/inject";
 import { adminId } from "../global";
 import { CollectionService } from "../services/collection.service";
+import { UserService } from "../services/user.service";
 
 export class UserAuthMiddleware extends Middleware {
   @Inject
-  private readonly collectionService!: CollectionService;
+  private readonly userService!: UserService;
 
   async invoke(): Promise<void> {
     const open: boolean | undefined = this.ctx.actionMetadata.open;
@@ -17,8 +18,7 @@ export class UserAuthMiddleware extends Middleware {
     const account = this.ctx.req.headers.account as string;
     const password = this.ctx.req.headers.password as string;
 
-    const loginResult = await this.loginAuth(account, password);
-    if (!loginResult) {
+    if (!(await this.userService.existUser(account, password))) {
       this.forbiddenMsg({ message: "error account or password" });
       return;
     }
@@ -36,15 +36,5 @@ export class UserAuthMiddleware extends Middleware {
     }
 
     await this.next();
-  }
-
-  private async loginAuth(account: string, password: string): Promise<boolean> {
-    const countRes = await this.collectionService.user
-      .where({
-        _id: account,
-        password,
-      })
-      .count();
-    return !!countRes.total;
   }
 }

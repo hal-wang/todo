@@ -1,9 +1,12 @@
 import { Inject } from "@sfajs/inject";
+import { Body } from "@sfajs/req-deco";
 import { Action } from "@sfajs/router";
 import moment = require("moment");
 import { Open } from "../../decorators/open";
-import User from "../../models/User";
+import { UserEntity } from "../../entities/user.entity";
 import { CollectionService } from "../../services/collection.service";
+import { DbhelperService } from "../../services/dbhelper.service";
+import { UserService } from "../../services/user.service";
 import { isEmail } from "../../utils/validate";
 
 /**
@@ -40,40 +43,54 @@ import { isEmail } from "../../utils/validate";
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
+  @Inject
+  private readonly userService!: UserService;
+  @Inject
+  private readonly dbhelperService!: DbhelperService;
+
+  @Body("account")
+  private readonly account!: string;
+  @Body("password")
+  private readonly password!: string;
 
   async invoke(): Promise<void> {
-    const { account, password } = this.ctx.req.body;
-    if (typeof account != "string" || !isEmail(account)) {
+    if (typeof this.account != "string") {
       this.badRequestMsg({ message: "account format error" });
       return;
     }
-
-    if (typeof password != "string" || !/\w{6,16}/.test(password)) {
+    if (typeof this.password != "string") {
       this.badRequestMsg({ message: "password format error" });
       return;
     }
 
-    const accCountRes = await this.collectionService.user
-      .where({
-        _id: account,
-      })
-      .count();
-    if (accCountRes.total) {
-      this.badRequestMsg({ message: "the account is existing" });
+    const existUser = await this.userService.getUser(
+      this.account,
+      this.password
+    );
+    if (existUser) {
+      this.ok(existUser);
       return;
     }
 
-    const newUser = <User>{
-      _id: account,
-      password: password,
-      create_at: moment().valueOf(),
-    };
-    await this.collectionService.user.doc(account).set({
-      password: password,
-      create_at: newUser.create_at,
-    });
+    await this.signup();
+  }
 
-    this.ok(newUser);
-    return;
+  private async signup() {
+    if (!isEmail(this.account)) {
+      this.badRequestMsg({ message: "account format error" });
+      return;
+    }
+
+    if (!/\w{6,16}/.test(this.password)) {
+      this.badRequestMsg({ message: "password format error" });
+      return;
+    }
+
+    const user = await this.dbhelperService.add(this.collectionService.user, {
+      _id: this.account,
+      password: this.password,
+      create_at: moment().valueOf(),
+    } as UserEntity);
+    this.ok(user);
   }
 }
