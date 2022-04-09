@@ -1,17 +1,18 @@
 import { Action } from "@sfajs/router";
-import Collections from "../../../../lib/Collections";
+import Todo from "../../models/Todo";
 import moment = require("moment");
+import { CollectionService } from "../../services/collection.service";
+import { Inject } from "@sfajs/inject";
 
 /**
  * @openapi
- * /todo/{account}/{todoId}:
- *   patch:
+ * /user/{account}/todo:
+ *   post:
  *     tags:
  *       - todo
- *     description: Update a todo's info
+ *     description: Add a new todo item
  *     parameters:
  *       - $ref: '#/components/parameters/queryAccount'
- *       - $ref: '#/components/parameters/queryTodo'
  *     requestBody:
  *       description: Todo info
  *       content:
@@ -30,29 +31,32 @@ import moment = require("moment");
  *         content:
  *           application/json:
  *             schema:
- *               description: New todo's info
  *               $ref: '#/components/schemas/Todo'
  *     security:
  *       - password: []
  */
-
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl", "todo"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
-    const { todoId } = this.ctx.req.params;
+    const { account } = this.ctx.req.params;
     const { content, schedule } = this.ctx.req.body;
 
-    await Collections.todo.doc(todoId).update({
+    const newTodo = <Todo>{
       content: content,
       schedule: schedule,
+      uid: account,
+      create_at: moment().valueOf(),
       update_at: moment().valueOf(),
-    });
+    };
+    const addRes = await this.collectionService.todo.add(newTodo);
+    if (!addRes.id) {
+      this.internalServerErrorMsg();
+      return;
+    }
 
-    const getRes = await Collections.todo.doc(todoId).get();
-    this.ok(getRes.data[0]);
+    newTodo._id = addRes.id;
+    this.ok(newTodo);
   }
 }

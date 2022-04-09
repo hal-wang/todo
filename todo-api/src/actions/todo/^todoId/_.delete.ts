@@ -1,5 +1,7 @@
+import { Inject } from "@sfajs/inject";
 import { Action } from "@sfajs/router";
-import Collections from "../../../../lib/Collections";
+import { Todo } from "../../../decorators/todo";
+import { CollectionService } from "../../../services/collection.service";
 
 /**
  * @openapi
@@ -17,16 +19,15 @@ import Collections from "../../../../lib/Collections";
  *     security:
  *       - password: []
  */
+@Todo
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl", "todo"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
     const { todoId } = this.ctx.req.params;
 
-    await Collections.todo.doc(todoId).remove();
+    await this.collectionService.todo.doc(todoId).remove();
     this.noContent();
   }
 }

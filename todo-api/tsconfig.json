@@ -5,12 +5,14 @@
     ],
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist/v2",
-    "target": "es2019",
-    "strict": true
+    "outDir": "./dist/v3",
+    "target": "es2017",
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
     "dist",
-    "test"
+    "http.ts"
   ]
 }

@@ -1,5 +1,6 @@
 import { Action } from "@sfajs/router";
 import request = require("request");
+import { Open } from "../decorators/open";
 
 /**
  * @action get bing img
@@ -12,7 +13,6 @@ import request = require("request");
  * @@@404 not found
  * @@body {object} bing img's info
  */
-
 
 /**
  * @openapi
@@ -32,6 +32,7 @@ import request = require("request");
  *       404:
  *         description: not found
  */
+@Open
 export default class extends Action {
   async invoke(): Promise<void> {
     return new Promise<void>((resolve) => {
@@ -39,7 +40,7 @@ export default class extends Action {
         `http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN`,
         (error, response, body) => {
           if (error) {
-            this.errRequestMsg({
+            this.internalServerErrorMsg({
               message: error.message || error || "error",
             });
             resolve();

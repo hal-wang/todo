@@ -1,10 +1,14 @@
-import { Dbhelper } from "@sfajs/cloudbase";
+import { Inject } from "@sfajs/inject";
+import { Query } from "@sfajs/req-deco";
 import { Action } from "@sfajs/router";
-import Collections from "../../lib/Collections";
+import { Admin } from "../../../decorators/admin";
+import { PageParamsDto } from "../../../dtos/page-params.dto";
+import { CollectionService } from "../../../services/collection.service";
+import { DbhelperService } from "../../../services/dbhelper.service";
 
 /**
  * @openapi
- * /user:
+ * /user/admin:
  *   get:
  *     tags:
  *       - user
@@ -25,15 +29,19 @@ import Collections from "../../lib/Collections";
  *     security:
  *       - password: []
  */
+
+@Admin
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["hl", "admin"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
+  @Inject
+  private readonly dbhelperService!: DbhelperService;
+  @Query
+  private readonly query!: PageParamsDto;
 
   async invoke(): Promise<void> {
-    const result = await this.ctx.bag<Dbhelper>("CB_DBHELPER").getPageList(
-      Collections.user.field({
+    const result = await this.dbhelperService.getPageList(this.query, () =>
+      this.collectionService.user.field({
         password: false,
       })
     );

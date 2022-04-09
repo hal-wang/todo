@@ -27,7 +27,7 @@ module.exports = {
           { text: "About", link: "/about/" },
           {
             text: "Api",
-            link: `https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v2`,
+            link: `https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v3`,
           },
         ],
       },

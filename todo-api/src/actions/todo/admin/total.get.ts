@@ -1,9 +1,11 @@
+import { Inject } from "@sfajs/inject";
 import { Action } from "@sfajs/router";
-import Collections from "../../lib/Collections";
+import { Admin } from "../../../decorators/admin";
+import { CollectionService } from "../../../services/collection.service";
 
 /**
  * @openapi
- * /todo/total:
+ * /todo/admin/total:
  *   get:
  *     tags:
  *       - todo
@@ -23,14 +25,14 @@ import Collections from "../../lib/Collections";
  *     security:
  *       - password: []
  */
+
+@Admin
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["hl", "admin"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
-    const countRes = await Collections.todo.count();
+    const countRes = await this.collectionService.todo.count();
     this.ok({
       total: countRes.total,
     });

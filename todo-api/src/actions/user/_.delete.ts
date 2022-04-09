@@ -1,6 +1,7 @@
 import { Action } from "@sfajs/router";
-import Collections from "../../../lib/Collections";
-import Global from "../../../lib/Global";
+import { testId } from "../../global";
+import { Inject } from "@sfajs/inject";
+import { CollectionService } from "../../services/collection.service";
 
 /**
  * @openapi
@@ -19,25 +20,24 @@ import Global from "../../../lib/Global";
  *     security:
  *       - password: []
  */
+
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
-    if (account == Global.testId) {
+    const account = this.ctx.req.headers.account as string;
+    if (account == testId) {
       this.badRequestMsg({ message: "can't delete the test user" });
       return;
     }
 
-    await Collections.todo
+    await this.collectionService.todo
       .where({
         uid: account,
       })
       .remove();
-    await Collections.user.doc(account).remove();
+    await this.collectionService.user.doc(account).remove();
 
     this.noContent();
   }

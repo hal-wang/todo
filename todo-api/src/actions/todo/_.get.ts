@@ -1,6 +1,9 @@
 import { Action } from "@sfajs/router";
-import { Dbhelper } from "@sfajs/cloudbase";
-import Collections from "../../../../lib/Collections";
+import { DbhelperService } from "../../services/dbhelper.service";
+import { Inject } from "@sfajs/inject";
+import { CollectionService } from "../../services/collection.service";
+import { Query } from "@sfajs/req-deco";
+import { PageParamsDto } from "../../dtos/page-params.dto";
 
 /**
  * @openapi
@@ -28,16 +31,18 @@ import Collections from "../../../../lib/Collections";
  *       - password: []
  */
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl"];
-  }
+  @Inject
+  private readonly dbhelperService!: DbhelperService;
+  @Inject
+  private readonly collectionService!: CollectionService;
+  @Query
+  private readonly query!: PageParamsDto;
 
   async invoke(): Promise<void> {
     const { account } = this.ctx.req.params;
 
-    const result = await this.ctx.bag<Dbhelper>("CB_DBHELPER").getPageList(
-      Collections.todo
+    const result = await this.dbhelperService.getPageList(this.query, () =>
+      this.collectionService.todo
         .where({
           uid: account,
         })

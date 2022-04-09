@@ -1,8 +1,10 @@
+import { Inject } from "@sfajs/inject";
 import { Action } from "@sfajs/router";
-import Collections from "../../lib/Collections";
-import Validate from "../../lib/Validate";
 import moment = require("moment");
+import { Open } from "../../decorators/open";
 import User from "../../models/User";
+import { CollectionService } from "../../services/collection.service";
+import { isEmail } from "../../utils/validate";
 
 /**
  * @openapi
@@ -13,7 +15,7 @@ import User from "../../models/User";
  *     description: signup a account with email
  *     requestBody:
  *       description: User info
- *       content: 
+ *       content:
  *         application/json:
  *           schema:
  *             properties:
@@ -34,10 +36,14 @@ import User from "../../models/User";
  *     security:
  *       - password: []
  */
+@Open
 export default class extends Action {
+  @Inject
+  private readonly collectionService!: CollectionService;
+
   async invoke(): Promise<void> {
     const { account, password } = this.ctx.req.body;
-    if (typeof account != "string" || !Validate.isEmail(account)) {
+    if (typeof account != "string" || !isEmail(account)) {
       this.badRequestMsg({ message: "account format error" });
       return;
     }
@@ -47,7 +53,7 @@ export default class extends Action {
       return;
     }
 
-    const accCountRes = await Collections.user
+    const accCountRes = await this.collectionService.user
       .where({
         _id: account,
       })
@@ -62,7 +68,7 @@ export default class extends Action {
       password: password,
       create_at: moment().valueOf(),
     };
-    await Collections.user.doc(account).set({
+    await this.collectionService.user.doc(account).set({
       password: password,
       create_at: newUser.create_at,
     });

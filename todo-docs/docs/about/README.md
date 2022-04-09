@@ -16,7 +16,7 @@ title: todo
 
 the API documents are generated automatically by `@sfajs/swagger`
 
-[swagger api](https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v2)
+[swagger api](https://todo-5gcg801923564f08-1253337886.ap-shanghai.service.tcloudbase.com/v3)
 
 ## 一键部署
 
@@ -41,9 +41,9 @@ API 使用了 `@sfajs/router` 符合 `RESTFul` 规范的 API 格式，并且设�
 
 ## build 生成的内容
 
-API 编译后会在云函数目录 `functions` 生成文件夹 `v2` (v2 版本)，
+API 编译后会在云函数目录 `functions` 生成文件夹 `v3` (v3 版本)，
 
-在 `v2` 文件夹中包含以下内容：
+在 `v3` 文件夹中包含以下内容：
 
 - controllers：`@sfajs/router` 默认路由文件夹
 - lib：除 `controllers` 外的其他帮助类

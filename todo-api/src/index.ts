@@ -1,10 +1,18 @@
-import Auth from "./lib/Auth";
+import { UserAuthMiddleware } from "./middlewares/user-auth.middleware";
 import "@sfajs/router";
 import "@sfajs/swagger";
-import SfaCloudbase from "@sfajs/cloudbase";
-import Collections from "./lib/Collections";
+import "@sfajs/req-deco";
+import "@sfajs/inject";
+import { SfaCloudbase } from "@sfajs/cloudbase";
 import { swaggerJSDoc } from "@sfajs/swagger";
 import * as fs from "fs";
+import { CollectionService } from "./services/collection.service";
+import { DbhelperService } from "./services/dbhelper.service";
+import { CbappService } from "./services/cbapp.service";
+import { InjectType } from "@sfajs/inject";
+import { Startup } from "@sfajs/core";
+import * as dotenv from "dotenv";
+import { TodoAuthMiddleware } from "./middlewares/todo-auth.middleware";
 
 const version = (() => {
   let path = "./package.json";
@@ -157,27 +165,39 @@ export const swaggerOptions = <swaggerJSDoc.Options>{
   apis: ["actions/**/*.js"],
 };
 
-const startup = new SfaCloudbase()
-  .use(async (ctx, next) => {
-    ctx.res.setHeader("version", version);
-    ctx.res.setHeader("demo", "todo");
-    await next();
-  })
-  .useSwagger({
-    options: swaggerOptions,
-  })
-  .useCloudbaseApp()
-  .useCloudbaseDbhelper()
-  .use(async (ctx, next) => {
-    Collections.ctx = ctx;
-    await next();
-  })
-  .useRouter({
-    onParserAdded: (startup) => {
-      startup.add(() => new Auth());
-    },
+export function setStartup<T extends Startup>(startup: T, dev: boolean): T {
+  dotenv.config({
+    path: "./.env",
   });
+  if (dev) {
+    dotenv.config({
+      path: "./.env.local",
+    });
+  }
 
+  return startup
+    .use(async (ctx, next) => {
+      ctx.res.setHeader("version", version);
+      ctx.res.setHeader("demo", "todo");
+      await next();
+    })
+    .useInject()
+    .inject(CollectionService, CollectionService, InjectType.Singleton)
+    .inject(DbhelperService, DbhelperService, InjectType.Singleton)
+    .inject(CbappService, CbappService, InjectType.Singleton)
+    .useReqDeco()
+    .useSwagger({
+      options: swaggerOptions,
+    })
+    .useRouterParser({
+      dir: dev ? "src/actions" : "actions",
+    })
+    .add(UserAuthMiddleware)
+    .add(TodoAuthMiddleware)
+    .useRouter();
+}
+
+const startup = setStartup(new SfaCloudbase(), false);
 export const main = async (
   event: Record<string, unknown>,
   context: Record<string, unknown>

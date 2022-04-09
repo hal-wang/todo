@@ -1,9 +1,10 @@
+import { Inject } from "@sfajs/inject";
 import { Action } from "@sfajs/router";
-import Collections from "../../../lib/Collections";
+import { CollectionService } from "../../../../services/collection.service";
 
 /**
  * @openapi
- * /todo/{account}/total:
+ * /todo/admin/{account}/total:
  *   get:
  *     tags:
  *       - todo
@@ -24,15 +25,13 @@ import Collections from "../../../lib/Collections";
  *       - password: []
  */
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
     const { account } = this.ctx.req.params;
 
-    const countRes = await Collections.todo
+    const countRes = await this.collectionService.todo
       .where({
         uid: account,
       })

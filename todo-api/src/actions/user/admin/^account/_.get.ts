@@ -1,9 +1,11 @@
+import { Inject } from "@sfajs/inject";
 import { Action } from "@sfajs/router";
-import Collections from "../../../lib/Collections";
+import { Admin } from "../../../../decorators/admin";
+import { CollectionService } from "../../../../services/collection.service";
 
 /**
  * @openapi
- * /user/{account}:
+ * /user/admin/{account}
  *   get:
  *     tags:
  *       - user
@@ -27,11 +29,11 @@ import Collections from "../../../lib/Collections";
  *     security:
  *       - password: []
  */
+
+@Admin
 export default class extends Action {
-  constructor() {
-    super();
-    this.metadata.roles = ["pl"];
-  }
+  @Inject
+  private readonly collectionService!: CollectionService;
 
   async invoke(): Promise<void> {
     const { account } = this.ctx.req.params;
@@ -40,7 +42,7 @@ export default class extends Action {
       return;
     }
 
-    const accRes = await Collections.user.doc(account).get();
-    this.ok(accRes.data[0]).setHeader("actionPath", this.ctx.routerMapItem.path ?? "");
+    const accRes = await this.collectionService.user.doc(account).get();
+    this.ok(accRes.data[0]);
   }
 }
