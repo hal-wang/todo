@@ -18,7 +18,11 @@ export class UserAuthMiddleware extends Middleware {
     const account = this.ctx.req.headers.account as string;
     const password = this.ctx.req.headers.password as string;
 
-    if (!(await this.userService.existUser(account, password))) {
+    if (
+      !account ||
+      !password ||
+      !(await this.userService.existUser(account, password))
+    ) {
       this.forbiddenMsg({ message: "error account or password" });
       return;
     }
