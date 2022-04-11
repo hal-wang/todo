@@ -29,7 +29,7 @@
       </div>
     </a-layout-content>
     <a-layout-footer style="text-align: center">
-      todo ©2021 Created by hal.wang
+      TODO ©2021 Created by hal.wang
     </a-layout-footer>
 
     <TodoEditDialog ref="todoEditDialog" @add="onTodoAdd" @edit="onTodoEdit" />

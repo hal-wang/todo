@@ -1,7 +1,3 @@
-import { setActionMetadata } from "@sfajs/router";
+import { SetActionMetadata } from "@sfajs/router";
 
-export function Open(target: any) {
-  setActionMetadata(target, {
-    open: true,
-  });
-}
+export const Open = SetActionMetadata("open", true);

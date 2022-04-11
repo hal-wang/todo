@@ -182,19 +182,18 @@ export function setStartup<T extends Startup>(startup: T, dev: boolean): T {
       await next();
     })
     .useInject()
-    .inject(CollectionService, CollectionService, InjectType.Singleton)
-    .inject(DbhelperService, DbhelperService, InjectType.Singleton)
-    .inject(CbappService, CbappService, InjectType.Singleton)
+    .inject(CollectionService, InjectType.Singleton)
+    .inject(DbhelperService, InjectType.Singleton)
+    .inject(CbappService, InjectType.Singleton)
     .useReqDeco()
     .useSwagger({
       options: swaggerOptions,
     })
-    .useRouterParser({
-      dir: dev ? "src/actions" : "actions",
-    })
     .add(UserAuthMiddleware)
     .add(TodoAuthMiddleware)
-    .useRouter();
+    .useRouter({
+      dir: dev ? "src/actions" : "actions",
+    });
 }
 
 const startup = setStartup(new SfaCloudbase(), false);

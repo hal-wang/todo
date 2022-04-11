@@ -1,7 +1,6 @@
 import { Middleware } from "@sfajs/core";
 import { Inject } from "@sfajs/inject";
 import { adminId } from "../global";
-import { CollectionService } from "../services/collection.service";
 import { UserService } from "../services/user.service";
 
 export class UserAuthMiddleware extends Middleware {
