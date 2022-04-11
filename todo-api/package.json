@@ -12,7 +12,7 @@
     "@sfajs/core": "^1.2.12",
     "@sfajs/inject": "^0.2.0",
     "@sfajs/req-deco": "^0.1.2",
-    "@sfajs/router": "^1.4.2",
+    "@sfajs/router": "^1.4.3",
     "@sfajs/swagger": "^1.0.3",
     "dotenv": "^16.0.0",
     "linq": "^4.0.0",
