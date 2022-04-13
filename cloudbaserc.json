@@ -9,8 +9,9 @@
       "preDeploy": {
         "type": "execCommand",
         "commands": [
-          "cd todo-api && npm install --prefer-offline --no-audit --progress=false && npm run build",
-          "cd todo-docs && npm i && npm run build"
+          "npm i -g yarn && yarn config set registry https://registry.npmjs.org",
+          "cd todo-api && yarn install && yarn build",
+          "cd todo-docs && yarn install && yarn build"
         ]
       }
     },
@@ -35,8 +36,8 @@
       "web": {
         "use": "@cloudbase/framework-plugin-website",
         "inputs": {
-          "installCommand": "cd todo-web && npm install --prefer-offline --no-audit --progress=false",
-          "buildCommand": "cd todo-web && npm run build",
+          "installCommand": "cd todo-web && yarn install",
+          "buildCommand": "cd todo-web && yarn run build",
           "outputPath": "todo-web/dist",
           "envVariables": {
             "API_NAME": "{{env.API_NAME}}"
