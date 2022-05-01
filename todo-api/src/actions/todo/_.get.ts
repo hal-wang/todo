@@ -2,7 +2,7 @@ import { Action } from "@sfajs/router";
 import { DbhelperService } from "../../services/dbhelper.service";
 import { Inject } from "@sfajs/inject";
 import { CollectionService } from "../../services/collection.service";
-import { Header, Query } from "@sfajs/req-deco";
+import { Header, Query } from "@sfajs/pipe";
 import { PageParamsDto } from "../../dtos/page-params.dto";
 
 /**

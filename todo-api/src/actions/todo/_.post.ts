@@ -3,7 +3,7 @@ import Todo from "../../models/Todo";
 import moment = require("moment");
 import { CollectionService } from "../../services/collection.service";
 import { Inject } from "@sfajs/inject";
-import { Header } from "@sfajs/req-deco";
+import { Header } from "@sfajs/pipe";
 
 /**
  * @openapi

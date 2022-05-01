@@ -1,5 +1,5 @@
 import { Inject } from "@sfajs/inject";
-import { Header, Param } from "@sfajs/req-deco";
+import { Header, Param } from "@sfajs/pipe";
 import { Action } from "@sfajs/router";
 import moment = require("moment");
 import { Todo } from "../../../decorators/todo";

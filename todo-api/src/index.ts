@@ -1,7 +1,6 @@
 import { UserAuthMiddleware } from "./middlewares/user-auth.middleware";
 import "@sfajs/router";
 import "@sfajs/swagger";
-import "@sfajs/req-deco";
 import "@sfajs/inject";
 import { SfaCloudbase } from "@sfajs/cloudbase";
 import { swaggerJSDoc } from "@sfajs/swagger";
@@ -23,152 +22,151 @@ const version = (() => {
   return JSON.parse(pkgStr).version;
 })();
 
-export const swaggerOptions = <swaggerJSDoc.Options>{
-  definition: {
-    openapi: "3.0.1",
-    info: {
-      title: "Todo",
-      description:
-        "一个简易的 todo 项目，包含后端和前端，详情请查看 https://todo.hal.wang/docs/",
-      version: version,
-      license: {
-        name: "MIT",
+function getSwaggerOptions(dev: boolean) {
+  return <swaggerJSDoc.Options>{
+    definition: {
+      openapi: "3.0.1",
+      info: {
+        title: "Todo",
+        description:
+          "一个简易的 todo 项目，包含后端和前端，详情请查看 https://todo.hal.wang/docs/",
+        version: version,
+        license: {
+          name: "MIT",
+        },
+        contact: {
+          email: "hi@hal.wang",
+        },
       },
-      contact: {
-        email: "hi@hal.wang",
+      servers: [
+        {
+          url: "/" + (dev ? "" : process.env.API_NAME),
+        },
+      ],
+      schemes: ["https"],
+      tags: [
+        {
+          name: "user",
+        },
+        {
+          name: "todo",
+        },
+        {
+          name: "bing",
+          description: "bing images",
+        },
+      ],
+      components: {
+        schemas: {
+          User: {
+            type: "object",
+            properties: {
+              _id: {
+                type: "string",
+                description: "Automatically generated ID",
+              },
+              password: {
+                type: "string",
+                description: "Plaintext password",
+              },
+              create_at: {
+                type: "integer",
+                format: "timestamp",
+                description: "When was user created",
+              },
+            },
+          },
+          Todo: {
+            type: "object",
+            properties: {
+              _id: {
+                type: "string",
+                description: "Automatically generated ID",
+              },
+              uid: {
+                type: "string",
+                description: "todo's owner",
+              },
+              content: {
+                type: "string",
+              },
+              create_at: {
+                type: "integer",
+                format: "timestamp",
+                description: "When was todo created",
+              },
+              update_at: {
+                type: "integer",
+                format: "timestamp",
+                description: "When was todo edited",
+              },
+              schedule: {
+                type: "integer",
+                format: "timestamp",
+              },
+            },
+          },
+        },
+        securitySchemes: {
+          password: {
+            type: "apiKey",
+            in: "header",
+            name: "password",
+          },
+        },
+        parameters: {
+          headerAccount: {
+            in: "header",
+            required: true,
+            name: "account",
+            schema: {
+              type: "string",
+            },
+          },
+          queryAccount: {
+            in: "path",
+            required: true,
+            name: "account",
+            schema: {
+              type: "string",
+            },
+          },
+          queryTodo: {
+            in: "path",
+            required: true,
+            name: "todoId",
+            schema: {
+              type: "string",
+            },
+          },
+          page: {
+            in: "query",
+            required: false,
+            name: "page",
+            schema: {
+              type: "integer",
+              minimum: 1,
+              default: 1,
+            },
+          },
+          limit: {
+            in: "query",
+            required: false,
+            name: "limit",
+            schema: {
+              type: "integer",
+              minimum: 1,
+              default: 20,
+            },
+          },
+        },
       },
     },
-    servers: [
-      {
-        url: "/" + process.env.API_NAME,
-      },
-    ],
-    schemes: ["https"],
-    tags: [
-      {
-        name: "user",
-      },
-      {
-        name: "todo",
-      },
-      {
-        name: "bing",
-        description: "bing images",
-      },
-    ],
-    components: {
-      schemas: {
-        User: {
-          type: "object",
-          properties: {
-            _id: {
-              type: "string",
-              description: "Automatically generated ID",
-            },
-            password: {
-              type: "string",
-              description: "Plaintext password",
-            },
-            create_at: {
-              type: "integer",
-              format: "timestamp",
-              description: "When was user created",
-            },
-          },
-        },
-        Todo: {
-          type: "object",
-          properties: {
-            _id: {
-              type: "string",
-              description: "Automatically generated ID",
-            },
-            uid: {
-              type: "string",
-              description: "todo's owner",
-            },
-            content: {
-              type: "string",
-            },
-            create_at: {
-              type: "integer",
-              format: "timestamp",
-              description: "When was todo created",
-            },
-            update_at: {
-              type: "integer",
-              format: "timestamp",
-              description: "When was todo edited",
-            },
-            schedule: {
-              type: "integer",
-              format: "timestamp",
-            },
-          },
-        },
-      },
-      securitySchemes: {
-        password: {
-          type: "apiKey",
-          in: "header",
-          name: "password",
-        },
-      },
-      parameters: {
-        headerAccount: {
-          in: "header",
-          required: true,
-          name: "account",
-          schema: {
-            type: "string",
-          },
-        },
-        queryAccount: {
-          in: "path",
-          required: true,
-          name: "account",
-          schema: {
-            type: "string",
-          },
-        },
-        queryTodo: {
-          in: "path",
-          required: true,
-          name: "todoId",
-          schema: {
-            type: "string",
-          },
-        },
-        page: {
-          in: "query",
-          required: false,
-          name: "page",
-          schema: {
-            type: "integer",
-            minimum: 1,
-            default: 1,
-          },
-        },
-        limit: {
-          in: "query",
-          required: false,
-          name: "limit",
-          schema: {
-            type: "integer",
-            minimum: 1,
-            default: 20,
-          },
-        },
-      },
-    },
-  },
-  apis: ["actions/**/*.js"],
-};
+    apis: dev ? ["src/actions/**/*.ts"] : ["actions/**/*.js"],
+  };
+}
 
 export function setStartup<T extends Startup>(startup: T, dev: boolean): T {
-  dotenv.config({
-    path: "./.env",
-  });
   if (dev) {
     dotenv.config({
       path: "./.env.local",
@@ -185,9 +183,8 @@ export function setStartup<T extends Startup>(startup: T, dev: boolean): T {
     .inject(CollectionService, InjectType.Singleton)
     .inject(DbhelperService, InjectType.Singleton)
     .inject(CbappService, InjectType.Singleton)
-    .useReqDeco()
     .useSwagger({
-      options: swaggerOptions,
+      options: getSwaggerOptions(dev),
     })
     .add(UserAuthMiddleware)
     .add(TodoAuthMiddleware)

@@ -1,5 +1,5 @@
 import { Inject } from "@sfajs/inject";
-import { Query } from "@sfajs/req-deco";
+import { Query } from "@sfajs/pipe";
 import { Action } from "@sfajs/router";
 import { Admin } from "../../../decorators/admin";
 import { PageParamsDto } from "../../../dtos/page-params.dto";

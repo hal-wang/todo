@@ -1,6 +1,6 @@
 import { Middleware, NotFoundException } from "@sfajs/core";
 import { Inject } from "@sfajs/inject";
-import { Header, Param } from "@sfajs/req-deco";
+import { Header, Param } from "@sfajs/pipe";
 import { CollectionService } from "../services/collection.service";
 
 export class TodoAuthMiddleware extends Middleware {
