@@ -1,6 +1,6 @@
 {
   "name": "todo-api",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "scripts": {
     "dev": "nodemon --exec ts-node ./http.ts",
     "build": "sfra",
