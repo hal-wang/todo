@@ -27,7 +27,6 @@
   "author": "hal-wang",
   "license": "MIT",
   "devDependencies": {
-    "@cloudbase/cli": "^1.9.2",
-    "ts-node": "^10.0.0"
+    "@cloudbase/cli": "^1.12.4"
   }
 }
