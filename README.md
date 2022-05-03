@@ -1,11 +1,28 @@
 # todo
 
-一个简易的 todo 项目，包含后端和前端，详情请查看 <https://todo.hal.wang/docs/>
+一个简易的 todo 项目，包含后端和前端
 
 线上示例：<https://todo.hal.wang>
 
 一键部署：
 [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2Fhal-wang%2Ftodo&branch=main)
+
+## 介绍
+
+使用了数据库两个文档：`user`, `todo`。
+
+测试账号：
+
+- email: `test@hal.wang`
+- password: `123456`。
+
+### 权限认证
+
+示例写了以下几种权限
+
+- 管理员: 用 Admin 装饰的 Action
+- 开放: 用 @Open 装饰的 Action
+- 普通用户：默认，需要登录状态
 
 ## 二次开发
 

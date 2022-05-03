@@ -28,8 +28,7 @@ function getSwaggerOptions(dev: boolean) {
       openapi: "3.0.1",
       info: {
         title: "Todo",
-        description:
-          "一个简易的 todo 项目，包含后端和前端，详情请查看 https://todo.hal.wang/docs/",
+        description: "一个简易的 todo 项目，包含后端和前端",
         version: version,
         license: {
           name: "MIT",
