@@ -5,7 +5,7 @@ import { CollectionService } from "../../../../services/collection.service";
 
 /**
  * @openapi
- * /user/admin/{account}
+ * /user/admin/{account}:
  *   get:
  *     tags:
  *       - user
