@@ -1,11 +1,11 @@
-import { Action } from "@sfajs/router";
+import { Action } from "@ipare/router";
 import { testId } from "../../global";
-import { Inject } from "@sfajs/inject";
+import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
 
 /**
  * @openapi
- * /user/{account}:
+ * /user:
  *   delete:
  *     tags:
  *       - user

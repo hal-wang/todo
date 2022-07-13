@@ -1,4 +1,4 @@
-import { Inject } from "@sfajs/inject";
+import { Inject } from "@ipare/inject";
 import { UserEntity } from "../entities/user.entity";
 import { CollectionService } from "./collection.service";
 

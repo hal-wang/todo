@@ -1,13 +1,13 @@
-import { Inject } from "@sfajs/inject";
-import { Header, Param } from "@sfajs/pipe";
-import { Action } from "@sfajs/router";
+import { Inject } from "@ipare/inject";
+import { Header, Param } from "@ipare/pipe";
+import { Action } from "@ipare/router";
 import moment = require("moment");
 import { Todo } from "../../../decorators/todo";
 import { CollectionService } from "../../../services/collection.service";
 
 /**
  * @openapi
- * /todo/{account}/{todoId}:
+ * /todo/{todoId}:
  *   patch:
  *     tags:
  *       - todo

@@ -1,6 +1,6 @@
-import { Inject } from "@sfajs/inject";
-import { Body } from "@sfajs/pipe";
-import { Action } from "@sfajs/router";
+import { Inject } from "@ipare/inject";
+import { Body } from "@ipare/pipe";
+import { Action } from "@ipare/router";
 import moment = require("moment");
 import { Open } from "../../decorators/open";
 import { UserEntity } from "../../entities/user.entity";
@@ -11,7 +11,7 @@ import { isEmail } from "../../utils/validate";
 
 /**
  * @openapi
- * /user/{account}:
+ * /user:
  *   post:
  *     tags:
  *       - user

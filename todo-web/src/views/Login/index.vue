@@ -69,10 +69,10 @@
         <span>
           A demo of
           <a
-            href="https://github.com/sfajs"
+            href="https://ipare.org"
             target="_blank"
           >
-            sfa
+            Ipare
           </a>
           ,
         </span>

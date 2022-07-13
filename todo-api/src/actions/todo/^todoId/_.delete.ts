@@ -1,11 +1,11 @@
-import { Inject } from "@sfajs/inject";
-import { Action } from "@sfajs/router";
+import { Inject } from "@ipare/inject";
+import { Action } from "@ipare/router";
 import { Todo } from "../../../decorators/todo";
 import { CollectionService } from "../../../services/collection.service";
 
 /**
  * @openapi
- * /todo/{account}/{todoId}:
+ * /todo/{todoId}:
  *   delete:
  *     tags:
  *       - todo

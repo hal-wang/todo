@@ -1,6 +1,6 @@
-import { Inject } from "@sfajs/inject";
-import { Query } from "@sfajs/pipe";
-import { Action } from "@sfajs/router";
+import { Inject } from "@ipare/inject";
+import { Query } from "@ipare/pipe";
+import { Action } from "@ipare/router";
 import { Admin } from "../../../decorators/admin";
 import { PageParamsDto } from "../../../dtos/page-params.dto";
 import { CollectionService } from "../../../services/collection.service";

@@ -1,13 +1,13 @@
-import { Action } from "@sfajs/router";
+import { Action } from "@ipare/router";
 import { DbhelperService } from "../../services/dbhelper.service";
-import { Inject } from "@sfajs/inject";
+import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
-import { Header, Query } from "@sfajs/pipe";
+import { Header, Query } from "@ipare/pipe";
 import { PageParamsDto } from "../../dtos/page-params.dto";
 
 /**
  * @openapi
- * /user/{account}/todo:
+ * /todo:
  *   get:
  *     tags:
  *       - todo

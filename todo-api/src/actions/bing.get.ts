@@ -1,4 +1,4 @@
-import { Action } from "@sfajs/router";
+import { Action } from "@ipare/router";
 import request = require("request");
 import { Open } from "../decorators/open";
 
