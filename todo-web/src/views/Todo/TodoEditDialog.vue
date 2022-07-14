@@ -35,7 +35,6 @@
   import { computed, reactive, ref } from 'vue';
   import moment from 'moment';
   import request from '/@/utils/request';
-  import { Nullable } from '@antfu/utils';
   import { message } from 'ant-design-vue';
   import { ClockCircleOutlined } from '@ant-design/icons-vue';
 
@@ -48,7 +47,7 @@
   });
   const visible = ref(false);
   const submitLoading = ref(false);
-  const todo = ref<Nullable<Todo>>(null);
+  const todo = ref<Todo | null>(null);
 
   const schedule = computed({
     get: (): number => {

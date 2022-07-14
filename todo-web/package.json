@@ -12,6 +12,7 @@
     "lint:lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@iconify/iconify": "^2.2.1",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",

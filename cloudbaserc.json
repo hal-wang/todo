@@ -36,7 +36,7 @@
         "use": "@cloudbase/framework-plugin-website",
         "inputs": {
           "installCommand": "cd todo-web && yarn install",
-          "buildCommand": "cd todo-web && yarn run build",
+          "buildCommand": "cd todo-web && yarn build",
           "outputPath": "todo-web/dist",
           "envVariables": {
             "API_NAME": "{{env.API_NAME}}"
