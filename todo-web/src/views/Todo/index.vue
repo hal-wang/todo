@@ -11,8 +11,8 @@
             :key="todo._id"
             :todo="todo"
             @delete="onDelete(todo)"
-            @click.native.stop="handleEditTodo(todo)"
-          ></TodoItem>
+            @click.stop="handleEditTodo(todo)"
+          />
         </div>
         <div class="pagination">
           <a-pagination
@@ -23,110 +23,103 @@
             :total="total"
             :pageSize="limit"
             @change="onPageChange"
-            @showSizeChange="onShowSizeChange"
           />
         </div>
       </div>
     </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      TODO ©2021 Created by hal.wang
-    </a-layout-footer>
+    <a-layout-footer style="text-align: center"> TODO ©2022 Created by Hal Wang </a-layout-footer>
 
     <TodoEditDialog ref="todoEditDialog" @add="onTodoAdd" @edit="onTodoEdit" />
   </a-layout>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import request from "@/utils/request";
-import Todo from "@/models/Todo";
-import User from "@/models/User";
+<script lang="ts" setup>
+  import { computed, onMounted, ref, unref } from 'vue';
+  import request from '/@/utils/request';
+  import Todo from '/@/models/Todo';
 
-export default Vue.extend({
-  components: {
-    TodoItem: () => import("./TodoItem.vue"),
-    TodoEditDialog: () => import("./TodoEditDialog.vue"),
-    Header: () => import("./Header.vue"),
-  },
-  data() {
-    return {
-      list: [] as Todo[],
-      total: 0,
-      page: 1,
-      limit: 10,
-    };
-  },
-  computed: {
-    user(): User {
-      return this.$store.state.user.user;
-    },
-  },
-  mounted() {
-    this.getData();
-  },
-  methods: {
-    async getData() {
-      if (!this.user) return;
+  import TodoItem from './TodoItem.vue';
+  import TodoEditDialog from './TodoEditDialog.vue';
+  import Header from './Header.vue';
+  import { useUserStore } from '/@/store/modules/user';
 
-      const res = await request({
-        url: `todo`,
-        method: "GET",
-        params: {
-          page: this.page,
-          limit: this.limit,
-        },
-      });
+  const userStore = useUserStore();
 
-      this.list = res.data.list;
-      this.total = res.data.total;
-    },
-    onPageChange(page: number) {
-      this.page = page;
-      this.getData();
-    },
-    onShowSizeChange(page: number, limit: number) {
-      this.page = page;
-      this.limit = limit;
-      this.getData();
-    },
-    onDelete(item: Todo) {
-      this.list.splice(this.list.indexOf(item), 1);
-      this.total--;
-      if (!this.list.length) {
-        this.getData();
-      }
-    },
-    handleAddTodo() {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (this.$refs.todoEditDialog as any).$init();
-    },
-    handleEditTodo(todo: Todo) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (this.$refs.todoEditDialog as any).$init(todo);
-    },
-    onTodoAdd(todo: Todo) {
-      this.list.splice(0, 0, todo);
-      this.total++;
-    },
-    onTodoEdit(todo: Todo, oldTodo: Todo) {
-      this.list.splice(this.list.indexOf(oldTodo), 1);
-      this.list.splice(0, 0, todo);
-    },
-  },
-});
+  const list = ref<Todo[]>([]);
+  const total = ref(0);
+  const page = ref(1);
+  const limit = ref(10);
+
+  const user = computed(() => userStore.user);
+
+  const todoEditDialog = ref<typeof TodoEditDialog>(null as any);
+
+  onMounted(() => {
+    getData();
+  });
+
+  async function getData() {
+    if (!user.value) return;
+
+    const res = await request({
+      url: `todo`,
+      method: 'GET',
+      params: {
+        page: page.value,
+        limit: limit.value,
+      },
+    });
+
+    list.value = res.data.list;
+    total.value = res.data.total;
+  }
+
+  function onPageChange(p: number, l: number) {
+    page.value = p;
+    limit.value = l;
+    getData();
+  }
+
+  function onDelete(item: Todo) {
+    list.value.splice(list.value.indexOf(item), 1);
+    total.value--;
+    if (!list.value.length) {
+      getData();
+    }
+  }
+
+  function handleAddTodo() {
+    todoEditDialog.value.$init();
+  }
+
+  function handleEditTodo(todo: Todo) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    todoEditDialog.value.$init(todo);
+  }
+
+  function onTodoAdd(todo: Todo) {
+    list.value.splice(0, 0, todo);
+    total.value++;
+  }
+
+  function onTodoEdit(todo: Todo, oldTodo: Todo) {
+    const lst = unref(list);
+    lst.splice(lst.indexOf(oldTodo), 1);
+    lst.splice(0, 0, todo);
+  }
 </script>
 
-<style lang="scss" scoped>
-.todo-items {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
+<style lang="less" scoped>
+  .todo-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>

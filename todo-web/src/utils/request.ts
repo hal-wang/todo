@@ -1,11 +1,10 @@
-import axios from "axios";
-import store from "@/store";
-import User from "@/models/User";
-import { message } from "ant-design-vue";
+import axios from 'axios';
+import { message } from 'ant-design-vue';
+import { useUserStoreWithOut } from '../store/modules/user';
 
 function getBaseUrl() {
-  if (process.env.NODE_ENV == "development") {
-    return process.env.VUE_APP_PROXY_URL;
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_GLOB_API_PROXY_PREFIX;
   } else {
     const tcbEnv = (window as any)._tcbEnv;
     return `https://${tcbEnv.TCB_SERVICE_DOMAIN}/${tcbEnv.API_NAME}`;
@@ -19,26 +18,27 @@ const service = axios.create({
 
 service.interceptors.request.use(
   async (config) => {
-    config.headers["content-type"] = "application/json";
-    const user = store.state.user.user as User;
-    if (user && !config.headers["password"]) {
-      config.headers["password"] = user.password;
+    if (!config.headers) config.headers = {};
+    config.headers['content-type'] = 'application/json';
+    const user = useUserStoreWithOut().user;
+    if (user && !config.headers['password']) {
+      config.headers['password'] = user.password;
     }
-    if (user && !config.headers["account"]) {
-      config.headers["account"] = user._id;
+    if (user && !config.headers['account']) {
+      config.headers['account'] = user._id;
     }
     config.validateStatus = (num) => num >= 200 && num < 300;
     return config;
   },
-  (error) => {
-    return Promise.reject("request error");
-  }
+  (_) => {
+    return Promise.reject('request error');
+  },
 );
 
 function getErrText(error: any): string {
   if (error.data && error.data.message) {
     return error.data.message;
-  } else if (error.data && typeof error.data == "string") {
+  } else if (error.data && typeof error.data == 'string') {
     return error.data;
   } else {
     return error.statusText;
@@ -51,14 +51,14 @@ service.interceptors.response.use(
   },
   (error) => {
     const res = error.response;
-    console.log("err", error.message, res);
+    console.log('err', error.message, res);
     if (!res) {
-      message.error("request error");
+      message.error('request error');
     } else {
       message.error(getErrText(res));
     }
     return Promise.reject(res);
-  }
+  },
 );
 
 export default service;

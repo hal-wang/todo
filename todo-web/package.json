@@ -1,48 +1,81 @@
 {
   "name": "todo-web",
+  "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "dev:test": "vue-cli-service serve --mode test",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "dev:test": "vite --mode test",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:lint-staged": "lint-staged"
   },
   "dependencies": {
-    "ant-design-vue": "^1.7.4",
-    "axios": "^0.21.1",
-    "core-js": "^3.10.0",
-    "js-cookie": "^2.2.1",
+    "@iconify/iconify": "^2.2.1",
+    "ant-design-vue": "^3.2.10",
+    "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
-    "vue": "^2.6.12",
-    "vue-class-component": "^7.2.6",
-    "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.5.1",
-    "vuex": "^3.6.2"
+    "pinia": "^2.0.13",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.22",
-    "@types/js-cookie": "^2.2.6",
+    "@iconify/json": "^2.1.34",
+    "@types/node": "^18.0.4",
     "@types/nprogress": "^0.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
-    "@vue/cli-plugin-babel": "~4.5.12",
-    "@vue/cli-plugin-eslint": "~4.5.12",
-    "@vue/cli-plugin-router": "~4.5.12",
-    "@vue/cli-plugin-typescript": "~4.5.12",
-    "@vue/cli-plugin-unit-jest": "~4.5.12",
-    "@vue/cli-plugin-vuex": "~4.5.12",
-    "@vue/cli-service": "~4.5.12",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
-    "@vue/test-utils": "^1.1.3",
-    "eslint": "^7.23.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.8.0",
-    "node-sass": "^5.0.0",
-    "prettier": "^2.2.1",
-    "sass-loader": "^10.1.1",
-    "typescript": "^4.2.3",
-    "vue-template-compiler": "^2.6.12",
-    "webpack-env": "^0.8.0"
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "less": "^4.1.2",
+    "lint-staged": "^12.4.1",
+    "postcss": "^8.4.13",
+    "postcss-html": "^1.4.1",
+    "postcss-less": "^6.0.0",
+    "prettier": "^2.6.2",
+    "stylelint": "^14.8.1",
+    "stylelint-config-html": "^1.0.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-order": "^5.0.0",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.6",
+    "vite-plugin-purge-icons": "^0.8.1",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-windicss": "^1.8.4",
+    "vue-eslint-parser": "^8.3.0",
+    "vue-tsc": "^0.34.11",
+    "windicss": "^3.5.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "prettier --write--parser json"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "*.{scss,less,styl,html}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }

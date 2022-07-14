@@ -1,123 +1,115 @@
 <template>
   <div>
     <a-modal
-      v-model="visible"
+      v-model:visible="visible"
       :title="todo ? 'Edit TODO' : 'Add TODO'"
       okText="Submit"
       :confirm-loading="submitLoading"
       @ok="handleSubmit"
     >
       <div>
-        <a-form-model :model="formData">
-          <a-form-model-item>
+        <a-form>
+          <a-form-item>
             <a-textarea
-              v-model="formData.content"
+              v-model:value="formData.content"
               placeholder="Content"
               :auto-size="{ minRows: 3, maxRows: 8 }"
             />
-          </a-form-model-item>
+          </a-form-item>
 
-          <a-form-model-item>
+          <a-form-item>
             <a-space>
-              <a-icon type="clock-circle"></a-icon>
-              <a-date-picker v-model="formData.date"> </a-date-picker>
-              <a-time-picker v-model="formData.time"> </a-time-picker>
+              <ClockCircleOutlined />
+              <a-date-picker v-model:value="formData.date" />
+              <a-time-picker v-model:value="formData.time" />
             </a-space>
-          </a-form-model-item>
-        </a-form-model>
+          </a-form-item>
+        </a-form>
       </div>
     </a-modal>
   </div>
 </template>
 
-<script lang="ts">
-import Todo from "@/models/Todo";
-import Vue from "vue";
-import moment from "moment";
-import request from "@/utils/request";
-import User from "@/models/User";
+<script lang="ts" setup>
+  import Todo from '/@/models/Todo';
+  import { computed, reactive, ref } from 'vue';
+  import moment from 'moment';
+  import request from '/@/utils/request';
+  import { Nullable } from '@antfu/utils';
+  import { message } from 'ant-design-vue';
+  import { ClockCircleOutlined } from '@ant-design/icons-vue';
 
-export default Vue.extend({
-  data() {
-    return {
-      visible: false,
-      todo: null as Todo | null,
+  const emit = defineEmits(['edit', 'add']);
 
-      formData: {
-        content: "",
-        date: moment(),
-        time: moment(),
-      },
-      submitLoading: false,
+  const formData = reactive({
+    content: '',
+    date: moment(),
+    time: moment(),
+  });
+  const visible = ref(false);
+  const submitLoading = ref(false);
+  const todo = ref<Nullable<Todo>>(null);
+
+  const schedule = computed({
+    get: (): number => {
+      return moment(
+        formData.date.format('YYYY-MM-DD') + ' ' + formData.time.format('HH:mm:ss'),
+      ).valueOf();
+    },
+    set: (val: number): void => {
+      formData.date = moment(moment(val).format('YYYY-MM-DD'));
+      formData.time = moment(
+        moment(val).valueOf() -
+          formData.date.valueOf() +
+          moment(moment().format('YYYY-MM-DD')).valueOf(),
+      );
+    },
+  });
+
+  function $init(value: Todo | null): void {
+    todo.value = value;
+
+    formData.content = todo.value ? todo.value.content : '';
+    schedule.value = todo.value ? todo.value.schedule : moment().valueOf();
+
+    visible.value = true;
+  }
+
+  async function handleSubmit() {
+    if (!formData.content) {
+      message.warning('Please input content!');
+      return;
+    }
+    if (!formData.date) {
+      message.warning('Please select date!');
+      return;
+    }
+    if (!formData.time) {
+      message.warning('Please select time!');
+      return;
+    }
+
+    const formObj = {
+      schedule: schedule.value,
+      content: formData.content,
     };
-  },
-  computed: {
-    user(): User {
-      return this.$store.state.user.user;
-    },
-    schedule: {
-      get(): number {
-        return moment(
-          this.formData.date.format("YYYY-MM-DD") +
-            " " +
-            this.formData.time.format("HH:mm:ss")
-        ).valueOf();
-      },
-      set(val: number): void {
-        this.formData.date = moment(moment(val).format("YYYY-MM-DD"));
-        this.formData.time = moment(
-          moment(val).valueOf() -
-            this.formData.date.valueOf() +
-            moment(moment().format("YYYY-MM-DD")).valueOf()
-        );
-      },
-    },
-  },
-  methods: {
-    $init(todo: Todo | null): void {
-      this.todo = todo;
-
-      this.formData.content = todo ? todo.content : "";
-      this.schedule = todo ? todo.schedule : moment().valueOf();
-
-      this.visible = true;
-    },
-    async handleSubmit() {
-      if (!this.formData.content) {
-        this.$message.warning("Please input content!");
-        return;
+    submitLoading.value = true;
+    try {
+      if (todo.value) {
+        const res = await request.patch(`todo/${todo.value._id}`, formObj);
+        emit('edit', res.data, todo.value);
+      } else {
+        const res = await request.post(`todo`, formObj);
+        emit('add', res.data);
       }
-      if (!this.formData.date) {
-        this.$message.warning("Please select date!");
-        return;
-      }
-      if (!this.formData.time) {
-        this.$message.warning("Please select time!");
-        return;
-      }
+    } finally {
+      submitLoading.value = false;
+    }
 
-      const formObj = {
-        schedule: this.schedule,
-        content: this.formData.content,
-      };
-      this.submitLoading = true;
-      try {
-        if (this.todo) {
-          const res = await request.patch(
-            `todo/${this.todo._id}`,
-            formObj
-          );
-          this.$emit("edit", res.data, this.todo);
-        } else {
-          const res = await request.post(`todo`, formObj);
-          this.$emit("add", res.data);
-        }
-      } finally {
-        this.submitLoading = false;
-      }
+    visible.value = false;
+  }
 
-      this.visible = false;
-    },
-  },
-});
+  defineExpose({
+    $init,
+  });
 </script>

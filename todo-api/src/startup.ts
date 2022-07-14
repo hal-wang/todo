@@ -11,9 +11,17 @@ import { swaggerJSDoc } from "@ipare/swagger";
 import * as fs from "fs";
 import { AuthFilter } from "./filters/auth.filter";
 import { TodoFilter } from "./filters/todo.filter";
+import * as dotenv from "dotenv";
 
-export default <T extends Startup>(startup: T, mode?: string) =>
-  startup
+export default <T extends Startup>(startup: T, mode?: string) => {
+  const dev = mode == "development";
+  if (dev) {
+    dotenv.config({
+      path: "../.env.local",
+    });
+  }
+
+  return startup
     .use(async (ctx, next) => {
       ctx.res.setHeader("version", version);
       ctx.res.setHeader("demo", "todo");
@@ -29,6 +37,7 @@ export default <T extends Startup>(startup: T, mode?: string) =>
     .useGlobalFilter(AuthFilter)
     .useGlobalFilter(TodoFilter)
     .useRouter();
+};
 
 function getSwaggerOptions(mode?: string) {
   return <swaggerJSDoc.Options>{
