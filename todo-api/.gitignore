@@ -6,3 +6,4 @@ yarn.lock
 .ipare-cache
 .env.local
 .env.*.local
+yarn-error.log
