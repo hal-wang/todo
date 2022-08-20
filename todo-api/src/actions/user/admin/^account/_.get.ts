@@ -1,48 +1,60 @@
 import { Inject } from "@ipare/inject";
+import { Query } from "@ipare/pipe";
 import { Action } from "@ipare/router";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+  DtoDescription,
+} from "@ipare/swagger";
 import { Admin } from "../../../../decorators/admin";
 import { CollectionService } from "../../../../services/collection.service";
 
-/**
- * @openapi
- * /user/admin/{account}:
- *   get:
- *     tags:
- *       - user
- *     description: Get a user info
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *         headers:
- *           actionPath:
- *             description: the action's real path
- *             schema:
- *               type: string
- *       400:
- *         description: account format error
- *     security:
- *       - password: []
- */
-
+@ApiTags("user")
+@ApiDescription(`Get a user info`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+        },
+      },
+    },
+    headers: {
+      actionPath: {
+        description: `The action's real path`,
+        schema: {
+          type: "string",
+        },
+      },
+    },
+  },
+  "400": {
+    description: "Account format error",
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 @Admin
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
+  @DtoDescription("email")
+  @Query("account")
+  private readonly account!: string;
+
   async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
-    if (typeof account != "string") {
+    if (typeof this.account != "string") {
       this.badRequestMsg();
       return;
     }
 
-    const accRes = await this.collectionService.user.doc(account).get();
+    const accRes = await this.collectionService.user.doc(this.account).get();
     this.ok(accRes.data[0]);
   }
 }

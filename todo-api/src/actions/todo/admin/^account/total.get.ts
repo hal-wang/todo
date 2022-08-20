@@ -1,29 +1,36 @@
 import { Inject } from "@ipare/inject";
 import { Action } from "@ipare/router";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+} from "@ipare/swagger";
 import { CollectionService } from "../../../../services/collection.service";
 
-/**
- * @openapi
- * /todo/admin/{account}/total:
- *   get:
- *     tags:
- *       - todo
- *     description: Get the count of user's all todos
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               properties:
- *                 total:
- *                   type: number
- *                   description: The count of user's all todos
- *     security:
- *       - password: []
- */
+@ApiTags("todo")
+@ApiDescription(`Get the count of user's all todos`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            total: {
+              type: "number",
+              description: "The count of user's all todos",
+            },
+          },
+        },
+      },
+    },
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;

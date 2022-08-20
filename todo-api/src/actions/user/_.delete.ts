@@ -2,25 +2,26 @@ import { Action } from "@ipare/router";
 import { testId } from "../../global";
 import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+} from "@ipare/swagger";
 
-/**
- * @openapi
- * /user:
- *   delete:
- *     tags:
- *       - user
- *     description: Delete a user
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *     responses:
- *       204:
- *         description: success
- *       404:
- *         description: can't delete the test user
- *     security:
- *       - password: []
- */
-
+@ApiTags("user")
+@ApiDescription(`Delete a user`)
+@ApiResponses({
+  "200": {
+    description: "success",
+  },
+  "404": {
+    description: "Can't delete the test user",
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;

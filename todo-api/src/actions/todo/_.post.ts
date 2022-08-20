@@ -3,52 +3,45 @@ import Todo from "../../models/Todo";
 import moment = require("moment");
 import { CollectionService } from "../../services/collection.service";
 import { Inject } from "@ipare/inject";
-import { Header } from "@ipare/pipe";
+import { Body, Header } from "@ipare/pipe";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+} from "@ipare/swagger";
+import { UpsertTodoDto } from "../../dtos/upsert-todo.dto";
 
-/**
- * @openapi
- * /todo:
- *   post:
- *     tags:
- *       - todo
- *     description: Add a new todo item
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *     requestBody:
- *       description: Todo info
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               content:
- *                 type: string
- *                 description: todo content
- *               schedule:
- *                 type: timestamp
- *                 description: todo schedule
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Todo'
- *     security:
- *       - password: []
- */
+@ApiTags("todo")
+@ApiDescription(`Add a new todo item`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+        },
+      },
+    },
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
+  @Body
+  private readonly dto!: UpsertTodoDto;
 
   @Header("account")
   private readonly account!: string;
 
   async invoke(): Promise<void> {
-    const { content, schedule } = this.ctx.req.body;
-
     const newTodo = <Todo>{
-      content: content,
-      schedule: schedule,
+      content: this.dto.content,
+      schedule: this.dto.schedule,
       uid: this.account,
       create_at: moment().valueOf(),
       update_at: moment().valueOf(),

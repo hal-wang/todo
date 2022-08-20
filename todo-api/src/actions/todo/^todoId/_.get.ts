@@ -1,28 +1,31 @@
 import { Inject } from "@ipare/inject";
 import { Action } from "@ipare/router";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+} from "@ipare/swagger";
 import { Todo } from "../../../decorators/todo";
 import { CollectionService } from "../../../services/collection.service";
 
-/**
- * @openapi
- * /todo/{todoId}:
- *   get:
- *     tags:
- *       - todo
- *     description: Get a todo's info
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *       - $ref: '#/components/parameters/queryTodo'
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Todo'
- *     security:
- *       - password: []
- */
+@ApiTags("todo")
+@ApiDescription(`Get a todo's info`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+        },
+      },
+    },
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 @Todo
 export default class extends Action {
   @Inject

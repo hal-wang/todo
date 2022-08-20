@@ -1,7 +1,14 @@
 import { Inject } from "@ipare/inject";
 import { Body } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import moment = require("moment");
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiTags,
+  ApiSecurity,
+  DtoDescription,
+} from "@ipare/swagger";
+import moment from "moment";
 import { Open } from "../../decorators/open";
 import { UserEntity } from "../../entities/user.entity";
 import { CollectionService } from "../../services/collection.service";
@@ -9,36 +16,26 @@ import { DbhelperService } from "../../services/dbhelper.service";
 import { UserService } from "../../services/user.service";
 import { isEmail } from "../../utils/validate";
 
-/**
- * @openapi
- * /user:
- *   post:
- *     tags:
- *       - user
- *     description: signup a account with email
- *     requestBody:
- *       description: User info
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               account:
- *                 type: string
- *                 description: email
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       400:
- *         description: format error or the account is existing
- *     security:
- *       - password: []
- */
+@ApiTags("user")
+@ApiDescription(`signup a account with email`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+        },
+      },
+    },
+  },
+  "400": {
+    description: "format error or the account is existing",
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 @Open
 export default class extends Action {
   @Inject
@@ -48,8 +45,11 @@ export default class extends Action {
   @Inject
   private readonly dbhelperService!: DbhelperService;
 
+  @DtoDescription("email")
   @Body("account")
   private readonly account!: string;
+
+  @DtoDescription("password")
   @Body("password")
   private readonly password!: string;
 

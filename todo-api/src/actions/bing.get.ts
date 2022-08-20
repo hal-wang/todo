@@ -1,37 +1,26 @@
 import { Action } from "@ipare/router";
 import request = require("request");
 import { Open } from "../decorators/open";
+import { ApiDescription, ApiResponses, ApiTags } from "@ipare/swagger";
 
-/**
- * @action get bing img
- *
- * get the bing image's url today
- *
- * @output
- * @@codes
- * @@@204 success
- * @@@404 not found
- * @@body {object} bing img's info
- */
-
-/**
- * @openapi
- * /bing:
- *   get:
- *     tags:
- *       - bing
- *     description: Get the bing image's url today
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               description: Bing img's info
- *       404:
- *         description: not found
- */
+@ApiTags("bing")
+@ApiDescription(`Get the bing image's url today`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          description: `Bing image info`,
+        },
+      },
+    },
+  },
+  "404": {
+    description: "not found",
+  },
+})
 @Open
 export default class extends Action {
   async invoke(): Promise<void> {

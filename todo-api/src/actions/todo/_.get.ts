@@ -4,32 +4,33 @@ import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
 import { Header, Query } from "@ipare/pipe";
 import { PageParamsDto } from "../../dtos/page-params.dto";
+import {
+  ApiDescription,
+  ApiResponses,
+  ApiSecurity,
+  ApiTags,
+} from "@ipare/swagger";
 
-/**
- * @openapi
- * /todo:
- *   get:
- *     tags:
- *       - todo
- *     description: Get todo list
- *     parameters:
- *       - $ref: '#/components/parameters/queryAccount'
- *       - $ref: '#/components/parameters/page'
- *       - $ref: '#/components/parameters/limit'
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Todo'
- *       400:
- *         description: account format error
- *     security:
- *       - password: []
- */
+@ApiTags("todo")
+@ApiDescription(`Get todo list`)
+@ApiResponses({
+  "200": {
+    description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "array",
+        },
+      },
+    },
+  },
+  "400": {
+    description: "account format error",
+  },
+})
+@ApiSecurity({
+  password: [],
+})
 export default class extends Action {
   @Inject
   private readonly dbhelperService!: DbhelperService;
