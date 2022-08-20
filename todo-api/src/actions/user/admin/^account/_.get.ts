@@ -37,7 +37,7 @@ import { CollectionService } from "../../../../services/collection.service";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 @Admin
 export default class extends Action {

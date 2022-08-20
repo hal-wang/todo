@@ -1,6 +1,5 @@
 import { Action } from "@ipare/router";
 import Todo from "../../models/Todo";
-import moment = require("moment");
 import { CollectionService } from "../../services/collection.service";
 import { Inject } from "@ipare/inject";
 import { Body, Header } from "@ipare/pipe";
@@ -11,6 +10,7 @@ import {
   ApiTags,
 } from "@ipare/swagger";
 import { UpsertTodoDto } from "../../dtos/upsert-todo.dto";
+import { Account } from "../../decorators/account";
 
 @ApiTags("todo")
 @ApiDescription(`Add a new todo item`)
@@ -27,7 +27,7 @@ import { UpsertTodoDto } from "../../dtos/upsert-todo.dto";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 export default class extends Action {
   @Inject
@@ -35,16 +35,17 @@ export default class extends Action {
   @Body
   private readonly dto!: UpsertTodoDto;
 
-  @Header("account")
+  @Account
   private readonly account!: string;
 
   async invoke(): Promise<void> {
+    const now = new Date().valueOf();
     const newTodo = <Todo>{
       content: this.dto.content,
       schedule: this.dto.schedule,
       uid: this.account,
-      create_at: moment().valueOf(),
-      update_at: moment().valueOf(),
+      create_at: now,
+      update_at: now,
     };
     const addRes = await this.collectionService.todo.add(newTodo);
     if (!addRes.id) {

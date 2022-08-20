@@ -29,7 +29,7 @@ import { CollectionService } from "../../../../services/collection.service";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 export default class extends Action {
   @Inject

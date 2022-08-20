@@ -1,4 +1,5 @@
 import { Inject } from "@ipare/inject";
+import { Param } from "@ipare/pipe";
 import { Action } from "@ipare/router";
 import {
   ApiDescription,
@@ -24,17 +25,18 @@ import { CollectionService } from "../../../services/collection.service";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 @Todo
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
-  async invoke(): Promise<void> {
-    const { todoId } = this.ctx.req.params;
+  @Param("todoId")
+  private readonly todoId!: string;
 
-    const getRes = await this.collectionService.todo.doc(todoId).get();
+  async invoke(): Promise<void> {
+    const getRes = await this.collectionService.todo.doc(this.todoId).get();
     this.ok(getRes.data[0]);
   }
 }

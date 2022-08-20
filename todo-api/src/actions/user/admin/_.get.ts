@@ -27,7 +27,7 @@ import { DbhelperService } from "../../../services/dbhelper.service";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 @Admin
 export default class extends Action {

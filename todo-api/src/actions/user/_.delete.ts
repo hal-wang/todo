@@ -20,7 +20,7 @@ import {
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 export default class extends Action {
   @Inject

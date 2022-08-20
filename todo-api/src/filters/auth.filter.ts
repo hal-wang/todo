@@ -3,10 +3,13 @@ import { AuthorizationFilter } from "@ipare/filter";
 import { Inject } from "@ipare/inject";
 import { UserService } from "../services/user.service";
 import { adminId } from "../global";
+import { Account } from "../decorators/account";
 
 export class AuthFilter implements AuthorizationFilter {
   @Inject
   private readonly userService!: UserService;
+  @Account
+  private readonly account!: string;
 
   async onAuthorization(ctx: HttpContext): Promise<boolean> {
     const open: boolean | undefined = ctx.actionMetadata.open;
@@ -17,20 +20,19 @@ export class AuthFilter implements AuthorizationFilter {
       return true;
     }
 
-    const account = ctx.req.headers.account as string;
-    const password = ctx.req.headers.password as string;
-    if (
-      !account ||
-      !password ||
-      !(await this.userService.existUser(account, password))
-    ) {
-      ctx.forbiddenMsg({ message: "error account or password" });
+    if (!this.account) {
+      ctx.forbiddenMsg();
+      return false;
+    }
+
+    if (!this.account || !(await this.userService.existUser(this.account))) {
+      ctx.notFoundMsg({ message: "The account is not existing" });
       return false;
     }
 
     const admin: boolean = ctx.actionMetadata.admin;
-    if (admin && account != adminId) {
-      ctx.forbiddenMsg({ message: "not admin" });
+    if (admin && this.account != adminId) {
+      ctx.forbiddenMsg({ message: "Not admin" });
       return false;
     }
 

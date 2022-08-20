@@ -8,16 +8,15 @@ import {
   ApiSecurity,
   DtoDescription,
 } from "@ipare/swagger";
-import moment from "moment";
 import { Open } from "../../decorators/open";
 import { UserEntity } from "../../entities/user.entity";
 import { CollectionService } from "../../services/collection.service";
 import { DbhelperService } from "../../services/dbhelper.service";
 import { UserService } from "../../services/user.service";
-import { isEmail } from "../../utils/validate";
+import { IsEmail, IsString, Length } from "class-validator";
 
 @ApiTags("user")
-@ApiDescription(`signup a account with email`)
+@ApiDescription(`Signup a account with email`)
 @ApiResponses({
   "200": {
     description: "success",
@@ -30,11 +29,11 @@ import { isEmail } from "../../utils/validate";
     },
   },
   "400": {
-    description: "format error or the account is existing",
+    description: "Format error or the account is existing",
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 @Open
 export default class extends Action {
@@ -45,52 +44,41 @@ export default class extends Action {
   @Inject
   private readonly dbhelperService!: DbhelperService;
 
+  @IsEmail()
   @DtoDescription("email")
   @Body("account")
   private readonly account!: string;
 
+  @IsString()
+  @Length(6, 32)
   @DtoDescription("password")
   @Body("password")
   private readonly password!: string;
 
   async invoke(): Promise<void> {
-    if (typeof this.account != "string") {
-      this.badRequestMsg({ message: "account format error" });
-      return;
-    }
-    if (typeof this.password != "string") {
-      this.badRequestMsg({ message: "password format error" });
-      return;
-    }
-
-    const existUser = await this.userService.getUser(
-      this.account,
-      this.password
-    );
-    if (existUser) {
-      this.ok(existUser);
-      return;
+    let user: UserEntity | undefined;
+    if (await this.userService.existUser(this.account)) {
+      user = await this.userService.login(this.account, this.password);
+      if (!user) {
+        this.forbiddenMsg("Error password");
+        return;
+      }
+    } else {
+      user = await this.signup();
     }
 
-    await this.signup();
+    this.ok({
+      ...user,
+      password: undefined,
+      token: await this.userService.createToken(this.account),
+    });
   }
 
   private async signup() {
-    if (!isEmail(this.account)) {
-      this.badRequestMsg({ message: "account format error" });
-      return;
-    }
-
-    if (!/\w{6,16}/.test(this.password)) {
-      this.badRequestMsg({ message: "password format error" });
-      return;
-    }
-
-    const user = await this.dbhelperService.add(this.collectionService.user, {
+    return await this.dbhelperService.add(this.collectionService.user, {
       _id: this.account,
       password: this.password,
-      create_at: moment().valueOf(),
+      create_at: new Date().valueOf(),
     } as UserEntity);
-    this.ok(user);
   }
 }

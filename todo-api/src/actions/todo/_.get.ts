@@ -10,6 +10,7 @@ import {
   ApiSecurity,
   ApiTags,
 } from "@ipare/swagger";
+import { Account } from "../../decorators/account";
 
 @ApiTags("todo")
 @ApiDescription(`Get todo list`)
@@ -29,7 +30,7 @@ import {
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 export default class extends Action {
   @Inject
@@ -38,7 +39,7 @@ export default class extends Action {
   private readonly collectionService!: CollectionService;
   @Query
   private readonly query!: PageParamsDto;
-  @Header("account")
+  @Account
   private readonly account!: string;
 
   async invoke(): Promise<void> {

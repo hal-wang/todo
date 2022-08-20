@@ -1,7 +1,8 @@
 import { HttpContext } from "@ipare/core";
 import { AuthorizationFilter } from "@ipare/filter";
 import { Inject } from "@ipare/inject";
-import { Header, Param } from "@ipare/pipe";
+import { Param } from "@ipare/pipe";
+import { Account } from "../decorators/account";
 import { CollectionService } from "../services/collection.service";
 
 export class TodoFilter implements AuthorizationFilter {
@@ -10,7 +11,7 @@ export class TodoFilter implements AuthorizationFilter {
 
   @Param("todoId")
   private readonly todoId!: string;
-  @Header("account")
+  @Account
   private readonly account!: string;
 
   async onAuthorization(ctx: HttpContext): Promise<boolean> {
@@ -30,7 +31,7 @@ export class TodoFilter implements AuthorizationFilter {
       })
       .count();
     if (!countRes.total) {
-      ctx.notFoundMsg("the todo item is not existing");
+      ctx.notFoundMsg("The todo item is not existing");
       return false;
     }
 

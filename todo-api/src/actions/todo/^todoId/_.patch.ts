@@ -7,7 +7,6 @@ import {
   ApiSecurity,
   ApiTags,
 } from "@ipare/swagger";
-import moment = require("moment");
 import { Todo } from "../../../decorators/todo";
 import { UpsertTodoDto } from "../../../dtos/upsert-todo.dto";
 import { CollectionService } from "../../../services/collection.service";
@@ -28,7 +27,7 @@ import { CollectionService } from "../../../services/collection.service";
   },
 })
 @ApiSecurity({
-  password: [],
+  Bearer: [],
 })
 @Todo
 export default class extends Action {
@@ -46,7 +45,7 @@ export default class extends Action {
     await this.collectionService.todo.doc(this.todoId).update({
       content: content,
       schedule: schedule,
-      update_at: moment().valueOf(),
+      update_at: new Date().valueOf(),
     });
 
     const getRes = await this.collectionService.todo.doc(this.todoId).get();

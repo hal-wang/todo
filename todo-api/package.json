@@ -9,21 +9,21 @@
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.9.1",
-    "@ipare/core": "^1.8.5",
-    "@ipare/env": "^1.8.5",
-    "@ipare/filter": "^1.8.5",
-    "@ipare/inject": "^1.8.5",
-    "@ipare/lambda": "^1.8.5",
-    "@ipare/pipe": "^1.8.5",
-    "@ipare/router": "^1.8.5",
-    "@ipare/swagger": "^1.8.5",
-    "linq": "^4.0.0",
-    "moment": "^2.29.4",
+    "@ipare/core": "^1.8.7",
+    "@ipare/env": "^1.8.7",
+    "@ipare/filter": "^1.8.7",
+    "@ipare/inject": "^1.8.7",
+    "@ipare/jwt": "^1.8.7",
+    "@ipare/lambda": "^1.8.7",
+    "@ipare/pipe": "^1.8.7",
+    "@ipare/router": "^1.8.7",
+    "@ipare/swagger": "^1.8.7",
+    "@ipare/validator": "^1.8.7",
     "request": "^2.88.2"
   },
   "devDependencies": {
     "@ipare/cli": "^0.4.6",
-    "@types/node": "^18.7.6",
+    "@types/node": "^18.7.8",
     "@types/prettier": "^2.7.0",
     "@types/request": "^2.48.8",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
@@ -31,7 +31,6 @@
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "prettier": "^2.7.1"
   }
 }
