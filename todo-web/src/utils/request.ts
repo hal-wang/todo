@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { message } from 'ant-design-vue';
 import { useUserStoreWithOut } from '../store/modules/user';
+import { router } from '../router';
 
 function getBaseUrl() {
   if (import.meta.env.DEV) {
@@ -21,12 +22,7 @@ service.interceptors.request.use(
     if (!config.headers) config.headers = {};
     config.headers['content-type'] = 'application/json';
     const user = useUserStoreWithOut().user;
-    if (user && !config.headers['password']) {
-      config.headers['password'] = user.password;
-    }
-    if (user && !config.headers['account']) {
-      config.headers['account'] = user._id;
-    }
+    config.headers['Authorization'] = user?.token ?? '';
     config.validateStatus = (num) => num >= 200 && num < 300;
     return config;
   },
@@ -50,12 +46,15 @@ service.interceptors.response.use(
     return res;
   },
   (error) => {
-    const res = error.response;
+    const res: AxiosResponse = error.response;
     console.log('err', error.message, res);
     if (!res) {
       message.error('request error');
     } else {
       message.error(getErrText(res));
+      if (res.status == 401) {
+        router.push('/login');
+      }
     }
     return Promise.reject(res);
   },

@@ -1,5 +1,5 @@
 export default interface User {
   _id: string;
-  password: string;
+  token: string;
   create_at: number;
 }

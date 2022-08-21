@@ -10,27 +10,26 @@ interface UserState {
 export const useUserStore = defineStore({
   id: 'app',
   state: (): UserState => ({
-    user: null,
+    user: AuthCookie.getLoginInfo(),
   }),
   actions: {
     async login(loginInfo: any) {
       const { account, password } = loginInfo;
       try {
-        const res = await request.post(`user`, {
+        const res = await request.post<User>(`user`, {
           account,
           password,
         });
 
         this.user = res.data;
-        AuthCookie.setAccount(account);
-        AuthCookie.setPassword(password);
+        AuthCookie.setLoginInfo(res.data);
         return res.data;
       } catch (res) {
         return;
       }
     },
     logout() {
-      AuthCookie.removePassword();
+      AuthCookie.removeLoginInfo();
       this.user = null;
     },
   },

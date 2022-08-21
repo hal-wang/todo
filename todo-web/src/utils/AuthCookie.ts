@@ -1,23 +1,18 @@
 import Cookies from 'js-cookie';
+import User from '../models/User';
 
 export default class AuthCookie {
-  static getAccount() {
-    return Cookies.get('Account');
+  static getLoginInfo() {
+    const str = Cookies.get('LoginInfo');
+    if (!str) return null;
+    return JSON.parse(str) as User;
   }
 
-  static setAccount(account: string) {
-    return Cookies.set('Account', account, { expires: 365 * 100 });
+  static setLoginInfo(user: User) {
+    return Cookies.set('LoginInfo', JSON.stringify(user), { expires: 30 });
   }
 
-  static getPassword() {
-    return Cookies.get('Password');
-  }
-
-  static setPassword(password: string) {
-    return Cookies.set('Password', password, { expires: 91 });
-  }
-
-  static removePassword() {
-    return Cookies.remove('Password');
+  static removeLoginInfo() {
+    return Cookies.remove('LoginInfo');
   }
 }

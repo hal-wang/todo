@@ -2,7 +2,6 @@ import { Router } from 'vue-router';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
 import { useUserStoreWithOut } from '../store/modules/user';
-import AuthCookie from '../utils/AuthCookie';
 
 const title = 'todo';
 function getPageTitle(pageTitle: string) {
@@ -26,23 +25,9 @@ export function createProgressGuard(router: Router) {
       return;
     }
 
-    const password = AuthCookie.getPassword();
-    const account = AuthCookie.getAccount();
-    if (!account || !password) {
-      NProgress.done();
-      next(`/login`);
-      return;
-    }
-
-    const user = await userStore.login({ account, password });
-    if (user) {
-      NProgress.done();
-      next({ ...to, replace: true } as any);
-    } else {
-      await userStore.logout();
-      NProgress.done();
-      next(`/login`);
-    }
+    userStore.logout();
+    NProgress.done();
+    next(`/login`);
   });
 
   router.afterEach(async () => {
