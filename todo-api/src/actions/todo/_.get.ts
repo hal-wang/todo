@@ -20,7 +20,7 @@ import { Account } from "../../decorators/account";
     content: {
       "application/json": {
         schema: {
-          type: "array",
+          type: "object",
         },
       },
     },

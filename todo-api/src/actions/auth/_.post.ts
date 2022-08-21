@@ -15,8 +15,8 @@ import { DbhelperService } from "../../services/dbhelper.service";
 import { UserService } from "../../services/user.service";
 import { IsEmail, IsString, Length } from "class-validator";
 
-@ApiTags("user")
-@ApiDescription(`Signup a account with email`)
+@ApiTags("auth")
+@ApiDescription(`Login or signup with email and password`)
 @ApiResponses({
   "200": {
     description: "success",
@@ -24,6 +24,11 @@ import { IsEmail, IsString, Length } from "class-validator";
       "application/json": {
         schema: {
           type: "object",
+          properties: {
+            token: {
+              type: "string",
+            },
+          },
         },
       },
     },
@@ -31,9 +36,6 @@ import { IsEmail, IsString, Length } from "class-validator";
   "400": {
     description: "Format error or the account is existing",
   },
-})
-@ApiSecurity({
-  Bearer: [],
 })
 @Open
 export default class extends Action {
@@ -56,26 +58,23 @@ export default class extends Action {
   private readonly password!: string;
 
   async invoke(): Promise<void> {
-    let user: UserEntity | undefined;
     if (await this.userService.existUser(this.account)) {
-      user = await this.userService.login(this.account, this.password);
+      const user = await this.userService.login(this.account, this.password);
       if (!user) {
         this.forbiddenMsg("Error password");
         return;
       }
     } else {
-      user = await this.signup();
+      await this.signup();
     }
 
     this.ok({
-      ...user,
-      password: undefined,
       token: await this.userService.createToken(this.account),
     });
   }
 
   private async signup() {
-    return await this.dbhelperService.add(this.collectionService.user, {
+    await this.dbhelperService.add(this.collectionService.user, {
       _id: this.account,
       password: this.password,
       create_at: new Date().valueOf(),
