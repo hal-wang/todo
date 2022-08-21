@@ -23,7 +23,8 @@
             {
               "name": "{{env.API_NAME}}",
               "envVariables": {
-                "API_NAME": "{{env.API_NAME}}"
+                "API_NAME": "{{env.API_NAME}}",
+                "JWT_SECRET": "{{env.JWT_SECRET}}"
               }
             }
           ],

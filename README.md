@@ -18,9 +18,13 @@
 
 ### 权限认证
 
+使用 JWT 进行了基本的权限认证
+
+使用 Cookie 技术进行 Token 管理
+
 示例写了以下几种权限
 
-- 管理员: 用 Admin 装饰的 Action
+- 管理员: 用 @Admin 装饰的 Action
 - 开放: 用 @Open 装饰的 Action
 - 普通用户：默认，需要登录状态
 
@@ -36,6 +40,7 @@
 SCF_NAMESPACE=cloudbase环境id
 SECRET_KEY=腾讯云 secret key
 SECRET_ID=腾讯云 secret id
+JWT_SECRET=JWT 密钥
 ```
 
 #### 运行 API
@@ -88,6 +93,7 @@ yarn dev
 
 ```
 ENV_ID=cloudbase环境id
+JWT_SECRET=JWT 密钥
 ```
 
 在项目根目录下运行以下命令发布
