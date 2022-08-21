@@ -16,7 +16,6 @@
     "@iconify/iconify": "^2.2.1",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
-    "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",
@@ -25,7 +24,6 @@
   },
   "devDependencies": {
     "@iconify/json": "^2.1.34",
-    "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.0.4",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",

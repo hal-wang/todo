@@ -5,7 +5,6 @@ import {
   ApiDescription,
   ApiResponses,
   ApiTags,
-  ApiSecurity,
   DtoDescription,
 } from "@ipare/swagger";
 import { Open } from "../../decorators/open";
@@ -18,20 +17,8 @@ import { IsEmail, IsString, Length } from "class-validator";
 @ApiTags("auth")
 @ApiDescription(`Login or signup with email and password`)
 @ApiResponses({
-  "200": {
+  "204": {
     description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            token: {
-              type: "string",
-            },
-          },
-        },
-      },
-    },
   },
   "400": {
     description: "Format error or the account is existing",
@@ -68,9 +55,11 @@ export default class extends Action {
       await this.signup();
     }
 
-    this.ok({
-      token: await this.userService.createToken(this.account),
-    });
+    this.ctx.res.cookies.Token = {
+      value: await this.userService.createToken(this.account),
+      path: "/",
+    };
+    this.noContent();
   }
 
   private async signup() {

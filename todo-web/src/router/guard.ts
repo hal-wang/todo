@@ -33,19 +33,15 @@ export function createProgressGuard(router: Router) {
       return done();
     }
 
-    if (userStore.token) {
-      if (userStore.user) {
+    if (userStore.user) {
+      done();
+    } else {
+      const userInfo = await userStore.getUserInfo();
+      if (userInfo) {
         done();
       } else {
-        const userInfo = await userStore.getUserInfo();
-        if (userInfo) {
-          done();
-        } else {
-          goLogin();
-        }
+        goLogin();
       }
-    } else {
-      goLogin();
     }
   });
 
