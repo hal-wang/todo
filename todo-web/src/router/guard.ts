@@ -18,16 +18,35 @@ export function createProgressGuard(router: Router) {
     NProgress.start(); // start progress bar
     document.title = getPageTitle(to.meta.title); // set page title
 
-    const userStore = useUserStoreWithOut();
-    if (to.path == '/login' || userStore.user) {
+    function done() {
       NProgress.done();
       next();
-      return;
+    }
+    function goLogin() {
+      userStore.logout();
+      NProgress.done();
+      next(`/login`);
     }
 
-    userStore.logout();
-    NProgress.done();
-    next(`/login`);
+    const userStore = useUserStoreWithOut();
+    if (to.path == '/login') {
+      return done();
+    }
+
+    if (userStore.token) {
+      if (userStore.user) {
+        done();
+      } else {
+        const userInfo = await userStore.getUserInfo();
+        if (userInfo) {
+          done();
+        } else {
+          goLogin();
+        }
+      }
+    } else {
+      goLogin();
+    }
   });
 
   router.afterEach(async () => {

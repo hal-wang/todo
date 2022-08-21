@@ -6,31 +6,43 @@ import request from '/@/utils/request';
 
 interface UserState {
   user: User | null;
+  token: string | null;
 }
 export const useUserStore = defineStore({
-  id: 'app',
+  id: 'user',
   state: (): UserState => ({
-    user: AuthCookie.getLoginInfo(),
+    user: null,
+    token: AuthCookie.getToken() ?? null,
   }),
   actions: {
     async login(loginInfo: any) {
       const { account, password } = loginInfo;
       try {
-        const res = await request.post<User>(`user`, {
+        const res = await request.post<{ token: string }>(`auth`, {
           account,
           password,
         });
 
-        this.user = res.data;
-        AuthCookie.setLoginInfo(res.data);
+        this.token = res.data.token;
+        AuthCookie.setToken(res.data.token);
         return res.data;
       } catch (res) {
         return;
       }
     },
+    async getUserInfo() {
+      try {
+        const res = await request.get<User>(`user`);
+        this.user = res.data;
+        return this.user;
+      } catch {
+        return;
+      }
+    },
     logout() {
-      AuthCookie.removeLoginInfo();
+      AuthCookie.removeToken();
       this.user = null;
+      this.token = null;
     },
   },
 });
