@@ -28,8 +28,10 @@ export const useUserStore = defineStore({
         return;
       }
     },
-    async logout() {
-      await request.delete<User>(`auth`);
+    async logout(req = true) {
+      if (req) {
+        await request.delete<User>(`auth`);
+      }
       this.user = null;
     },
   },
