@@ -6,7 +6,6 @@ import "@ipare/filter";
 import "@ipare/env";
 import "@ipare/jwt";
 import "@ipare/validator";
-import "@ipare/cookie";
 import { CollectionService } from "./services/collection.service";
 import { DbhelperService } from "./services/dbhelper.service";
 import { CbappService } from "./services/cbapp.service";
@@ -49,10 +48,8 @@ export default <T extends Startup = Startup>(startup: T, mode: string) => {
           }),
     })
     .useValidator()
-    .useCookie()
     .useJwt({
       secret: process.env.JWT_SECRET,
-      tokenProvider: (req) => req.cookies["Token"],
     })
     .useRouterParser()
     .useJwtVerify(

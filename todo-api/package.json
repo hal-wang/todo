@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^2.9.1",
-    "@ipare/cookie": "^1.8.8",
     "@ipare/core": "^1.8.8",
     "@ipare/env": "^1.8.8",
     "@ipare/filter": "^1.8.8",

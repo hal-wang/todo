@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'ant-design-vue';
 import { router } from '../router';
+import { useUserStoreWithOut } from '../store/modules/user';
 
 function getBaseUrl() {
   if (import.meta.env.DEV) {
@@ -20,6 +21,8 @@ service.interceptors.request.use(
   async (config) => {
     if (!config.headers) config.headers = {};
     config.headers['content-type'] = 'application/json';
+    const token = useUserStoreWithOut().token;
+    config.headers['Authorization'] = token ?? '';
     config.validateStatus = (num) => num >= 200 && num < 300;
     return config;
   },
