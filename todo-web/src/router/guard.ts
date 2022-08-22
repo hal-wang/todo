@@ -23,7 +23,7 @@ export function createProgressGuard(router: Router) {
       next();
     }
     function goLogin() {
-      userStore.logout(false);
+      userStore.logout();
       NProgress.done();
       next(`/login`);
     }
@@ -33,15 +33,19 @@ export function createProgressGuard(router: Router) {
       return done();
     }
 
-    if (userStore.user) {
-      done();
-    } else {
-      const userInfo = await userStore.getUserInfo();
-      if (userInfo) {
+    if (userStore.token) {
+      if (userStore.user) {
         done();
       } else {
-        goLogin();
+        const userInfo = await userStore.getUserInfo();
+        if (userInfo) {
+          done();
+        } else {
+          goLogin();
+        }
       }
+    } else {
+      goLogin();
     }
   });
 

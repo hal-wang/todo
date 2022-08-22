@@ -17,8 +17,20 @@ import { IsEmail, IsString, Length } from "class-validator";
 @ApiTags("auth")
 @ApiDescription(`Login or signup with email and password`)
 @ApiResponses({
-  "204": {
+  "200": {
     description: "success",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            token: {
+              type: "string",
+            },
+          },
+        },
+      },
+    },
   },
   "400": {
     description: "Format error or the account is existing",
@@ -55,11 +67,9 @@ export default class extends Action {
       await this.signup();
     }
 
-    this.ctx.res.cookies.Token = {
-      value: await this.userService.createToken(this.account),
-      path: "/",
-    };
-    this.noContent();
+    this.ok({
+      token: await this.userService.createToken(this.account),
+    });
   }
 
   private async signup() {

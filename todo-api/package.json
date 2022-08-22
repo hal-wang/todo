@@ -1,6 +1,6 @@
 {
   "name": "todo-api",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "scripts": {
     "start": "ipare start --mode local",
     "dev": "npm start",

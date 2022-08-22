@@ -14,8 +14,10 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@iconify/iconify": "^2.2.1",
+    "@types/js-cookie": "^3.0.2",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",

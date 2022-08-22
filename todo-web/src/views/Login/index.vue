@@ -91,14 +91,16 @@
   async function handleLogin() {
     loginLoading.value = true;
     try {
-      await userStore.login({
+      const user = await userStore.login({
         account: formData.email,
         password: formData.password,
       });
 
-      router.replace({
-        path: '/',
-      });
+      if (user) {
+        router.replace({
+          path: '/',
+        });
+      }
     } finally {
       loginLoading.value = false;
     }

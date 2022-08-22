@@ -1,23 +1,34 @@
 import { defineStore } from 'pinia';
 import User from '/@/models/User';
 import { store } from '/@/store';
+import AuthCookie from '/@/utils/auth-cookie';
 import request from '/@/utils/request';
 
 interface UserState {
   user: User | null;
+  token: string | null;
 }
 export const useUserStore = defineStore({
   id: 'user',
   state: (): UserState => ({
     user: null,
+    token: AuthCookie.getToken() ?? null,
   }),
   actions: {
     async login(loginInfo: any) {
       const { account, password } = loginInfo;
-      await request.post(`auth`, {
-        account,
-        password,
-      });
+      try {
+        const res = await request.post<{ token: string }>(`auth`, {
+          account,
+          password,
+        });
+
+        this.token = res.data.token;
+        AuthCookie.setToken(res.data.token);
+        return res.data;
+      } catch (res) {
+        return;
+      }
     },
     async getUserInfo() {
       try {
@@ -28,11 +39,10 @@ export const useUserStore = defineStore({
         return;
       }
     },
-    async logout(req = true) {
-      if (req) {
-        await request.delete<User>(`auth`);
-      }
+    async logout() {
+      AuthCookie.removeToken();
       this.user = null;
+      this.token = null;
     },
   },
 });
