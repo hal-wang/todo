@@ -14,15 +14,21 @@
 测试账号：
 
 - email: `test@hal.wang`
-- password: `123456`。
+- password: `123456`
+
+前端：vue3 + pinia + ant-design
+
+后端：[ipare](https://ipare.org)
+
+全部使用 ts 开发
 
 ### 权限认证
 
 使用 JWT 进行了基本的权限认证
 
-使用 Cookie 技术进行 Token 管理
+使用 Cookie 技术进行 Token 管理和验证
 
-示例写了以下几种权限
+后端写了以下几种权限
 
 - 管理员: 用 @Admin 装饰的 Action
 - 开放: 用 @Open 装饰的 Action

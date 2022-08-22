@@ -11,8 +11,7 @@
   },
   "keywords": [
     "ipare",
-    "@ipare/router",
-    "@ipare/lambda",
+    "lambda",
     "todo",
     "cloudbase",
     "restful-api",
