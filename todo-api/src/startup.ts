@@ -6,6 +6,7 @@ import "@ipare/filter";
 import "@ipare/env";
 import "@ipare/jwt";
 import "@ipare/validator";
+import "@ipare/logger";
 import { CollectionService } from "./services/collection.service";
 import { DbhelperService } from "./services/dbhelper.service";
 import { CbappService } from "./services/cbapp.service";
@@ -22,6 +23,13 @@ export default <T extends Startup = Startup>(startup: T, mode: string) => {
     .inject(CollectionService, InjectType.Singleton)
     .inject(DbhelperService, InjectType.Singleton)
     .inject(CbappService, InjectType.Singleton)
+    .useConsoleLogger()
+    .use(async (ctx, next) => {
+      const logger = await ctx.getLogger();
+      logger.info("event: " + JSON.stringify(ctx.lambdaEvent));
+      logger.info("context: " + JSON.stringify(ctx.lambdaContext));
+      await next();
+    })
     .useSwagger({
       builder: async (builder) =>
         builder
