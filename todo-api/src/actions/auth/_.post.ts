@@ -1,41 +1,20 @@
 import { Inject } from "@ipare/inject";
 import { Body } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiTags,
-  DtoDescription,
-} from "@ipare/swagger";
 import { Open } from "../../decorators/open";
 import { UserEntity } from "../../entities/user.entity";
 import { CollectionService } from "../../services/collection.service";
 import { DbhelperService } from "../../services/dbhelper.service";
 import { UserService } from "../../services/user.service";
-import { IsEmail, IsString, Length } from "class-validator";
+import { V } from "@ipare/validator";
+import { AuthTokenDto } from "../../dtos/auth-token.dto";
 
-@ApiTags("auth")
-@ApiDescription(`Login or signup with email and password`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            token: {
-              type: "string",
-            },
-          },
-        },
-      },
-    },
-  },
-  "400": {
-    description: "Format error or the account is existing",
-  },
-})
+@V()
+  .Tags("auth")
+  .Description(`Login or signup with email and password`)
+  .Response(200, AuthTokenDto)
+  .ResponseDescription(200, "success")
+  .ResponseDescription(400, "Format error or the account is existing")
 @Open
 export default class extends Action {
   @Inject
@@ -45,14 +24,11 @@ export default class extends Action {
   @Inject
   private readonly dbhelperService!: DbhelperService;
 
-  @IsEmail()
-  @DtoDescription("email")
+  @V().IsEmail().Description("email")
   @Body("account")
   private readonly account!: string;
 
-  @IsString()
-  @Length(6, 32)
-  @DtoDescription("password")
+  @V().IsString().Length(6, 32).Description("password")
   @Body("password")
   private readonly password!: string;
 

@@ -1,3 +1,3 @@
-import { SetActionMetadata } from "@ipare/router";
+import { ActionMetadata } from "@ipare/router";
 
-export const Admin = SetActionMetadata("admin", true);
+export const Admin = ActionMetadata("admin", true);

@@ -1,46 +1,30 @@
 import { Inject } from "@ipare/inject";
+import { Param } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
+import { GetTodoCountDto } from "../../../../dtos/get-todo-count.dto";
 import { CollectionService } from "../../../../services/collection.service";
 
-@ApiTags("todo")
-@ApiDescription(`Get the count of user's all todos`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            total: {
-              type: "number",
-              description: "The count of user's all todos",
-            },
-          },
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Get the count of user's all todos`)
+  .Response(200, GetTodoCountDto)
+  .ResponseDescription(`The count of user's all todos`)
+  .Security({
+    Bearer: [],
+  })
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
-  async invoke(): Promise<void> {
-    const { account } = this.ctx.req.params;
+  @Param("account")
+  @V().Required().IsString()
+  private readonly account!: string;
 
+  async invoke(): Promise<void> {
     const countRes = await this.collectionService.todo
       .where({
-        uid: account,
+        uid: this.account,
       })
       .count();
 

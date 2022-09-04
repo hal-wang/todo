@@ -1,31 +1,16 @@
 import { Inject } from "@ipare/inject";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiTags,
-  ApiSecurity,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
 import { UserService } from "../../services/user.service";
 import { Account } from "../../decorators/account";
 
-@ApiTags("user")
-@ApiDescription(`Get user info`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("user")
+  .Description(`Get user info`)
+  .ResponseDescription(200, "success")
+  .Security({
+    Bearer: [],
+  })
 export default class extends Action {
   @Inject
   private readonly userService!: UserService;

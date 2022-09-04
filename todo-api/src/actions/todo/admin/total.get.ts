@@ -1,37 +1,18 @@
 import { Inject } from "@ipare/inject";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
 import { Admin } from "../../../decorators/admin";
+import { GetTodoCountDto } from "../../../dtos/get-todo-count.dto";
 import { CollectionService } from "../../../services/collection.service";
 
-@ApiTags("todo")
-@ApiDescription(`Get the count of all todos`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            total: {
-              type: "number",
-              description: "The count of all todos",
-            },
-          },
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Get the count of all todos`)
+  .ResponseDescription(200, "success")
+  .Response(200, GetTodoCountDto)
+  .Security({
+    Bearer: [],
+  })
 @Admin
 export default class extends Action {
   @Inject

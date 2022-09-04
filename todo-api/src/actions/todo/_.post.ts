@@ -2,33 +2,19 @@ import { Action } from "@ipare/router";
 import Todo from "../../models/Todo";
 import { CollectionService } from "../../services/collection.service";
 import { Inject } from "@ipare/inject";
-import { Body, Header } from "@ipare/pipe";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { Body } from "@ipare/pipe";
 import { UpsertTodoDto } from "../../dtos/upsert-todo.dto";
 import { Account } from "../../decorators/account";
+import { V } from "@ipare/validator";
+import { GetTodoDto } from "../../dtos/get-todo.dto";
 
-@ApiTags("todo")
-@ApiDescription(`Add a new todo item`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Add a new todo item`)
+  .Response(200, GetTodoDto)
+  .Security({
+    Bearer: [],
+  })
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;

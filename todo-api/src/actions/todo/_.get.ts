@@ -4,34 +4,18 @@ import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
 import { Header, Query } from "@ipare/pipe";
 import { PageParamsDto } from "../../dtos/page-params.dto";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
 import { Account } from "../../decorators/account";
+import { V } from "@ipare/validator";
+import { TodoPageListDto } from "../../dtos/todo-page-list.dto";
 
-@ApiTags("todo")
-@ApiDescription(`Get todo list`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-        },
-      },
-    },
-  },
-  "400": {
-    description: "account format error",
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Get todo list`)
+  .Response(200, TodoPageListDto)
+  .ResponseDescription(400, "account format error")
+  .Security({
+    Bearer: [],
+  })
 export default class extends Action {
   @Inject
   private readonly dbhelperService!: DbhelperService;

@@ -2,43 +2,36 @@ import { Action } from "@ipare/router";
 import { testId } from "../../global";
 import { Inject } from "@ipare/inject";
 import { CollectionService } from "../../services/collection.service";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
+import { Account } from "../../decorators/account";
 
-@ApiTags("user")
-@ApiDescription(`Delete a user`)
-@ApiResponses({
-  "200": {
-    description: "success",
-  },
-  "404": {
-    description: "Can't delete the test user",
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("user")
+  .Description(`Delete a user`)
+  .ResponseDescription(200, "success")
+  .ResponseDescription(403, "Can't delete the test user")
+  .Security({
+    Bearer: [],
+  })
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
+  @Account
+  private readonly account!: string;
+
   async invoke(): Promise<void> {
-    const account = this.ctx.req.headers.account as string;
-    if (account == testId) {
-      this.badRequestMsg({ message: "can't delete the test user" });
+    if (this.account == testId) {
+      this.forbiddenMsg("can't delete the test user");
       return;
     }
 
     await this.collectionService.todo
       .where({
-        uid: account,
+        uid: this.account,
       })
       .remove();
-    await this.collectionService.user.doc(account).remove();
+    await this.collectionService.user.doc(this.account).remove();
 
     this.noContent();
   }

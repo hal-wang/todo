@@ -1,10 +1,10 @@
-import { DtoDescription } from "@ipare/swagger";
+import { V } from "@ipare/validator";
 
-@DtoDescription("Todo info")
+@V().Description("Todo info")
 export class UpsertTodoDto {
-  @DtoDescription("Todo content")
+  @V().Description("Todo content")
   content!: string;
 
-  @DtoDescription("Todo schedule")
+  @V().Description("Todo schedule")
   schedule!: number;
 }

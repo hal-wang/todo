@@ -1,3 +1,3 @@
-import { SetActionMetadata } from "@ipare/router";
+import { ActionMetadata } from "@ipare/router";
 
-export const Open = SetActionMetadata("open", true);
+export const Open = ActionMetadata("open", true);

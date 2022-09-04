@@ -1,50 +1,34 @@
 import { Inject } from "@ipare/inject";
 import { Query } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-  DtoDescription,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
 import { Admin } from "../../../../decorators/admin";
+import { UserInfoDto } from "../../../../dtos/user-info.dto";
 import { CollectionService } from "../../../../services/collection.service";
 
-@ApiTags("user")
-@ApiDescription(`Get a user info`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-        },
+@V()
+  .Tags("user")
+  .Description(`Get a user info`)
+  .Response(200, UserInfoDto)
+  .ResponseDescription(200, "success")
+  .ResponseHeaders(200, {
+    actionPath: {
+      description: `The action's real path`,
+      schema: {
+        type: "string",
       },
     },
-    headers: {
-      actionPath: {
-        description: `The action's real path`,
-        schema: {
-          type: "string",
-        },
-      },
-    },
-  },
-  "400": {
-    description: "Account format error",
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+  })
+  .ResponseDescription(400, "Account format error")
+  .Security({
+    Bearer: [],
+  })
 @Admin
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
-  @DtoDescription("email")
+  @V().Description("email").Required().IsEmail()
   @Query("account")
   private readonly account!: string;
 

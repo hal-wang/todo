@@ -1,34 +1,20 @@
 import { Inject } from "@ipare/inject";
-import { Body, Header, Param } from "@ipare/pipe";
+import { Body, Param } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
 import { Todo } from "../../../decorators/todo";
+import { GetTodoDto } from "../../../dtos/get-todo.dto";
 import { UpsertTodoDto } from "../../../dtos/upsert-todo.dto";
 import { CollectionService } from "../../../services/collection.service";
 
-@ApiTags("todo")
-@ApiDescription(`Update a todo's info`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          description: `New todo's info`,
-          type: "object",
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Update a todo's info`)
+  .Response(200, GetTodoDto)
+  .ResponseDescription(200, "New todo's info")
+  .Security({
+    Bearer: [],
+  })
 @Todo
 export default class extends Action {
   @Inject
@@ -36,6 +22,7 @@ export default class extends Action {
   @Body
   private readonly dto!: UpsertTodoDto;
 
+  @V().Description("Todo id").Required().IsString()
   @Param("todoId")
   private readonly todoId!: string;
 

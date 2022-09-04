@@ -1,15 +1,13 @@
-import { DtoDescription, DtoFormat, DtoType } from "@ipare/swagger";
+import { V } from "@ipare/validator";
 
-@DtoDescription("user info")
+@V().Description("user info")
 export class UserInfoDto {
-  @DtoDescription("Automatically generated ID")
+  @V().Description("Automatically generated ID")
   _id!: string;
 
-  @DtoDescription("Plaintext password")
+  @V().Description("Plaintext password")
   password!: string;
 
-  @DtoType("integer")
-  @DtoFormat("timestamp")
-  @DtoDescription("When the user created")
+  @V().IsInt().Format("timestamp").Description("When the user created")
   create_at!: number;
 }

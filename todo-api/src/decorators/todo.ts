@@ -1,3 +1,3 @@
-import { SetActionMetadata } from "@ipare/router";
+import { ActionMetadata } from "@ipare/router";
 
-export const Todo = SetActionMetadata("todo", true);
+export const Todo = ActionMetadata("todo", true);

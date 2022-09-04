@@ -1,37 +1,24 @@
 import { Inject } from "@ipare/inject";
 import { Param } from "@ipare/pipe";
 import { Action } from "@ipare/router";
-import {
-  ApiDescription,
-  ApiResponses,
-  ApiSecurity,
-  ApiTags,
-} from "@ipare/swagger";
+import { V } from "@ipare/validator";
 import { Todo } from "../../../decorators/todo";
+import { GetTodoDto } from "../../../dtos/get-todo.dto";
 import { CollectionService } from "../../../services/collection.service";
 
-@ApiTags("todo")
-@ApiDescription(`Get a todo's info`)
-@ApiResponses({
-  "200": {
-    description: "success",
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-        },
-      },
-    },
-  },
-})
-@ApiSecurity({
-  Bearer: [],
-})
+@V()
+  .Tags("todo")
+  .Description(`Get a todo's info`)
+  .Response(200, GetTodoDto)
+  .Security({
+    Bearer: [],
+  })
 @Todo
 export default class extends Action {
   @Inject
   private readonly collectionService!: CollectionService;
 
+  @V().Description("Todo id").Required().IsString()
   @Param("todoId")
   private readonly todoId!: string;
 
