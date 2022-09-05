@@ -141,22 +141,30 @@
     http-status-codes "^2.2.0"
     mime-types "^2.1.35"
 
-"@ipare/env@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/env/-/env-2.0.2.tgz#bf1fed05b733c8ed8607f734758f173c5ba81471"
-  integrity sha512-vU2VC2vhp6Vtk88US9ojHzHGKfazzSGnhjj58dLoG7ZntceDEFGm2DXJ5mZsyDJOITK7iNGGzRkVQ/wQBizERg==
+"@ipare/core@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/core/-/core-2.2.1.tgz#06e75f00a5b261b5d23763ffaf22a0e478d9ee89"
+  integrity sha512-KMDE7mqzdua3vJglpD2LrVCYifjkVJxrM4Pm1yyghz965SUK0BduAwz8BWcbLN0UuHtmOQamYqdWo0wqZHDExg==
   dependencies:
-    "@ipare/core" "^2.0.2"
+    http-status-codes "^2.2.0"
+    mime-types "^2.1.35"
+
+"@ipare/env@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/env/-/env-2.2.1.tgz#bc5828d337a6c6bd1ee11896e0c55c94cc5b0e0a"
+  integrity sha512-rgIw9OC7UfI9m6eRlvMs43e5Q70ViP5Hd91D2wGHm+v+YWLUTdQSROZduoOHpb19nzcSMGY3ZkPIvB8z8Ebetw==
+  dependencies:
+    "@ipare/core" "^2.2.1"
     dotenv "^16.0.2"
 
-"@ipare/filter@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/filter/-/filter-2.0.2.tgz#99a68bb8595edb812875cf63ebad4b328c62da13"
-  integrity sha512-f8Q9fJFSM8v7dNejsRJBMxhnUJEwCrp9zbG56eQgRcyPNWkhmMck2p+UyJ5wZ33KN5m205a+77lAWSu8Bd3wxg==
+"@ipare/filter@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/filter/-/filter-2.2.1.tgz#c6046ab4fbe986831ff65d9b90e19bcf9faeb417"
+  integrity sha512-wcEa7LuOkVea013+i2XNnLxs0HXlhxmLu4HNFVshdL7h3bfPMtO7Ekp9RNznY1wIXG905Q6nBGE1s48ROjgkiw==
   dependencies:
-    "@ipare/core" "^2.0.2"
-    "@ipare/inject" "^2.0.2"
-    "@ipare/router" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
+    "@ipare/router" "^2.2.1"
     reflect-metadata "^0.1.13"
 
 "@ipare/http@^2.0.2":
@@ -178,31 +186,39 @@
     "@ipare/core" "^2.0.2"
     reflect-metadata "^0.1.13"
 
-"@ipare/jwt@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/jwt/-/jwt-2.0.2.tgz#6f95130fcd4a753f30c2cdb3c2a2203312f06365"
-  integrity sha512-N7DTQe/XqXCx6VIplKTkZVsdq+xfZFvHtqE3KrPgpRcHlP+oogaz3f2ig/9OTEq16+byqLSbHXAxHIhxYQNqOw==
+"@ipare/inject@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/inject/-/inject-2.2.1.tgz#172e10d25d4aef1540e17a90acbaa67ed9f7d5fb"
+  integrity sha512-uwibA1H0K45/ap49dDM8Uo+cvjJUuWPZb8zKwEsz+3JwFjlFMmXSmNLUHrjrpudswc/sJY8RU/5KOyUa3FEZag==
   dependencies:
-    "@ipare/core" "^2.0.2"
-    "@ipare/inject" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    reflect-metadata "^0.1.13"
+
+"@ipare/jwt@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/jwt/-/jwt-2.2.1.tgz#90e2228a5ed978f7ef41bdeb0c67fc0cbb547b4b"
+  integrity sha512-CRTxTCNOdT5Q1REjXquCPTfu7i86M6aZ/NpI47JCFMU4NChoQKFosAPaC6wgw2N/J/5i3OwlfNIfCpgeVQX7cA==
+  dependencies:
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
     "@types/jsonwebtoken" "^8.5.9"
     jsonwebtoken "^8.5.1"
     reflect-metadata "^0.1.13"
 
-"@ipare/lambda@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/lambda/-/lambda-2.0.2.tgz#fb6eccc9bf44a025cbc891bb89ce868401b8c357"
-  integrity sha512-qhwcx9nqeUVe4ZMQuSmVpQDbdlcsgoG+joUXuewwVPMksd1qsSyy4tmaLkQEDA7OWhijrM3M1Ye7qrn31FfggQ==
+"@ipare/lambda@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/lambda/-/lambda-2.2.1.tgz#3c2e76b4eb47f0fab7add32c4abdb84a0f122eef"
+  integrity sha512-kLmHyiJ3znVxDMssFzWyEOu2rC6gjxe12AbkXanhlwYYciIc5UptfebUUN9gkXIpIijyUJz1XC0S4YyBkgX8Ng==
   dependencies:
-    "@ipare/core" "^2.0.2"
+    "@ipare/core" "^2.2.1"
 
-"@ipare/logger@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/logger/-/logger-2.0.2.tgz#759567d67130b3ed8c90f38db0d3ce3ba61e3c09"
-  integrity sha512-ar+qLgaZLzUA3eJW9h0PPGGsIhcit4quU/ZogOOuBnK09lHGAKmlVFHO5X+5afM2rHy9BoCj92wpzJKZS/yliQ==
+"@ipare/logger@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/logger/-/logger-2.2.1.tgz#3e7d97e2fecd876b4db2b7c89ee6613382e5b594"
+  integrity sha512-lWulm+wTXfNGuADsNCSOoz+UQM1RbRYbSJ5/2r/aH0L6X62KHA5yntylY35gM1mDAFVV+h5C+TRl8kwHdEwohg==
   dependencies:
-    "@ipare/core" "^2.0.2"
-    "@ipare/inject" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
     class-transformer "^0.5.1"
     reflect-metadata "^0.1.13"
     winston "^3.8.1"
@@ -217,45 +233,55 @@
     class-transformer "^0.5.1"
     reflect-metadata "^0.1.13"
 
-"@ipare/router@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/router/-/router-2.0.2.tgz#22fcd493424082732cc856007873fbbb35b615fe"
-  integrity sha512-PrzyGX78f3fqjV8mN6mPhUQ3Dv2duoJp0YyVPAE/+9uAPh0hrihN5XvvDI9/Tre2jzVH59JDyTi2Z5VFATpmvw==
+"@ipare/pipe@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/pipe/-/pipe-2.2.1.tgz#458585f50171918a99e6014e1356ed79084cdb4f"
+  integrity sha512-YSP3coTdvgpfJpU+UGrCLdaiy+5tPQrLKKB6qIforau+2M4iQvONrJWPd2Le3k0b11OZ9d/YOyA0gpw2qOl7zQ==
   dependencies:
-    "@ipare/core" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
+    class-transformer "^0.5.1"
     reflect-metadata "^0.1.13"
 
-"@ipare/static@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/static/-/static-2.0.2.tgz#9d802d5beb705c993655b1237c2576d6a4766487"
-  integrity sha512-2Xrvsp9tHzAGlATvkOL5lYe2AFxWp7TNAKAlM+4Ak903zPfMcUZlKN23KENqHkZp0E1yZ3UZKop0OQwBYgZldw==
+"@ipare/router@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/router/-/router-2.2.1.tgz#3cd37a29fb92fe7079fdc489ed9770c73d157e6b"
+  integrity sha512-hgEqSSY1OP4oKu2wDoWPRPcDhZhD0jcxnoBo82Y5OHljA0w7qlBDJlsz32mMvaQca29Xsp6MfulhpMRMUGnuLw==
   dependencies:
-    "@ipare/core" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    reflect-metadata "^0.1.13"
+
+"@ipare/static@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/static/-/static-2.2.1.tgz#cc22b3752d115ed44c5498e8c836ad62523b2d83"
+  integrity sha512-KpNEHeyBlVC9pMKqk0tJhVsHSm1y2nvjF6zyVrAUQfE71hj3MJPxsoXOgseHuXzgtYsEUxM2lHUDvQwei7l31A==
+  dependencies:
+    "@ipare/core" "^2.2.1"
     mime "^3.0.0"
 
-"@ipare/swagger@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/swagger/-/swagger-2.0.2.tgz#ef53c23bed33dd09043cd3ad638a787a399bf4c0"
-  integrity sha512-GX4dUrOiwiO9Tl7OovNXVBMWh7F+zLwPfPdY6fK1M+plg9w8Rt5LRNxpi/rWhvXG9fTw/eIdAI4kFqZie64O4w==
+"@ipare/swagger@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/swagger/-/swagger-2.2.1.tgz#d9854704421cdf706136197e0e0cec85a05efd06"
+  integrity sha512-qveSH3Hds5QVnWmR2HRREpb3XkGeZGO7hz9r+4gTrxKCS7fMC8daarVq06DBw6vezUP3K0QpxOCv+ypuHHVJIw==
   dependencies:
-    "@ipare/core" "^2.0.2"
-    "@ipare/inject" "^2.0.2"
-    "@ipare/pipe" "^2.0.2"
-    "@ipare/router" "^2.0.2"
-    "@ipare/static" "^2.0.2"
-    "@ipare/validator" "^2.0.2"
-    openapi3-ts "^3.0.2"
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
+    "@ipare/pipe" "^2.2.1"
+    "@ipare/router" "^2.2.1"
+    "@ipare/static" "^2.2.1"
+    "@ipare/validator" "^2.2.1"
+    openapi3-ts-remove-yaml "^3.0.2"
     reflect-metadata "^0.1.13"
     swagger-ui-dist "^4.14.0"
 
-"@ipare/validator@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@ipare/validator/-/validator-2.0.2.tgz#932722096abb0e1fc7a69adf3a263c557f9ed1db"
-  integrity sha512-0YAZ45Fz4u34Njki/sR7lXNasJ4X+79GLuOjZw+66VdtM1lXLGbNgQTSznLcnuVuBkP9TtHqll4qT/FCnEB5UQ==
+"@ipare/validator@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/@ipare/validator/-/validator-2.2.1.tgz#8753a81a8faf2cdac9b5cdc91595824035c018fb"
+  integrity sha512-SupjwTOOI14JHLn4YyyUFaFf7HzW5Sh5AQspM9PkLvT1c62UNzhHnuFG4b7hyS42UJSgnDIQPAw6XetSvmcTRg==
   dependencies:
-    "@ipare/core" "^2.0.2"
-    "@ipare/inject" "^2.0.2"
-    "@ipare/pipe" "^2.0.2"
+    "@ipare/core" "^2.2.1"
+    "@ipare/inject" "^2.2.1"
+    "@ipare/pipe" "^2.2.1"
     class-validator "^0.13.2"
     reflect-metadata "^0.1.13"
 
@@ -2723,12 +2749,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-openapi3-ts@^3.0.2:
+openapi3-ts-remove-yaml@^3.0.2:
   version "3.0.2"
-  resolved "https://registry.npmjs.org/openapi3-ts/-/openapi3-ts-3.0.2.tgz#f32b852de33e26e4edf85be8be9c9110332b5e3d"
-  integrity sha512-KF/06OkQPFSr9A+oadYYC3cIj8TZlzonREkQYFqx8i+wLllAxm6Bp8Fizo3jWXeIxZj/7V5LKtuNN/GxueWtcw==
-  dependencies:
-    yaml "^2.1.1"
+  resolved "https://registry.npmjs.org/openapi3-ts-remove-yaml/-/openapi3-ts-remove-yaml-3.0.2.tgz#2f12a552404ca979650fc7e97fa0af3e22de45c8"
+  integrity sha512-tBTMqG5XqkcApFgKw2wCgcLk5tSJqTFJi4/MPj2WQCa+K66iZ0ivGiuXoMxcN8UYDsFqxby1yrc6kAoMQHqEKw==
 
 optionator@^0.9.1:
   version "0.9.1"
