@@ -7,7 +7,7 @@ import { CollectionService } from "../../../services/collection.service";
 
 @V()
   .Tags("todo")
-  .Description(`Delete a todo item`)
+  .Summary(`Delete a todo item`)
   .ResponseDescription(204, "success")
   .Security({
     Bearer: [],

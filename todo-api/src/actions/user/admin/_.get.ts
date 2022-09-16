@@ -10,7 +10,7 @@ import { DbhelperService } from "../../../services/dbhelper.service";
 
 @V()
   .Tags("user")
-  .Description(`Get all users' info`)
+  .Summary(`Get all users' info`)
   .Response(200, UserInfoPageListDto)
   .ResponseDescription(200, "success")
   .Security({

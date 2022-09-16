@@ -8,7 +8,7 @@ import { CollectionService } from "../../../../services/collection.service";
 
 @V()
   .Tags("user")
-  .Description(`Get a user info`)
+  .Summary(`Get a user info`)
   .Response(200, UserInfoDto)
   .ResponseDescription(200, "success")
   .ResponseHeaders(200, {

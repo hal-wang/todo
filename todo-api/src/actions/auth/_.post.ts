@@ -11,7 +11,7 @@ import { AuthTokenDto } from "../../dtos/auth-token.dto";
 
 @V()
   .Tags("auth")
-  .Description(`Login or signup with email and password`)
+  .Summary(`Login or signup with email and password`)
   .Response(200, AuthTokenDto)
   .ResponseDescription(200, "success")
   .ResponseDescription(400, "Format error or the account is existing")

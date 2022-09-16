@@ -10,7 +10,7 @@ import { GetTodoDto } from "../../dtos/get-todo.dto";
 
 @V()
   .Tags("todo")
-  .Description(`Add a new todo item`)
+  .Summary(`Add a new todo item`)
   .Response(200, GetTodoDto)
   .Security({
     Bearer: [],

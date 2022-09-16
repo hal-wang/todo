@@ -7,7 +7,7 @@ import { CollectionService } from "../../../services/collection.service";
 
 @V()
   .Tags("todo")
-  .Description(`Get the count of all todos`)
+  .Summary(`Get the count of all todos`)
   .ResponseDescription(200, "success")
   .Response(200, GetTodoCountDto)
   .Security({

@@ -6,7 +6,7 @@ import { Account } from "../../decorators/account";
 
 @V()
   .Tags("user")
-  .Description(`Get user info`)
+  .Summary(`Get user info`)
   .ResponseDescription(200, "success")
   .Security({
     Bearer: [],

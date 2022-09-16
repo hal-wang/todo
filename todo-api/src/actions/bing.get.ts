@@ -6,7 +6,7 @@ import { GetBingImageDto } from "../dtos/get-bing-img.dto";
 
 @V()
   .Tags("bing")
-  .Description(`Get the bing image's url today`)
+  .Summary(`Get the bing image's url today`)
   .Response(200, GetBingImageDto)
   .ResponseDescription(200, "Bing image info")
   .ResponseDescription(404, "not found")

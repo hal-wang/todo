@@ -9,7 +9,7 @@ import { CollectionService } from "../../../services/collection.service";
 
 @V()
   .Tags("todo")
-  .Description(`Update a todo's info`)
+  .Summary(`Update a todo's info`)
   .Response(200, GetTodoDto)
   .ResponseDescription(200, "New todo's info")
   .Security({

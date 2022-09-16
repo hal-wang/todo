@@ -10,7 +10,7 @@ import { TodoPageListDto } from "../../dtos/todo-page-list.dto";
 
 @V()
   .Tags("todo")
-  .Description(`Get todo list`)
+  .Summary(`Get todo list`)
   .Response(200, TodoPageListDto)
   .ResponseDescription(400, "account format error")
   .Security({

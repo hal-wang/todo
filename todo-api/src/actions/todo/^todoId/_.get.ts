@@ -8,7 +8,7 @@ import { CollectionService } from "../../../services/collection.service";
 
 @V()
   .Tags("todo")
-  .Description(`Get a todo's info`)
+  .Summary(`Get a todo's info`)
   .Response(200, GetTodoDto)
   .Security({
     Bearer: [],

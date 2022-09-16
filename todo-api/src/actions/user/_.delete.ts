@@ -7,7 +7,7 @@ import { Account } from "../../decorators/account";
 
 @V()
   .Tags("user")
-  .Description(`Delete a user`)
+  .Summary(`Delete a user`)
   .ResponseDescription(200, "success")
   .ResponseDescription(403, "Can't delete the test user")
   .Security({
