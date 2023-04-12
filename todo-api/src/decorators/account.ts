@@ -1,5 +1,5 @@
-import { Inject, parseInject } from "@ipare/inject";
-import { JwtService } from "@ipare/jwt";
+import { Inject, parseInject } from "@halsp/inject";
+import { JwtService } from "@halsp/jwt";
 
 export const Account = Inject(async (ctx) => {
   const jwtService = await parseInject(ctx, JwtService);

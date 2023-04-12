@@ -1,4 +1,4 @@
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 
 export class AuthTokenDto {
   @V().Description("jwt token")

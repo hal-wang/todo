@@ -44,7 +44,7 @@
       <div class="tips">
         <span>
           A demo of
-          <a href="https://ipare.org" target="_blank"> Ipare </a>
+          <a href="https://halsp.org" target="_blank"> Halsp </a>
           ,
         </span>
         <span>data persistence is not guaranteed!</span>

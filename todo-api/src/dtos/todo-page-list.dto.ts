@@ -1,4 +1,4 @@
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 import { GetTodoDto } from "./get-todo.dto";
 import { PageParamsDto } from "./page-params.dto";
 

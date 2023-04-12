@@ -1,6 +1,6 @@
-import { Inject } from "@ipare/inject";
-import { Action } from "@ipare/router";
-import { V } from "@ipare/validator";
+import { Inject } from "@halsp/inject";
+import { Action } from "@halsp/router";
+import { V } from "@halsp/validator";
 import { Admin } from "../../../decorators/admin";
 import { GetTodoCountDto } from "../../../dtos/get-todo-count.dto";
 import { CollectionService } from "../../../services/collection.service";

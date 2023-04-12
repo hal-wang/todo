@@ -1,8 +1,8 @@
-import { Action } from "@ipare/router";
+import { Action } from "@halsp/router";
 import { testId } from "../../global";
-import { Inject } from "@ipare/inject";
+import { Inject } from "@halsp/inject";
 import { CollectionService } from "../../services/collection.service";
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 import { Account } from "../../decorators/account";
 
 @V()

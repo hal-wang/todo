@@ -1,6 +1,6 @@
-import { HttpContext } from "@ipare/core";
-import { AuthorizationFilter } from "@ipare/filter";
-import { Inject } from "@ipare/inject";
+import { Context } from "@halsp/core";
+import { AuthorizationFilter } from "@halsp/filter";
+import { Inject } from "@halsp/inject";
 import { UserService } from "../services/user.service";
 import { adminId } from "../global";
 import { Account } from "../decorators/account";
@@ -11,7 +11,7 @@ export class AuthFilter implements AuthorizationFilter {
   @Account
   private readonly account!: string;
 
-  async onAuthorization(ctx: HttpContext): Promise<boolean> {
+  async onAuthorization(ctx: Context): Promise<boolean> {
     const open: boolean | undefined = ctx.actionMetadata.open;
     if (open) {
       return true;
@@ -21,18 +21,18 @@ export class AuthFilter implements AuthorizationFilter {
     }
 
     if (!this.account) {
-      ctx.forbiddenMsg();
+      ctx.res.forbiddenMsg();
       return false;
     }
 
     if (!this.account || !(await this.userService.existUser(this.account))) {
-      ctx.notFoundMsg({ message: "The account is not existing" });
+      ctx.res.notFoundMsg({ message: "The account is not existing" });
       return false;
     }
 
     const admin: boolean = ctx.actionMetadata.admin;
     if (admin && this.account != adminId) {
-      ctx.forbiddenMsg({ message: "Not admin" });
+      ctx.res.forbiddenMsg({ message: "Not admin" });
       return false;
     }
 

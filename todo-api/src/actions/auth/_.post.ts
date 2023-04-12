@@ -1,12 +1,12 @@
-import { Inject } from "@ipare/inject";
-import { Body } from "@ipare/pipe";
-import { Action } from "@ipare/router";
+import { Inject } from "@halsp/inject";
+import { Body } from "@halsp/pipe";
+import { Action } from "@halsp/router";
 import { Open } from "../../decorators/open";
 import { UserEntity } from "../../entities/user.entity";
 import { CollectionService } from "../../services/collection.service";
 import { DbhelperService } from "../../services/dbhelper.service";
 import { UserService } from "../../services/user.service";
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 import { AuthTokenDto } from "../../dtos/auth-token.dto";
 
 @V()

@@ -18,7 +18,7 @@
 
 前端：vue3 + pinia + ant-design
 
-后端：[ipare](https://ipare.org)
+后端：[halsp](https://halsp.org)
 
 全部使用 ts 开发
 

@@ -1,7 +1,7 @@
-import { Inject } from "@ipare/inject";
+import { Inject } from "@halsp/inject";
 import { UserEntity } from "../entities/user.entity";
 import { CollectionService } from "./collection.service";
-import { JwtService } from "@ipare/jwt";
+import { JwtService } from "@halsp/jwt";
 
 export class UserService {
   @Inject

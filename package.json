@@ -7,10 +7,11 @@
     "url": "https://github.com/hal-wang/todo"
   },
   "scripts": {
-    "deploy": "tcb login && tcb framework deploy --mode local"
+    "deploy": "tcb login && tcb framework deploy --mode local",
+    "start":"sh start.sh"
   },
   "keywords": [
-    "ipare",
+    "halsp",
     "lambda",
     "todo",
     "cloudbase",

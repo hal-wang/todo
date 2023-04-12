@@ -1,7 +1,7 @@
-import { Inject } from "@ipare/inject";
-import { Query } from "@ipare/pipe";
-import { Action } from "@ipare/router";
-import { V } from "@ipare/validator";
+import { Inject } from "@halsp/inject";
+import { Query } from "@halsp/pipe";
+import { Action } from "@halsp/router";
+import { V } from "@halsp/validator";
 import { Admin } from "../../../../decorators/admin";
 import { UserInfoDto } from "../../../../dtos/user-info.dto";
 import { CollectionService } from "../../../../services/collection.service";

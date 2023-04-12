@@ -1,24 +1,30 @@
-import { Startup } from "@ipare/core";
-import "@ipare/router";
-import "@ipare/swagger";
-import "@ipare/inject";
-import "@ipare/filter";
-import "@ipare/env";
-import "@ipare/jwt";
-import "@ipare/validator";
-import "@ipare/logger";
+import "@halsp/router";
+import "@halsp/swagger";
+import "@halsp/inject";
+import "@halsp/filter";
+import "@halsp/env";
+import "@halsp/jwt";
+import "@halsp/validator";
+import "@halsp/logger";
 import { CollectionService } from "./services/collection.service";
 import { DbhelperService } from "./services/dbhelper.service";
 import { CbappService } from "./services/cbapp.service";
-import { InjectType } from "@ipare/inject";
+import { InjectType } from "@halsp/inject";
 import { AuthFilter } from "./filters/auth.filter";
 import { TodoFilter } from "./filters/todo.filter";
-import { getVersion } from "@ipare/env";
+import { getVersion } from "@halsp/env";
+import { HttpStartup } from "@halsp/http";
 
-export default <T extends Startup = Startup>(startup: T, mode: string) => {
+export default <T extends HttpStartup = HttpStartup>(
+  startup: T,
+  mode: string
+) => {
   return startup
-    .useVersion()
-    .useEnv(mode)
+    .use(async (ctx, next) => {
+      ctx.res.set("version", (await getVersion()) ?? "");
+      await next();
+    })
+    .useEnv()
     .useInject()
     .inject(CollectionService, InjectType.Singleton)
     .inject(DbhelperService, InjectType.Singleton)
@@ -70,9 +76,9 @@ export default <T extends Startup = Startup>(startup: T, mode: string) => {
       },
       (ctx, err) => {
         if (!ctx.jwtToken) {
-          ctx.unauthorizedMsg("Please login");
+          ctx.res.unauthorizedMsg("Please login");
         } else {
-          ctx.unauthorizedMsg(err.message);
+          ctx.res.unauthorizedMsg(err.message);
         }
       }
     )

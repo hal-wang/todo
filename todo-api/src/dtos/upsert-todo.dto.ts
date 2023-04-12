@@ -1,4 +1,4 @@
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 
 @V().Description("Todo info")
 export class UpsertTodoDto {

@@ -1,7 +1,7 @@
-import { HttpContext } from "@ipare/core";
-import { AuthorizationFilter } from "@ipare/filter";
-import { Inject } from "@ipare/inject";
-import { Param } from "@ipare/pipe";
+import { Context } from "@halsp/core";
+import { AuthorizationFilter } from "@halsp/filter";
+import { Inject } from "@halsp/inject";
+import { Param } from "@halsp/pipe";
 import { Account } from "../decorators/account";
 import { CollectionService } from "../services/collection.service";
 
@@ -14,7 +14,7 @@ export class TodoFilter implements AuthorizationFilter {
   @Account
   private readonly account!: string;
 
-  async onAuthorization(ctx: HttpContext): Promise<boolean> {
+  async onAuthorization(ctx: Context): Promise<boolean> {
     const todo: boolean | undefined = ctx.actionMetadata.todo;
     if (!todo) {
       return true;
@@ -23,7 +23,7 @@ export class TodoFilter implements AuthorizationFilter {
     return await this.todoAuth(ctx);
   }
 
-  private async todoAuth(ctx: HttpContext): Promise<boolean> {
+  private async todoAuth(ctx: Context): Promise<boolean> {
     const countRes = await this.collectionService.todo
       .where({
         _id: this.todoId,
@@ -31,7 +31,7 @@ export class TodoFilter implements AuthorizationFilter {
       })
       .count();
     if (!countRes.total) {
-      ctx.notFoundMsg("The todo item is not existing");
+      ctx.res.notFoundMsg("The todo item is not existing");
       return false;
     }
 

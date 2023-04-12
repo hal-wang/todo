@@ -1,7 +1,7 @@
-import { Action } from "@ipare/router";
+import { Action } from "@halsp/router";
 import request = require("request");
 import { Open } from "../decorators/open";
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 import { GetBingImageDto } from "../dtos/get-bing-img.dto";
 
 @V()

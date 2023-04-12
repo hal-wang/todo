@@ -1,6 +1,6 @@
-import { Inject } from "@ipare/inject";
-import { Action } from "@ipare/router";
-import { V } from "@ipare/validator";
+import { Inject } from "@halsp/inject";
+import { Action } from "@halsp/router";
+import { V } from "@halsp/validator";
 import { UserService } from "../../services/user.service";
 import { Account } from "../../decorators/account";
 

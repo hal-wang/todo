@@ -1,11 +1,11 @@
-import { Action } from "@ipare/router";
+import { Action } from "@halsp/router";
 import Todo from "../../models/Todo";
 import { CollectionService } from "../../services/collection.service";
-import { Inject } from "@ipare/inject";
-import { Body } from "@ipare/pipe";
+import { Inject } from "@halsp/inject";
+import { Body } from "@halsp/pipe";
 import { UpsertTodoDto } from "../../dtos/upsert-todo.dto";
 import { Account } from "../../decorators/account";
-import { V } from "@ipare/validator";
+import { V } from "@halsp/validator";
 import { GetTodoDto } from "../../dtos/get-todo.dto";
 
 @V()
