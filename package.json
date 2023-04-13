@@ -27,6 +27,6 @@
   "author": "hal-wang",
   "license": "MIT",
   "devDependencies": {
-    "@cloudbase/cli": "^1.12.4"
+    "@cloudbase/cli": "^2.2.8"
   }
 }
