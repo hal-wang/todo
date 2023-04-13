@@ -15,10 +15,7 @@ import { TodoFilter } from "./filters/todo.filter";
 import { getVersion } from "@halsp/env";
 import { HttpStartup } from "@halsp/http";
 
-export default <T extends HttpStartup = HttpStartup>(
-  startup: T,
-  mode: string
-) => {
+export default <T extends HttpStartup = HttpStartup>(startup: T) => {
   return startup
     .use(async (ctx, next) => {
       ctx.res.set("version", (await getVersion()) ?? "");
@@ -52,7 +49,11 @@ export default <T extends HttpStartup = HttpStartup>(
             },
           })
           .addServer({
-            url: "/" + (mode == "production" ? process.env.API_NAME : ""),
+            url:
+              "/" +
+              (process.env.NODE_ENV == "production"
+                ? process.env.API_NAME
+                : ""),
           })
           .addSecurityScheme("Bearer", {
             type: "http",
