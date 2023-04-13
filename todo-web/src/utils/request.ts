@@ -19,7 +19,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   async (config) => {
-    if (!config.headers) config.headers = {};
+    if (!config.headers) config.headers = new axios.AxiosHeaders();
     config.headers['content-type'] = 'application/json';
     const token = useUserStoreWithOut().token;
     config.headers['Authorization'] = token ?? '';
