@@ -76,15 +76,15 @@ yarn install
 再执行下面命令运行
 
 ```bash
-yarn dev:test
+yarn dev
 ```
 
-或使用已发布的接口，需要修改 `todo-web/.env.development` 文件中的 `VUE_APP_BASE_API`
+或使用已发布的接口，需要修改 `todo-web/.env.stage` 文件中的 `VUE_APP_BASE_API`
 
 然后运行
 
 ```bash
-yarn dev
+yarn dev:stage
 ```
 
 ### 发布
