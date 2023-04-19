@@ -2,14 +2,22 @@
 
 一个简易的 todo 项目，包含后端和前端
 
-线上示例：<https://todo.hal.wang>
+线上示例：<https://env-caafniqh-1253337886.ap-shanghai.app.tcloudbase.com/todo>
 
 一键部署：
 [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2Fhal-wang%2Ftodo&branch=main)
 
+## 解决 CloudBase Framework Node.JS 版本过低问题
+
+截至目前， `CloudBase Framework` 最高仅支持 `Node.JS 12.16`，很多依赖已经无法正常使用了
+
+这将导致部署的云函数启动失败
+
+为了解决这个问题，你需要在一键部署后删除 `todo` 云函数，然后再重建一个同名函数，选择 nodejs 版本为 `16.13` （目前最高的支持）
+
 ## 介绍
 
-使用了数据库两个文档：`user`, `todo`。
+使用了数据库两个文档：`todo-user`, `todo-todo`。
 
 测试账号：
 
@@ -26,7 +34,7 @@
 
 使用 JWT 进行了基本的权限认证
 
-使用 Cookie 技术进行 Token 管理和验证
+前端使用 localStorage 进行 Token 管理和验证
 
 后端写了以下几种权限
 
