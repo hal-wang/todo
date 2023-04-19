@@ -27,7 +27,7 @@
         </div>
       </div>
     </a-layout-content>
-    <a-layout-footer style="text-align: center"> TODO ©2022 Created by Hal Wang </a-layout-footer>
+    <a-layout-footer style="text-align: center"> TODO ©2023 Created by Hal Wang </a-layout-footer>
 
     <TodoEditDialog ref="todoEditDialog" @add="onTodoAdd" @edit="onTodoEdit" />
   </a-layout>

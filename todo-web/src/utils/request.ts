@@ -7,7 +7,7 @@ function getBaseUrl() {
   if (import.meta.env.DEV) {
     return import.meta.env.VITE_GLOB_API_PROXY_PREFIX;
   } else {
-    return '';
+    return import.meta.env.VITE_GLOB_API_URL;
   }
 }
 
