@@ -6,6 +6,7 @@ import "@halsp/env";
 import "@halsp/jwt";
 import "@halsp/validator";
 import "@halsp/logger";
+import "@halsp/static";
 import { CollectionService } from "./services/collection.service";
 import { DbhelperService } from "./services/dbhelper.service";
 import { CbappService } from "./services/cbapp.service";
@@ -34,7 +35,7 @@ export default <T extends HttpStartup = HttpStartup>(startup: T) => {
       await next();
     })
     .useSwagger({
-      path: "",
+      path: "swagger",
       builder: async (builder) =>
         builder
           .addInfo({
@@ -49,11 +50,7 @@ export default <T extends HttpStartup = HttpStartup>(startup: T) => {
             },
           })
           .addServer({
-            url:
-              "/" +
-              (process.env.NODE_ENV == "production"
-                ? process.env.API_NAME
-                : ""),
+            url: "/",
           })
           .addSecurityScheme("Bearer", {
             type: "http",
@@ -85,5 +82,13 @@ export default <T extends HttpStartup = HttpStartup>(startup: T) => {
     )
     .useGlobalFilter(AuthFilter)
     .useGlobalFilter(TodoFilter)
-    .useRouter();
+    .useRouter()
+    .useStatic({
+      dir: "web",
+      listDir: false,
+      useIndex: true,
+      method: "GET",
+      useExt: true,
+      use404: true,
+    });
 };

@@ -10,6 +10,7 @@
         "type": "execCommand",
         "commands": [
           "npm i -g yarn --force && yarn config set registry https://registry.npmjs.org",
+          "cd todo-web && yarn install && yarn build",
           "cd todo-api && yarn install && yarn build"
         ]
       }
@@ -21,27 +22,15 @@
           "functionRootPath": "./todo-api/dist",
           "functions": [
             {
-              "name": "{{env.API_NAME}}",
+              "name": "todo",
               "envVariables": {
-                "API_NAME": "{{env.API_NAME}}",
                 "JWT_SECRET": "{{env.JWT_SECRET}}"
               },
               "runtime": "Nodejs12.16"
             }
           ],
           "servicePaths": {
-            "{{env.API_NAME}}": "/{{env.API_NAME}}"
-          }
-        }
-      },
-      "web": {
-        "use": "@cloudbase/framework-plugin-website",
-        "inputs": {
-          "installCommand": "cd todo-web && yarn install",
-          "buildCommand": "cd todo-web && yarn build",
-          "outputPath": "todo-web/dist",
-          "envVariables": {
-            "API_NAME": "{{env.API_NAME}}"
+            "todo": "/"
           }
         }
       },
@@ -50,10 +39,10 @@
         "inputs": {
           "collections": [
             {
-              "collectionName": "user"
+              "collectionName": "todo-user"
             },
             {
-              "collectionName": "todo"
+              "collectionName": "todo-todo"
             }
           ]
         }

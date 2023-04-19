@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist/v3",
+    "outDir": "./dist/todo",
     "target": "es2017",
     "strict": true,
     "esModuleInterop": true,

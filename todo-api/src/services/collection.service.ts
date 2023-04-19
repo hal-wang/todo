@@ -11,9 +11,9 @@ export class CollectionService {
   }
 
   get user(): Database.CollectionReference {
-    return this.getCollection("user");
+    return this.getCollection("todo-user");
   }
   get todo(): Database.CollectionReference {
-    return this.getCollection("todo");
+    return this.getCollection("todo-todo");
   }
 }

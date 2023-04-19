@@ -61,6 +61,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     },
     build: {
       sourcemap: true,
+      outDir: '../todo-api/web',
     },
     server: {
       host: true,
