@@ -12,7 +12,7 @@
           "npm i -g yarn --force && yarn config set registry https://registry.npmjs.org",
           "yarn install",
           "cd todo-web && yarn build",
-          "cd todo-api && && yarn build"
+          "cd todo-api && yarn build"
         ]
       }
     },
