@@ -3,35 +3,46 @@ import { AuthorizationFilter } from "@halsp/filter";
 import { Inject } from "@halsp/inject";
 import { UserService } from "../services/user.service";
 import { adminId } from "../global";
-import { Account } from "../decorators/account";
+import { getAccountFromToken } from "../decorators/account";
+import { JwtService } from "@halsp/jwt";
 
 export class AuthFilter implements AuthorizationFilter {
   @Inject
   private readonly userService!: UserService;
-  @Account
-  private readonly account!: string;
+  @Inject
+  private readonly jwtService!: JwtService;
 
   async onAuthorization(ctx: Context): Promise<boolean> {
-    const open: boolean | undefined = ctx.actionMetadata.open;
-    if (open) {
+    if (!ctx.actionMetadata || ctx.actionMetadata.open) {
       return true;
     }
-    if (!ctx.actionMetadata.roles || !ctx.actionMetadata.roles.length) {
-      return true;
+    console.log("md", ctx.actionMetadata);
+    if (!ctx.jwtToken) {
+      ctx.res.unauthorizedMsg("Please login");
+      return false;
     }
 
-    if (!this.account) {
+    try {
+      await this.jwtService.verify();
+    } catch (err) {
+      const error = err as Error;
+      ctx.res.unauthorizedMsg(error.message);
+      return false;
+    }
+
+    const account = await getAccountFromToken(ctx);
+    if (!account) {
       ctx.res.forbiddenMsg();
       return false;
     }
 
-    if (!this.account || !(await this.userService.existUser(this.account))) {
+    if (!(await this.userService.existUser(account))) {
       ctx.res.notFoundMsg({ message: "The account is not existing" });
       return false;
     }
 
     const admin: boolean = ctx.actionMetadata.admin;
-    if (admin && this.account != adminId) {
+    if (admin && account != adminId) {
       ctx.res.forbiddenMsg({ message: "Not admin" });
       return false;
     }

@@ -1,10 +1,15 @@
-import { Inject, parseInject } from "@halsp/inject";
+import { Context } from "@halsp/core";
+import { Inject } from "@halsp/inject";
 import { JwtService } from "@halsp/jwt";
 
-export const Account = Inject(async (ctx) => {
-  const jwtService = await parseInject(ctx, JwtService);
+export async function getAccountFromToken(ctx: Context) {
+  const jwtService = await ctx.getService(JwtService);
   const jwt = jwtService.decode({
     json: true,
   });
   return (jwt as any)?.account;
+}
+
+export const Account = Inject(async (ctx) => {
+  return await getAccountFromToken(ctx);
 });
