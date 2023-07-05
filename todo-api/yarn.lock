@@ -105,10 +105,10 @@
     formidable "^3.5.0"
     type-is "^1.6.18"
 
-"@halsp/cli@^0.4.5":
-  version "0.4.5"
-  resolved "https://registry.npmmirror.com/@halsp/cli/-/cli-0.4.5.tgz#e2fe3d658ffe05a37876d467d401e45d2cb51156"
-  integrity sha512-VXSd96dmNYAjDDFrCBrjqXIauCrhc1Q7KCAFwqWC+W4JFtIqUKIfap3lary7jIFhhRExDmIFb/fFR6MjtD9W1Q==
+"@halsp/cli@^0.4.6":
+  version "0.4.6"
+  resolved "https://registry.npmmirror.com/@halsp/cli/-/cli-0.4.6.tgz#05015088bb68064cbc5ebd51ee588d51dd31f720"
+  integrity sha512-CY60hAgyDT21bbCrVsz0MEyLjJmfWOkpTSBImEM5BXfcIaymkqPLDdLx5rrc2cJ99eKVbINl5K/EEVS+VD+bjQ==
   dependencies:
     "@halsp/core" "^2.2.0"
     "@halsp/inject" "^2.2.0"

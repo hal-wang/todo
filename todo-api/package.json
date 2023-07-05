@@ -24,7 +24,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@halsp/cli": "^0.4.5",
+    "@halsp/cli": "^0.4.6",
     "@types/node": "^20.3.3",
     "@types/prettier": "^2.7.3",
     "@types/request": "^2.48.8",
