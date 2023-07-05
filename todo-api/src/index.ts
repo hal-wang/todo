@@ -51,6 +51,7 @@ const startup = new Startup()
     const logger = await ctx.getLogger();
     logger.info("event: " + JSON.stringify(ctx.lambdaEvent));
     logger.info("context: " + JSON.stringify(ctx.lambdaContext));
+    // console.log(ctx.startup.routerMap.map((m) => m.plainObject));
     await next();
   })
   .useSwagger({

@@ -16,7 +16,7 @@ export class AuthFilter implements AuthorizationFilter {
     if (!ctx.actionMetadata || ctx.actionMetadata.open) {
       return true;
     }
-    console.log("md", ctx.actionMetadata);
+
     if (!ctx.jwtToken) {
       ctx.res.unauthorizedMsg("Please login");
       return false;
